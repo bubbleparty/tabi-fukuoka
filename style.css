@@ -26,6 +26,7 @@ display: grid;
 grid-template-columns: repeat(2, minmax(0, 1fr));
 gap: 16px;
 }
+
 @media (max-width: 600px) {
 .itinerary-grid {
 grid-template-columns: 1fr;
@@ -36,17 +37,29 @@ gap: 12px;
 padding: 16px;
 }
 
+main {
+padding: 20px 16px;
+}
+
+main > p {
+margin-bottom: 28px;
+}
+
 nav {
 gap: 16px;
 flex-wrap: wrap;
 justify-content: center;
 }
 main > h1 {
-font-size: 28px;
-padding: 32px 20px 12px;
+font-size: 26px;
+line-height: 1.5;
+padding: 28px 20px 12px;
+letter-spacing: 1px;
 }
 
 main > p {
+font-size: 14px;
+line-height: 1.8;
 padding: 0 20px 32px;
 }
 }
