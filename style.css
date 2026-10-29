@@ -51,16 +51,18 @@ flex-wrap: wrap;
 justify-content: center;
 }
 main > h1 {
-font-size: 26px;
+font-size: clamp(22px, 5.5vw, 30px);
 line-height: 1.5;
 padding: 28px 20px 12px;
 letter-spacing: 1px;
 }
 
 main > p {
-font-size: 14px;
+font-size: clamp(13px, 3.5vw, 16px);
 line-height: 1.8;
-padding: 0 20px 32px;
+padding: 0 20px 28px;
+margin-top: 0;
+margin-bottom: 28px;
 }
 }
 main {
