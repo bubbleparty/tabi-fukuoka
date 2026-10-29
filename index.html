@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f7f5e8">
-<title>旅序 Tabi｜福岡旅行手帳</title>
+<title>旅序 Tabi｜福岡</title>
 <style>
 :root{
   --paper:#f7f5e8;--card:#fffdf7;--ink:#35372f;--muted:#77786c;
@@ -36,7 +36,7 @@ a{color:inherit}
 .eyebrow{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--sage-dark)}
 h1{font-size:clamp(30px,4.4vw,52px);line-height:1.25;letter-spacing:.02em;margin:14px 0}
 .hero-copy p{max-width:410px;color:#696d60;margin:0 0 22px}
-.hero-photo{min-height:300px;background:#ddd url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1400&q=85') center/cover no-repeat;position:relative}
+.hero-photo{min-height:300px;background:#ddd url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYveyuvGJsXNwjaaakmiisdxtO3RZB0T2pJTQQJOb7vFchxNYy4kea2zHcKpSDCYunH_h59TPT8OqyawAAXfHRQNT8zBCHOLaT0M8wBZsyL2i1Al9Mb9Ev9t7G3e1ZCLvLZrnCpGT7_qEs/s1600/IMG_4021.JPG') center/cover no-repeat;position:relative}
 .hero-photo:after{content:"FUKUOKA · JAPAN";position:absolute;right:18px;bottom:18px;background:rgba(255,253,247,.9);padding:8px 13px;border-radius:999px;font-size:11px;letter-spacing:.14em;font-weight:800}
 .trip-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
 .pill{border:1px solid rgba(89,106,80,.22);color:var(--sage-dark);border-radius:999px;padding:6px 11px;font-size:12px;background:rgba(255,255,255,.45)}
@@ -146,8 +146,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 16px 42p
     <div class="hero-copy">
       <span class="eyebrow">A little journey journal</span>
       <h1>一起去福岡，<br>慢慢旅行。</h1>
-      <p>把想去的地方、想吃的美食，整理成一家人都看得懂的旅行手帳。</p>
-      <div class="trip-meta"><span class="pill">📍 日本・福岡</span><span class="pill">4 日旅行</span><span class="pill">家庭旅行提案</span></div>
+      <p>12/21-12/24 林老杯旅遊。</p>
+      <div class="trip-meta"><span class="pill">📍 日本・福岡</span><span class="pill">4 日旅行</span><span class="pill">輕鬆隨意行程</span></div>
     </div>
     <div class="hero-photo" role="img" aria-label="日本街景照片"></div>
   </section>
@@ -162,7 +162,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 16px 42p
       <div class="day-cover" id="dayCover"></div>
       <div class="timeline" id="timeline"></div>
     </div>
-    <div class="note">小提醒：這是你的旅行草稿。按「編輯」可以修改時間、地點和備註；資料會保存在目前這台裝置的瀏覽器中。</div>
+    <div class="note">小提醒：這是你的旅行草稿。按「編輯」可以修改時間、地點和備註。資料僅會保存在目前這台裝置中。</div>
   </section>
 
   <section id="favorites">
@@ -182,7 +182,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 16px 42p
     </div>
   </section>
 </main>
-<footer>旅序 Tabi. · 把每一趟旅程，安排得剛剛好。<br>照片由 Unsplash 提供，需連網顯示；這是可自行編輯的前端雛型。</footer>
+<footer>旅序 Tabi. · 把每一趟旅程，安排得剛剛好。<br></footer>
 
 <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal">
@@ -218,16 +218,18 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 16px 42p
 <script>
 const STORAGE_KEY = "tabi-fukuoka-prototype-v1";
 const dayInfo = [
- {title:"抵達福岡",date:"DAY 01 · ARRIVAL",desc:"放慢步調，先熟悉飯店周邊。",image:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80"},
- {title:"市區探索",date:"DAY 02 · CITY WALK",desc:"在城市街道、神社與美食之間散步。",image:"https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=1000&q=80"},
- {title:"近郊慢遊",date:"DAY 03 · DAY TRIP",desc:"留一點時間給風景，也留一點彈性。",image:"https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1000&q=80"},
- {title:"滿載回憶",date:"DAY 04 · DEPARTURE",desc:"最後採買、整理行李，準備回家。",image:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1000&q=80"}
+ {title:"抵達福岡",date:"DAY 01 · 12/21",desc:"放慢步調，先熟悉飯店周邊。",image:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80"},
+ {title:"市區探索",date:"DAY 02 · 12/22",desc:"在城市街道、神社與美食之間散步。",image:"https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=1000&q=80"},
+ {title:"近郊慢遊",date:"DAY 03 · 12/23",desc:"留一點時間給風景，也留一點彈性。",image:"https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1000&q=80"},
+ {title:"滿載回憶",date:"DAY 04 · 12/24",desc:"最後採買、整理行李，準備回家。",image:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1000&q=80"}
 ];
 const initialData = {
  days:[
-  [{time:"16:00",title:"抵達福岡機場",desc:"領取行李、確認交通方式。",map:"福岡機場"},
-   {time:"18:00",title:"入住飯店",desc:"先放好行李，稍作休息。",map:"博多車站"},
-   {time:"19:00",title:"博多晚餐",desc:"找一家附近的拉麵或居酒屋。",map:"博多拉麵"}],
+  [{time:"08:00",title:"抵達福岡機場",desc:"領取行李、確認交通方式。",map:"福岡機場"},
+   {time:"10:00",title:"入住飯店",desc:"先放好行李，稍作休息。",map:"博多車站"},
+   {time:"12:00",title:"午餐",desc:"隨便吃吃。",map:"博多拉麵"}],
+   {time:"19:00",title:"晚餐",desc:"隨便吃吃。",map:"博多居酒屋"}],
+
   [{time:"09:30",title:"太宰府天滿宮",desc:"參拜、逛參道，試試梅枝餅。",map:"太宰府天滿宮"},
    {time:"13:30",title:"大濠公園",desc:"湖畔散步，天氣好可以坐下休息。",map:"大濠公園"},
    {time:"17:00",title:"天神逛街",desc:"百貨、藥妝與晚餐自由安排。",map:"天神 福岡"}],
