@@ -418,7 +418,7 @@ document.getElementById("placeForm").addEventListener("submit",async e=>{
  const title=document.getElementById("pTitle").value.trim();
  const {data:existing}=await supabaseClient.from("favorite_items").select("sort_order").order("sort_order",{ascending:false}).limit(1);
  const row={title,description:document.getElementById("pDesc").value.trim(),image:document.getElementById("pImage").value.trim()||dayInfo[1].image,tag:document.getElementById("pTag").value,map:document.getElementById("pMap").value.trim()||title,saved:true,sort_order:(existing?.[0]?.sort_order??-1)+1};
- const {error}=await supabaseClient.from("favorite_items").insert(row);
+ const {error}=await supabaseClient.schema("public").from("favorite_items").insert(row);;
  if(error){showToast("新增失敗："+error.message);return}
  e.target.reset();closePlaceModal();await loadCloudData();showToast("景點已新增");
 });
