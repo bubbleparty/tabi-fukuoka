@@ -165,7 +165,7 @@ body.is-admin .admin-only.block{display:block!important}
     <button class="btn small" id="loginBtn">登入</button>
     <button class="btn ghost small" id="closeLogin">取消</button>
   </div>
-  <div class="sync-note">家人不需要登入；管理者登入後才能新增、修改或刪除內容。</div>
+  <div class="sync-note">不需要登入；管理者登入後才能新增、修改或刪除內容。</div>
 </div>
 <main id="top" class="container">
   <section class="hero">
@@ -180,7 +180,7 @@ body.is-admin .admin-only.block{display:block!important}
 
   <section id="itinerary">
     <div class="section-head">
-      <div><span class="eyebrow">Your travel plan</span><h2>四日旅行計畫</h2><p>雲端同步行程；管理者登入後可編輯，家人可直接查看。</p></div>
+      <div><span class="eyebrow">Your travel plan</span><h2>四日旅行計畫</h2><p>雲端同步行程，可直接查看。</p></div>
       <button class="btn admin-only" id="addStop">＋ 新增行程</button>
     </div>
     <div class="day-tabs" id="dayTabs" aria-label="選擇旅行日"></div>
@@ -188,12 +188,12 @@ body.is-admin .admin-only.block{display:block!important}
       <div class="day-cover" id="dayCover"></div>
       <div class="timeline" id="timeline"></div>
     </div>
-    <div class="note">小提醒：資料儲存在雲端。家人開啟網址即可查看；只有管理者登入後能修改。</div>
+    <div class="note">開啟網址即可查看；只有登入後能修改。</div>
   </section>
 
   <section id="favorites">
     <div class="section-head">
-      <div><span class="eyebrow">Places to remember</span><h2>景點收藏</h2><p>收藏內容會同步更新；只有管理者可以調整收藏狀態。</p></div>
+      <div><span class="eyebrow">Places to remember</span><h2>景點收藏</h2><p>收藏內容會同步更新，要刪除的話請找林正庭。</p></div>
       <button class="btn secondary" id="addPlace">＋ 新增景點</button>
     </div>
     <div class="favorites-grid" id="favoritesGrid"></div>
@@ -232,7 +232,20 @@ body.is-admin .admin-only.block{display:block!important}
       <div class="form-grid">
         <div class="field full"><label for="pTitle">景點名稱</label><input id="pTitle" required placeholder="例如 大濠公園"></div>
         <div class="field full"><label for="pDesc">景點介紹</label><textarea id="pDesc" placeholder="為什麼想去？那裡有啥？"></textarea></div>
-        <div class="field full"><label for="pImage">照片網址（可不填）</label><input id="pImage" placeholder="貼上圖片網址；留空會使用預設照片"></div>
+       <div class="field full">
+  <label for="pImage">景點照片（可不選）</label>
+  <input
+    id="pImage"
+    type="file"
+    accept="image/jpeg,image/png,image/webp"
+  >
+  <small style="color:#77786c">可選手機相簿或電腦圖片，限 JPG、PNG、WebP，最多 5MB。</small>
+  <img
+    id="pImagePreview"
+    alt="照片預覽"
+    style="display:none;width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-top:8px"
+  >
+</div>
         <div class="field"><label for="pTag">分類</label><select id="pTag"><option>景點</option><option>美食</option><option>購物</option><option>咖啡廳</option></select></div>
         <div class="field"><label for="pMap">地圖搜尋關鍵字</label><input id="pMap" placeholder="景點名稱"></div>
       </div>
