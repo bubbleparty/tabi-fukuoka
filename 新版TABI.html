@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f5e8">
+<title>旅序 Tabi｜福岡</title>
+<style>
+:root{
+  --paper:#f7f5e8;--card:#fffdf7;--ink:#35372f;--muted:#77786c;
+  --sage:#77866c;--sage-dark:#596a50;--line:#e5e2d4;--peach:#ead4c2;
+  --shadow:0 12px 35px rgba(58,61,47,.08);--radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.65}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,253,247,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1120px;margin:auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;letter-spacing:.04em;font-size:21px}
+.brand-mark{width:35px;height:35px;border-radius:50% 50% 45% 45%;background:var(--sage);display:grid;place-items:center;color:white;font-size:17px}
+.nav{display:flex;align-items:center;gap:22px}
+.nav a{text-decoration:none;color:var(--muted);font-size:14px}
+.nav a:hover{color:var(--sage-dark)}
+.btn{border:0;border-radius:999px;padding:10px 16px;background:var(--sage);color:white;font-weight:700;transition:.2s}
+.btn:hover{background:var(--sage-dark);transform:translateY(-1px)}
+.btn.secondary{background:#eeeee4;color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--sage-dark);border:1px solid var(--line)}
+.btn.danger{background:#f6e7e2;color:#8d4f43}
+.btn.small{padding:7px 12px;font-size:13px}
+.container{max-width:1120px;margin:auto;padding:28px 24px 80px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:360px;border-radius:30px;overflow:hidden;background:#e6e9dc;box-shadow:var(--shadow);margin:18px 0 34px}
+.hero-copy{padding:clamp(26px,5vw,60px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--sage-dark)}
+h1{font-size:clamp(30px,4.4vw,52px);line-height:1.25;letter-spacing:.02em;margin:14px 0}
+.hero-copy p{max-width:410px;color:#696d60;margin:0 0 22px}
+.hero-photo{min-height:300px;background:#ddd url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYveyuvGJsXNwjaaakmiisdxtO3RZB0T2pJTQQJOb7vFchxNYy4kea2zHcKpSDCYunH_h59TPT8OqyawAAXfHRQNT8zBCHOLaT0M8wBZsyL2i1Al9Mb9Ev9t7G3e1ZCLvLZrnCpGT7_qEs/s1600/IMG_4021.JPG') center/cover no-repeat;position:relative}
+.hero-photo:after{content:"FUKUOKA · JAPAN";position:absolute;right:18px;bottom:18px;background:rgba(255,253,247,.9);padding:8px 13px;border-radius:999px;font-size:11px;letter-spacing:.14em;font-weight:800}
+.trip-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.pill{border:1px solid rgba(89,106,80,.22);color:var(--sage-dark);border-radius:999px;padding:6px 11px;font-size:12px;background:rgba(255,255,255,.45)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:44px 0 18px}
+.section-head h2{font-size:clamp(23px,3vw,31px);margin:0;letter-spacing:.02em}
+.section-head p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.day-tabs{display:flex;gap:9px;overflow-x:auto;padding:3px 1px 12px;margin-bottom:18px}
+.day-tab{flex:0 0 auto;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 16px;color:var(--muted)}
+.day-tab.active{background:var(--sage);border-color:var(--sage);color:white}
+.day-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:22px;align-items:start}
+.day-cover{border-radius:var(--radius);overflow:hidden;min-height:310px;position:relative;background:#ddd;box-shadow:var(--shadow)}
+.day-cover img{position:absolute;width:100%;height:100%;inset:0;object-fit:cover}
+.day-cover:after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,rgba(25,29,23,.68))}
+.day-cover-text{position:absolute;z-index:1;left:22px;right:22px;bottom:20px;color:white}
+.day-cover-text .date{font-size:12px;letter-spacing:.12em;opacity:.9}
+.day-cover-text h3{font-size:27px;line-height:1.25;margin:6px 0}
+.day-cover-text p{margin:0;font-size:13px;opacity:.9}
+.timeline{display:flex;flex-direction:column;gap:12px}
+.stop{display:grid;grid-template-columns:72px 1fr;gap:14px;padding:17px;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 4px 15px rgba(58,61,47,.025)}
+.stop-time{font-size:12px;font-weight:800;color:var(--sage-dark);padding-top:3px}
+.stop h4{margin:0 0 4px;font-size:16px}
+.stop p{margin:0;color:var(--muted);font-size:13px}
+.stop-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.text-btn{border:0;background:transparent;padding:0;color:var(--sage-dark);font-size:12px;font-weight:700}
+.text-btn:hover{text-decoration:underline}
+.empty{padding:24px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:18px}
+.favorites-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.place-card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 6px 20px rgba(58,61,47,.04)}
+.place-image{height:180px;position:relative;background:#ddd}
+.place-image img{width:100%;height:100%;object-fit:cover;display:block}
+.heart{position:absolute;top:12px;right:12px;border:0;border-radius:50%;width:38px;height:38px;background:rgba(255,253,247,.94);font-size:19px;color:#a85d58}
+.place-content{padding:16px}
+.place-content h3{margin:0 0 5px;font-size:17px}
+.place-content p{font-size:13px;color:var(--muted);margin:0 0 12px}
+.place-footer{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tag{font-size:11px;background:#edf0e6;color:var(--sage-dark);padding:4px 8px;border-radius:999px}
+.transport-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.transport-card{padding:20px;border-radius:18px;background:var(--card);border:1px solid var(--line)}
+.transport-icon{font-size:25px}
+.transport-card h3{margin:8px 0 5px;font-size:16px}
+.transport-card p{font-size:13px;color:var(--muted);margin:0 0 13px}
+.note{background:#eeeee4;border-radius:18px;padding:18px 20px;color:#626657;font-size:13px;margin-top:20px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 16px 42px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(35,39,31,.45);z-index:50;display:none;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.open{display:flex}
+.modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:var(--card);border-radius:24px;padding:24px;box-shadow:0 25px 80px rgba(0,0,0,.2)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.modal-head h2{font-size:22px;margin:0}
+.close{border:0;background:#efeee6;width:36px;height:36px;border-radius:50%;font-size:20px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:800;color:var(--muted)}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:12px;background:white;padding:11px 12px;color:var(--ink);outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--sage)}
+.field textarea{min-height:86px;resize:vertical}
+.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:16px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#35372f;color:white;border-radius:999px;padding:10px 16px;font-size:13px;z-index:80;display:none;max-width:90%;text-align:center}
+.toast.show{display:block}
+@media(max-width:760px){
+ .topbar-inner{padding:12px 16px;flex-wrap:wrap;gap:10px}
+ .brand{font-size:19px}
+ .nav{order:3;width:100%;justify-content:space-between;gap:10px;padding:3px 0 1px}
+ .nav a{font-size:13px}
+ .topbar .btn{padding:8px 12px;font-size:12px}
+ .container{padding:14px 16px 56px}
+ .hero{grid-template-columns:1fr;margin:10px 0 26px;border-radius:23px}
+ .hero-copy{padding:27px 23px 24px}
+ h1{font-size:clamp(27px,7.4vw,36px);line-height:1.35;margin:10px 0}
+ .hero-copy p{font-size:14px;margin-bottom:15px}
+ .hero-photo{min-height:210px;grid-row:1}
+ .trip-meta{margin-top:13px}
+ .section-head{margin:34px 0 14px;align-items:start}
+ .section-head .btn{font-size:12px;padding:8px 12px}
+ .day-layout{grid-template-columns:1fr;gap:14px}
+ .day-cover{min-height:225px}
+ .day-cover-text h3{font-size:23px}
+ .stop{grid-template-columns:54px 1fr;padding:14px;gap:10px}
+ .favorites-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .place-image{height:135px}
+ .place-content{padding:12px}
+ .place-content h3{font-size:15px}
+ .place-content p{font-size:12px}
+ .transport-grid{grid-template-columns:1fr}
+ .form-grid{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+}
+@media(max-width:390px){
+ .favorites-grid{grid-template-columns:1fr}
+ .nav a{font-size:12px}
+ .hero-photo{min-height:185px}
+}
+
+.auth-area{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.auth-status{font-size:12px;color:var(--muted)}
+.login-panel{display:none;max-width:1120px;margin:0 auto;padding:12px 24px 16px;background:var(--card);border-bottom:1px solid var(--line)}
+.login-panel.open{display:block}
+.login-fields{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.login-fields input{min-width:180px;max-width:240px;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:white}
+.admin-only{display:none!important}
+body.is-admin .admin-only{display:inline-flex!important}
+body.is-admin .admin-only.block{display:block!important}
+.sync-note{font-size:12px;color:var(--muted);margin-top:8px}
+@media(max-width:760px){.login-panel{padding:12px 16px}.login-fields{align-items:stretch}.login-fields input{max-width:none;min-width:0;width:100%}.auth-area{width:100%;justify-content:flex-end}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top"><span class="brand-mark">旅</span><span>旅序 Tabi.</span></a>
+    <nav class="nav" aria-label="主要導覽">
+      <a href="#itinerary">每日行程</a><a href="#favorites">景點收藏</a><a href="#transport">交通地圖</a>
+    </nav>
+    <div class="auth-area">
+      <span class="auth-status" id="authStatus">連線中…</span>
+      <button class="btn ghost small" id="loginToggle">管理者登入</button>
+      <button class="btn ghost small" id="logoutBtn" style="display:none">登出</button>
+      <button class="btn small admin-only" id="addStopTop">＋ 新增行程</button>
+    </div>
+  </div>
+</header>
+<div class="login-panel" id="loginPanel">
+  <div class="login-fields">
+    <input id="loginEmail" type="email" autocomplete="username" placeholder="管理者 Email">
+    <input id="loginPassword" type="password" autocomplete="current-password" placeholder="管理者密碼">
+    <button class="btn small" id="loginBtn">登入</button>
+    <button class="btn ghost small" id="closeLogin">取消</button>
+  </div>
+  <div class="sync-note">家人不需要登入；管理者登入後才能新增、修改或刪除內容。</div>
+</div>
+<main id="top" class="container">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">A little journey journal</span>
+      <h1>一起去福岡，<br>慢慢旅行。</h1>
+      <p> 12/21-12/24 林老杯出遊 </p>
+      <div class="trip-meta"><span class="pill">📍 日本・福岡</span><span class="pill">4 日旅行</span><span class="pill">輕鬆漫遊</span></div>
+    </div>
+    <div class="hero-photo" role="img" aria-label="日本街景照片"></div>
+  </section>
+
+  <section id="itinerary">
+    <div class="section-head">
+      <div><span class="eyebrow">Your travel plan</span><h2>四日旅行計畫</h2><p>雲端同步行程；管理者登入後可編輯，家人可直接查看。</p></div>
+      <button class="btn admin-only" id="addStop">＋ 新增行程</button>
+    </div>
+    <div class="day-tabs" id="dayTabs" aria-label="選擇旅行日"></div>
+    <div class="day-layout">
+      <div class="day-cover" id="dayCover"></div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+    <div class="note">小提醒：資料儲存在雲端。家人開啟網址即可查看；只有管理者登入後能修改。</div>
+  </section>
+
+  <section id="favorites">
+    <div class="section-head">
+      <div><span class="eyebrow">Places to remember</span><h2>景點收藏</h2><p>收藏內容會同步更新；只有管理者可以調整收藏狀態。</p></div>
+      <button class="btn secondary" id="addPlace">＋ 新增景點</button>
+    </div>
+    <div class="favorites-grid" id="favoritesGrid"></div>
+  </section>
+
+  <section id="transport">
+    <div class="section-head"><div><span class="eyebrow">Move around</span><h2>交通與地圖</h2><p>把常用工具放在同一頁，出門時更方便。</p></div></div>
+    <div class="transport-grid">
+      <article class="transport-card"><div class="transport-icon">🗺️</div><h3>Google 地圖</h3><p>搜尋福岡景點、規劃步行或大眾交通路線。</p><a class="btn small" href="https://www.google.com/maps/search/Fukuoka/" target="_blank" rel="noopener">開啟地圖 ↗</a></article>
+      <article class="transport-card"><div class="transport-icon">🚇</div><h3>福岡市地下鐵</h3><p>出發前確認路線、轉乘與營運資訊。</p><a class="btn small" href="https://subway.city.fukuoka.lg.jp/eng/" target="_blank" rel="noopener">查看官方資訊 ↗</a></article>
+      <article class="transport-card"><div class="transport-icon">🚆</div><h3>JR 九州</h3><p>適合查詢前往近郊或跨城市的列車資訊。</p><a class="btn small" href="https://www.jrkyushu.co.jp/english/" target="_blank" rel="noopener">查看列車資訊 ↗</a></article>
+    </div>
+  </section>
+</main>
+<footer>旅序 Tabi. · 把每一趟旅程，安排得剛剛好。<br><span id="footerStatus">正在連線雲端資料庫…</span></footer>
+
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head"><h2 id="modalTitle">編輯行程</h2><button class="close" id="closeModal" aria-label="關閉">×</button></div>
+    <form id="editForm">
+      <div class="form-grid">
+        <div class="field"><label for="fDay">第幾天</label><select id="fDay"><option value="0">Day 1</option><option value="1">Day 2</option><option value="2">Day 3</option><option value="3">Day 4</option></select></div>
+        <div class="field"><label for="fTime">時間</label><input id="fTime" placeholder="例如 09:30"></div>
+        <div class="field full"><label for="fTitle">行程名稱</label><input id="fTitle" required placeholder="例如 太宰府天滿宮"></div>
+        <div class="field full"><label for="fDesc">行程備註</label><textarea id="fDesc" placeholder="想做什麼、預計停留多久、提醒事項…"></textarea></div>
+        <div class="field full"><label for="fMap">地圖搜尋關鍵字（可不填）</label><input id="fMap" placeholder="例如 太宰府天滿宮"></div>
+      </div>
+      <div class="modal-actions"><button type="button" class="btn ghost" id="cancelModal">取消</button><button type="submit" class="btn">儲存行程</button></div>
+    </form>
+  </div>
+</div>
+<div class="modal-backdrop" id="placeBackdrop" role="dialog" aria-modal="true" aria-labelledby="placeModalTitle">
+  <div class="modal">
+    <div class="modal-head"><h2 id="placeModalTitle">新增景點</h2><button class="close" id="closePlaceModal" aria-label="關閉">×</button></div>
+    <form id="placeForm">
+      <div class="form-grid">
+        <div class="field full"><label for="pTitle">景點名稱</label><input id="pTitle" required placeholder="例如 大濠公園"></div>
+        <div class="field full"><label for="pDesc">景點介紹</label><textarea id="pDesc" placeholder="為什麼想去？那裡有啥？"></textarea></div>
+        <div class="field full"><label for="pImage">照片網址（可不填）</label><input id="pImage" placeholder="貼上圖片網址；留空會使用預設照片"></div>
+        <div class="field"><label for="pTag">分類</label><select id="pTag"><option>景點</option><option>美食</option><option>購物</option><option>咖啡廳</option></select></div>
+        <div class="field"><label for="pMap">地圖搜尋關鍵字</label><input id="pMap" placeholder="景點名稱"></div>
+      </div>
+      <div class="modal-actions"><button type="button" class="btn ghost" id="cancelPlaceModal">取消</button><button type="submit" class="btn">新增收藏</button></div>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<!-- 管理者首次設定：確認雲端資料為空後，才可匯入原本瀏覽器資料或內建範例 -->
+<div class="container" id="importPanel" style="display:none;padding-top:0">
+  <div class="note">
+    <strong>管理者資料初始化</strong><br>
+    雲端目前沒有行程與景點資料。按下匯入會優先讀取這台裝置原本儲存的資料；若沒有舊資料，則匯入網站內建範例。此操作只允許在兩張雲端資料表都為空時執行。
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <button class="btn small" id="importBtn">匯入原本資料／範例</button>
+      <button class="btn ghost small" id="refreshBtn">重新讀取雲端</button>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ========= 旅序 Tabi｜Supabase 設定 =========
+   只填入 Project URL 與 Publishable Key。
+   絕對不要把 Secret Key / service_role key 放在這裡。
+*/
+const SUPABASE_URL = "https://bnywfheecgrcdrexxayd.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "請在這裡貼上你的 sb_publishable_ 開頭金鑰";
+const ADMIN_USER_ID = "12c4d579-650f-4f2d-b5cd-3d796905217f";
+const STORAGE_KEY = "tabi-fukuoka-prototype-v1";
+
+const { createClient } = window.supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const dayInfo = [
+ {title:"抵達福岡",date:"DAY 01 · 12/21",desc:"放慢步調，先熟悉飯店周邊。",image:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80"},
+ {title:"市區探索",date:"DAY 02 · 12/22",desc:"在城市街道、神社與美食之間散步。",image:"https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=1000&q=80"},
+ {title:"近郊慢遊",date:"DAY 03 · 12/23",desc:"留一點時間給風景，也留一點彈性。",image:"https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1000&q=80"},
+ {title:"回家睡覺",date:"DAY 04 · 12/24",desc:"最後採買、整理行李，準備回家。",image:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1000&q=80"}
+];
+const initialData = {
+ days:[
+  [{time:"16:00",title:"抵達福岡機場",desc:"領取行李、確認交通方式。",map:"福岡機場"},
+   {time:"18:00",title:"入住飯店",desc:"先放好行李，稍作休息。",map:"博多車站"},
+   {time:"19:00",title:"博多晚餐",desc:"找一家附近的拉麵或居酒屋。",map:"博多拉麵"}],
+  [{time:"09:30",title:"太宰府天滿宮",desc:"參拜、逛參道，試試梅枝餅。",map:"太宰府天滿宮"},
+   {time:"13:30",title:"大濠公園",desc:"湖畔散步，天氣好可以坐下休息。",map:"大濠公園"},
+   {time:"17:00",title:"天神逛街",desc:"百貨、藥妝與晚餐自由安排。",map:"天神 福岡"}],
+  [{time:"10:00",title:"柳川遊船（備選）",desc:"想安排近郊時可以考慮，先確認交通與營運。",map:"柳川遊船"},
+   {time:"14:00",title:"咖啡廳休息",desc:"保留彈性時間，不必把行程排太滿。",map:"福岡 咖啡廳"}],
+  [{time:"09:30",title:"最後採買",desc:"依航班時間調整，預留前往機場的時間。",map:"博多車站 購物"},
+   {time:"12:00",title:"前往機場",desc:"確認航廈、行李與登機時間。",map:"福岡機場"}]
+ ],
+ favorites:[
+  {title:"太宰府天滿宮",desc:"參拜神社、逛參道，品嚐梅枝餅。",tag:"文化景點",image:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=700&q=80",map:"太宰府天滿宮",saved:true},
+  {title:"大濠公園",desc:"湖畔散步、拍照，享受悠閒午後。",tag:"自然散步",image:"https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=700&q=80",map:"大濠公園",saved:false},
+  {title:"博多運河城",desc:"購物、餐廳與城市水岸空間。",tag:"購物美食",image:"https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=700&q=80",map:"博多運河城",saved:false}
+ ]
+};
+
+let data = {days:[[],[],[],[]], favorites:[]};
+let activeDay = 0;
+let editingId = null;
+let currentUser = null;
+let isAdmin = false;
+let toastTimer;
+
+function esc(s=""){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function mapUrl(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q||"Fukuoka")}
+function showToast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),3000)}
+function setStatus(message){document.getElementById("authStatus").textContent=message;document.getElementById("footerStatus").textContent=message}
+function requireAdmin(){if(!isAdmin){showToast("請先以管理者身分登入");return false}return true}
+function setAdminUI(){
+ document.body.classList.toggle("is-admin",isAdmin);
+ document.getElementById("loginToggle").style.display=isAdmin?"none":"inline-flex";
+ document.getElementById("logoutBtn").style.display=isAdmin?"inline-flex":"none";
+ document.getElementById("authStatus").textContent=isAdmin?"管理者已登入":"家人可直接查看";
+ renderDay();renderFavorites();
+}
+function renderTabs(){
+ const el=document.getElementById("dayTabs");
+ el.innerHTML=dayInfo.map((d,i)=>`<button class="day-tab ${i===activeDay?"active":""}" data-day="${i}">Day ${i+1} · ${esc(d.title)}</button>`).join("");
+ el.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{activeDay=Number(b.dataset.day);renderTabs();renderDay()}));
+}
+function renderDay(){
+ const d=dayInfo[activeDay];
+ document.getElementById("dayCover").innerHTML=`<img src="${d.image}" alt="${esc(d.title)}照片" loading="lazy"><div class="day-cover-text"><div class="date">${d.date}</div><h3>${esc(d.title)}</h3><p>${esc(d.desc)}</p></div>`;
+ const items=data.days[activeDay]||[];
+ const timeline=document.getElementById("timeline");
+ timeline.innerHTML=items.length?items.map(it=>`<article class="stop"><div class="stop-time">${esc(it.time_text||"待定")}</div><div><h4>${esc(it.title)}</h4><p>${esc(it.description||"尚未填寫備註")}</p><div class="stop-actions"><a class="text-btn" href="${mapUrl(it.map||it.title)}" target="_blank" rel="noopener">地圖 ↗</a>${isAdmin?`<button class="text-btn" data-edit="${esc(it.id)}">編輯</button><button class="text-btn" data-delete="${esc(it.id)}">刪除</button>`:""}</div></div></article>`).join(""):`<div class="empty">${isAdmin?"這一天還沒有安排行程。按「新增行程」開始規劃吧！":"這一天目前還沒有行程。"}</div>`;
+ timeline.querySelectorAll("[data-edit]").forEach(b=>b.addEventListener("click",()=>openStopModal(b.dataset.edit)));
+ timeline.querySelectorAll("[data-delete]").forEach(b=>b.addEventListener("click",async()=>{if(!requireAdmin())return;if(confirm("確定刪除這個行程嗎？")){const {error}=await supabaseClient.from("itinerary_items").delete().eq("id",b.dataset.delete);if(error){showToast("刪除失敗："+error.message);return}await loadCloudData();showToast("行程已刪除")}}));
+}
+function renderFavorites(){
+ const grid=document.getElementById("favoritesGrid");
+ grid.innerHTML=data.favorites.map(p=>`<article class="place-card"><div class="place-image"><img src="${esc(p.image||dayInfo[0].image)}" alt="${esc(p.title)}照片" loading="lazy" onerror="this.src='${dayInfo[0].image}'"><button class="heart" aria-label="切換收藏" data-heart="${esc(p.id)}">${p.saved?"♥":"♡"}</button></div><div class="place-content"><span class="tag">${esc(p.tag||"景點")}</span><h3>${esc(p.title)}</h3><p>${esc(p.description||"尚未填寫介紹")}</p><div class="place-footer"><a class="text-btn" href="${mapUrl(p.map||p.title)}" target="_blank" rel="noopener">查看地圖 ↗</a>${isAdmin?`<button class="text-btn" data-delete-place="${esc(p.id)}">刪除</button>`:""}</div></div></article>`).join("");
+ grid.querySelectorAll("[data-heart]").forEach(b=>b.addEventListener("click",async()=>{const p=data.favorites.find(x=>x.id===b.dataset.heart);if(!p)return;const {error}=await supabaseClient.from("favorite_items").update({saved:!p.saved}).eq("id",p.id);if(error){showToast("更新失敗："+error.message);return}await loadCloudData()}));
+ grid.querySelectorAll("[data-delete-place]").forEach(b=>b.addEventListener("click",async()=>{if(!requireAdmin())return;if(confirm("確定刪除這個景點嗎？")){const {error}=await supabaseClient.from("favorite_items").delete().eq("id",b.dataset.deletePlace);if(error){showToast("刪除失敗："+error.message);return}await loadCloudData();showToast("景點已刪除")}}));
+}
+function mapItineraryRow(row){return {...row,map:row.map||row.title,time:row.time_text||"",desc:row.description||""}}
+async function loadCloudData(){
+ setStatus("正在讀取雲端資料…");
+ const [itineraryResult,favoriteResult]=await Promise.all([
+  supabaseClient.from("itinerary_items").select("*").order("day_number").order("sort_order"),
+  supabaseClient.from("favorite_items").select("*").order("sort_order")
+ ]);
+ if(itineraryResult.error||favoriteResult.error){
+  const err=itineraryResult.error||favoriteResult.error;setStatus("資料讀取失敗");showToast("讀取失敗："+err.message);return;
+ }
+ data={days:[[],[],[],[]],favorites:favoriteResult.data||[]};
+ (itineraryResult.data||[]).forEach(row=>{const day=Number(row.day_number)-1;if(day>=0&&day<4)data.days[day].push(mapItineraryRow(row))});
+ renderTabs();renderDay();renderFavorites();
+ setStatus("雲端同步完成");
+ if(isAdmin && (itineraryResult.data||[]).length===0 && (favoriteResult.data||[]).length===0){
+  showToast("雲端目前是空的，可按下方匯入按鈕帶入原本資料");
+  document.getElementById("importPanel").style.display="block";
+ }else{
+  document.getElementById("importPanel").style.display=isAdmin?"block":"none";
+ }
+}
+async function importInitialData(){
+ if(!requireAdmin())return;
+ const {count:itineraryCount,error:countError}=await supabaseClient.from("itinerary_items").select("*",{count:"exact",head:true});
+ const {count:favoriteCount,error:favoriteCountError}=await supabaseClient.from("favorite_items").select("*",{count:"exact",head:true});
+ if(countError||favoriteCountError){showToast("無法確認雲端資料狀態");return}
+ if((itineraryCount||0)>0||(favoriteCount||0)>0){showToast("雲端已有資料，為避免重複匯入，已停止操作");return}
+ let local=null;
+ try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)local=JSON.parse(raw)}catch(e){}
+ const source=local&&Array.isArray(local.days)&&Array.isArray(local.favorites)?local:initialData;
+ const itineraryRows=[];
+ (source.days||[]).forEach((items,dayIndex)=>(items||[]).forEach((it,index)=>itineraryRows.push({
+  day_number:dayIndex+1,time_text:it.time||"",title:it.title,description:it.desc||"",tag:"",
+  map:it.map||it.title,sort_order:index
+ })));
+ const favoriteRows=(source.favorites||[]).map((p,index)=>({
+  title:p.title,description:p.desc||p.description||"",image:p.image||"",tag:p.tag||"景點",
+  map:p.map||p.title,saved:p.saved!==false,sort_order:index
+ }));
+ if(itineraryRows.length){const {error}=await supabaseClient.from("itinerary_items").insert(itineraryRows);if(error){showToast("行程匯入失敗："+error.message);return}}
+ if(favoriteRows.length){const {error}=await supabaseClient.from("favorite_items").insert(favoriteRows);if(error){showToast("景點匯入失敗："+error.message);return}}
+ await loadCloudData();showToast("原本資料已匯入雲端！");
+}
+const backdrop=document.getElementById("modalBackdrop");
+function openStopModal(id=null){
+ if(!requireAdmin())return;
+ editingId=id;
+ const item=id===null?{day_number:activeDay+1,time_text:"",title:"",description:"",map:""}:data.days.flat().find(x=>x.id===id);
+ if(!item)return;
+ document.getElementById("modalTitle").textContent=id===null?"新增行程":"編輯行程";
+ document.getElementById("fDay").value=String(Number(item.day_number||activeDay+1)-1);
+ document.getElementById("fTime").value=item.time_text||"";
+ document.getElementById("fTitle").value=item.title||"";
+ document.getElementById("fDesc").value=item.description||"";
+ document.getElementById("fMap").value=item.map||item.title||"";
+ backdrop.classList.add("open");
+}
+function closeStopModal(){backdrop.classList.remove("open")}
+document.getElementById("addStop").addEventListener("click",()=>openStopModal());
+document.getElementById("addStopTop").addEventListener("click",()=>openStopModal());
+document.getElementById("closeModal").addEventListener("click",closeStopModal);
+document.getElementById("cancelModal").addEventListener("click",closeStopModal);
+backdrop.addEventListener("click",e=>{if(e.target===backdrop)closeStopModal()});
+document.getElementById("editForm").addEventListener("submit",async e=>{
+ e.preventDefault();if(!requireAdmin())return;
+ const day=Number(document.getElementById("fDay").value)+1;
+ const row={day_number:day,time_text:document.getElementById("fTime").value.trim(),title:document.getElementById("fTitle").value.trim(),description:document.getElementById("fDesc").value.trim(),map:document.getElementById("fMap").value.trim()};
+ if(!row.title)return;
+ let result;
+ if(editingId){result=await supabaseClient.from("itinerary_items").update(row).eq("id",editingId)}
+ else{const {data:existing}=await supabaseClient.from("itinerary_items").select("sort_order").eq("day_number",day).order("sort_order",{ascending:false}).limit(1);row.sort_order=(existing?.[0]?.sort_order??-1)+1;result=await supabaseClient.from("itinerary_items").insert(row)}
+ if(result.error){showToast("儲存失敗："+result.error.message);return}
+ activeDay=day-1;closeStopModal();await loadCloudData();showToast("行程已儲存");
+});
+const placeBackdrop=document.getElementById("placeBackdrop");
+function closePlaceModal(){placeBackdrop.classList.remove("open")}
+document.getElementById("addPlace").addEventListener("click",()=>placeBackdrop.classList.add("open"));
+document.getElementById("closePlaceModal").addEventListener("click",closePlaceModal);
+document.getElementById("cancelPlaceModal").addEventListener("click",closePlaceModal);
+placeBackdrop.addEventListener("click",e=>{if(e.target===placeBackdrop)closePlaceModal()});
+document.getElementById("placeForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const title=document.getElementById("pTitle").value.trim();
+ const {data:existing}=await supabaseClient.from("favorite_items").select("sort_order").order("sort_order",{ascending:false}).limit(1);
+ const row={title,description:document.getElementById("pDesc").value.trim(),image:document.getElementById("pImage").value.trim()||dayInfo[1].image,tag:document.getElementById("pTag").value,map:document.getElementById("pMap").value.trim()||title,saved:true,sort_order:(existing?.[0]?.sort_order??-1)+1};
+ const {error}=await supabaseClient.from("favorite_items").insert(row);
+ if(error){showToast("新增失敗："+error.message);return}
+ e.target.reset();closePlaceModal();await loadCloudData();showToast("景點已新增");
+});
+document.getElementById("loginToggle").addEventListener("click",()=>document.getElementById("loginPanel").classList.toggle("open"));
+document.getElementById("closeLogin").addEventListener("click",()=>document.getElementById("loginPanel").classList.remove("open"));
+document.getElementById("loginBtn").addEventListener("click",async()=>{
+ const email=document.getElementById("loginEmail").value.trim(),password=document.getElementById("loginPassword").value;
+ if(!email||!password){showToast("請輸入 Email 和密碼");return}
+ const {data:result,error}=await supabaseClient.auth.signInWithPassword({email,password});
+ if(error){showToast("登入失敗："+error.message);return}
+ currentUser=result.user;isAdmin=currentUser.id===ADMIN_USER_ID;
+ if(!isAdmin){await supabaseClient.auth.signOut();currentUser=null;isAdmin=false;showToast("這個帳號沒有管理權限");return}
+ document.getElementById("loginPanel").classList.remove("open");setAdminUI();await loadCloudData();showToast("管理者登入成功");
+});
+document.getElementById("logoutBtn").addEventListener("click",async()=>{
+ const {error}=await supabaseClient.auth.signOut();if(error){showToast("登出失敗："+error.message);return}
+ currentUser=null;isAdmin=false;setAdminUI();document.getElementById("importPanel").style.display="none";await loadCloudData();showToast("已登出");
+});
+document.getElementById("importBtn").addEventListener("click",importInitialData);
+document.getElementById("refreshBtn").addEventListener("click",loadCloudData);
+
+async function init(){
+ if(SUPABASE_PUBLISHABLE_KEY.includes("請在這裡")){
+  setStatus("尚未設定 Publishable Key");showToast("請先在 index.html 貼上 Supabase Publishable Key");return;
+ }
+ const {data:sessionData,error}=await supabaseClient.auth.getSession();
+ if(error){setStatus("登入狀態讀取失敗");showToast(error.message);return}
+ currentUser=sessionData.session?.user||null;isAdmin=!!currentUser&&currentUser.id===ADMIN_USER_ID;
+ setAdminUI();await loadCloudData();
+ supabaseClient.auth.onAuthStateChange((_event,session)=>{
+  currentUser=session?.user||null;isAdmin=!!currentUser&&currentUser.id===ADMIN_USER_ID;
+  setAdminUI();
+ });
+}
+renderTabs();renderDay();renderFavorites();
+init();
+</script>
+
+
+</body>
+</html>
