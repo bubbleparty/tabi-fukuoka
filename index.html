@@ -483,10 +483,57 @@ document.getElementById("cancelPlaceModal").addEventListener("click",closePlaceM
 placeBackdrop.addEventListener("click",e=>{if(e.target===placeBackdrop)closePlaceModal()});
 document.getElementById("placeForm").addEventListener("submit",async e=>{
  e.preventDefault();
- const title=document.getElementById("pTitle").value.trim();
- const {data:existing}=await supabaseClient.schema("public").from("favorite_items").select("sort_order").order("sort_order",{ascending:false}).limit(1);
- const row={title,description:document.getElementById("pDesc").value.trim(),image:document.getElementById("pImage").value.trim()||dayInfo[1].image,tag:document.getElementById("pTag").value,map:document.getElementById("pMap").value.trim()||title,saved:true,sort_order:(existing?.[0]?.sort_order??-1)+1};
- const {error}=await supabaseClient.schema("public").from("favorite_items").insert(row);
+ const title = document.getElementById("pTitle").value.trim();
+const file = document.getElementById("pImage").files[0];
+
+try {
+  if (file && file.size > 5 * 1024 * 1024) {
+    showToast("圖片不能超過 5MB");
+    return;
+  }
+
+  showToast(file ? "正在上傳照片…" : "正在新增景點…");
+
+  const imageUrl = file
+    ? await uploadPlaceImage(file)
+    : dayInfo[1].image;
+
+  const { data: existing, error: orderError } =
+    await supabaseClient.schema("public")
+      .from("favorite_items")
+      .select("sort_order")
+      .order("sort_order", { ascending: false })
+      .limit(1);
+
+  if (orderError) throw orderError;
+
+  const row = {
+    title,
+    description: document.getElementById("pDesc").value.trim(),
+    image: imageUrl,
+    tag: document.getElementById("pTag").value,
+    map: document.getElementById("pMap").value.trim() || title,
+    saved: true,
+    sort_order: (existing?.[0]?.sort_order ?? -1) + 1
+  };
+
+  const { error } = await supabaseClient.schema("public")
+    .from("favorite_items")
+    .insert(row);
+
+  if (error) throw error;
+
+  e.target.reset();
+  pImagePreview.style.display = "none";
+  pImagePreview.src = "";
+
+  closePlaceModal();
+  await loadCloudData();
+  showToast("景點與照片已成功新增！");
+
+} catch (error) {
+  showToast("新增失敗：" + error.message);
+}
  if(error){showToast("新增失敗："+error.message);return}
  e.target.reset();closePlaceModal();await loadCloudData();showToast("景點已新增");
 });
