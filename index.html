@@ -165,7 +165,7 @@ body.is-admin .admin-only.block{display:block!important}
     <button class="btn small" id="loginBtn">登入</button>
     <button class="btn ghost small" id="closeLogin">取消</button>
   </div>
-  <div class="sync-note">家人不需要登入；管理者登入後才能新增、修改或刪除內容。</div>
+  <div class="sync-note">家人不需要登入；林正庭登入後才能新增、修改或刪除內容。</div>
 </div>
 <main id="top" class="container">
   <section class="hero">
@@ -180,7 +180,7 @@ body.is-admin .admin-only.block{display:block!important}
 
   <section id="itinerary">
     <div class="section-head">
-      <div><span class="eyebrow">Your travel plan</span><h2>四日旅行計畫</h2><p>雲端同步行程；管理者登入後可編輯，家人可直接查看。</p></div>
+      <div><span class="eyebrow">Your travel plan</span><h2>四日旅行計畫</h2><p>雲端同步行程；林正庭登入後可編輯，僅限林家人可直接查看。</p></div>
       <button class="btn admin-only" id="addStop">＋ 新增行程</button>
     </div>
     <div class="day-tabs" id="dayTabs" aria-label="選擇旅行日"></div>
@@ -188,12 +188,12 @@ body.is-admin .admin-only.block{display:block!important}
       <div class="day-cover" id="dayCover"></div>
       <div class="timeline" id="timeline"></div>
     </div>
-    <div class="note">小提醒：資料儲存在雲端。家人開啟網址即可查看；只有管理者登入後能修改。</div>
+    <div class="note">小提醒：資料儲存在雲端。家人開啟網址即可查看；只有林正庭登入後能修改。</div>
   </section>
 
   <section id="favorites">
     <div class="section-head">
-      <div><span class="eyebrow">Places to remember</span><h2>景點收藏</h2><p>收藏內容會同步更新；只有管理者可以調整收藏狀態。</p></div>
+      <div><span class="eyebrow">Places to remember</span><h2>景點收藏</h2><p>想去哪裡先放在這裡，收藏內容會同步更新。</p></div>
       <button class="btn secondary" id="addPlace">＋ 新增景點</button>
     </div>
     <div class="favorites-grid" id="favoritesGrid"></div>
@@ -208,7 +208,7 @@ body.is-admin .admin-only.block{display:block!important}
     </div>
   </section>
 </main>
-<footer>旅序 Tabi. · 把每一趟旅程，安排得剛剛好。<br><span id="footerStatus">正在連線雲端資料庫…</span></footer>
+<footer>旅序 Tabi. · 林家福岡行專用。<br><span id="footerStatus">正在連線雲端資料庫…</span></footer>
 
 <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal">
@@ -243,7 +243,7 @@ body.is-admin .admin-only.block{display:block!important}
 <div class="toast" id="toast"></div>
 
 
-<!-- 管理者首次設定：確認雲端資料為空後，才可匯入原本瀏覽器資料或內建範例 -->
+<!-- 林正庭首次設定：確認雲端資料為空後，才可匯入原本瀏覽器資料或內建範例 -->
 <div class="container" id="importPanel" style="display:none;padding-top:0">
   <div class="note">
     <strong>管理者資料初始化</strong><br>
@@ -310,7 +310,7 @@ function setAdminUI(){
  document.body.classList.toggle("is-admin",isAdmin);
  document.getElementById("loginToggle").style.display=isAdmin?"none":"inline-flex";
  document.getElementById("logoutBtn").style.display=isAdmin?"inline-flex":"none";
- document.getElementById("authStatus").textContent=isAdmin?"管理者已登入":"家人可直接查看";
+ document.getElementById("authStatus").textContent=isAdmin?"林正庭已登入":"家人可直接查看";
  renderDay();renderFavorites();
 }
 function renderTabs(){
