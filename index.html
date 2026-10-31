@@ -420,6 +420,61 @@ document.getElementById("editForm").addEventListener("submit",async e=>{
  if(result.error){showToast("儲存失敗："+result.error.message);return}
  activeDay=day-1;closeStopModal();await loadCloudData();showToast("行程已儲存");
 });
+  // 選擇圖片後立即預覽
+const pImageInput = document.getElementById("pImage");
+const pImagePreview = document.getElementById("pImagePreview");
+
+pImageInput.addEventListener("change", () => {
+  const file = pImageInput.files[0];
+
+  if (!file) {
+    pImagePreview.style.display = "none";
+    pImagePreview.src = "";
+    return;
+  }
+
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+    showToast("請選擇 JPG、PNG 或 WebP 圖片");
+    pImageInput.value = "";
+    pImagePreview.style.display = "none";
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    showToast("圖片不能超過 5MB");
+    pImageInput.value = "";
+    pImagePreview.style.display = "none";
+    return;
+  }
+
+  pImagePreview.src = URL.createObjectURL(file);
+  pImagePreview.style.display = "block";
+});
+
+// 上傳至 Supabase Storage
+async function uploadPlaceImage(file) {
+  if (!file) return "";
+
+  const extension = file.type === "image/png" ? "png"
+    : file.type === "image/webp" ? "webp" : "jpg";
+
+  const filePath = `${crypto.randomUUID()}.${extension}`;
+
+  const { error } = await supabaseClient.storage
+  .from("travel-photos")
+  .upload(filePath, file, {
+  contentType: file.type,
+  upsert: false
+    });
+
+  if (error) throw error;
+
+const { data } = supabaseClient.storage
+    .from("travel-photos")
+    .getPublicUrl(filePath);
+
+  return data.publicUrl;
+}
 const placeBackdrop=document.getElementById("placeBackdrop");
 function closePlaceModal(){placeBackdrop.classList.remove("open")}
 document.getElementById("addPlace").addEventListener("click",()=>placeBackdrop.classList.add("open"));
