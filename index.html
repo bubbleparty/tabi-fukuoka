@@ -251,7 +251,7 @@ display: block;
   <section id="favorites">
     <div class="section-head">
       <div><span class="eyebrow">SAVED PLACES</span><h2>景點收藏</h2><p>有想去的就按愛心，大家都看得到。</p></div>
-      <button class="btn secondary admin-only" id="addPlace">＋ 新增景點</button>
+    <button class="btn secondary" id="addPlace">＋ 新增景點</button>
     </div>
    <div class="favorite-filter">
   <button class="filter-btn active" data-favorite-filter="saved">
@@ -585,7 +585,9 @@ const { data } = supabaseClient.storage
 }
 const placeBackdrop=document.getElementById("placeBackdrop");
 function closePlaceModal(){placeBackdrop.classList.remove("open")}
-document.getElementById("addPlace").addEventListener("click",()=>{if(requireAdmin())placeBackdrop.classList.add("open")});
+document.getElementById("addPlace").addEventListener("click",()=>{
+  placeBackdrop.classList.add("open");
+});
 document.getElementById("closePlaceModal").addEventListener("click",closePlaceModal);
 document.getElementById("cancelPlaceModal").addEventListener("click",closePlaceModal);
 placeBackdrop.addEventListener("click",e=>{if(e.target===placeBackdrop)closePlaceModal()});
