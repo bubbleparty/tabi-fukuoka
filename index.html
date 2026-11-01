@@ -207,7 +207,7 @@ display: block;
     <button class="btn small" id="loginBtn">登入</button>
     <button class="btn ghost small" id="closeLogin">取消</button>
   </div>
-  <div class="sync-note">家人不用登入就能看行程；行程和景點只有管理者能改。</div>
+  <div class="sync-note">不用登入就能看行程；行程和景點只有管理者能改。</div>
 </div>
 <main id="top" class="container">
   <div class="page-panel active" data-page-panel="home">
@@ -280,7 +280,7 @@ display: block;
   </div>
 <div class="page-panel" data-page-panel="preparation">
  <section id="preparation"><div class="section-head"><div><h2>行前準備</h2><p>想到什麼就加進來，帶好了直接打勾，大家都看得到。</p></div></div>
- <div class="info-card"><strong id="prepSummary">正在讀取…</strong><div class="prep-progress"><span id="prepBar" style="width:0%"></span></div><small>清單會自動同步，家人不用登入也能新增和打勾。</small></div>
+ <div class="info-card"><strong id="prepSummary">正在讀取…</strong><div class="prep-progress"><span id="prepBar" style="width:0%"></span></div><small>清單會自動同步，訪客不用登入也能新增和打勾。</small></div>
  <form class="prep-form" id="prepForm"><input id="prepTitle" maxlength="100" required placeholder="還要帶什麼？例如：護照"><select id="prepCategory"><option>證件</option><option>衣物</option><option>電子用品</option><option>藥品</option><option selected>其他</option></select><button class="btn" type="submit">＋ 加進清單</button></form>
  <div class="prep-filters"><button class="filter-btn active" data-prep-filter="all">全部</button><button class="filter-btn" data-prep-filter="todo">還沒準備</button><button class="filter-btn" data-prep-filter="done">已完成</button></div>
  <div class="prep-list" id="prepList"><div class="empty">正在讀取清單…</div></div></section>
@@ -426,7 +426,7 @@ function setAdminUI(){
  document.body.classList.toggle("is-admin",isAdmin);
  document.getElementById("loginToggle").style.display=isAdmin?"none":"inline-flex";
  document.getElementById("logoutBtn").style.display=isAdmin?"inline-flex":"none";
- document.getElementById("authStatus").textContent=isAdmin?"管理者已登入":"家人可直接查看";
+ document.getElementById("authStatus").textContent=isAdmin?"管理者已登入":"訪客可直接查看";
  renderDay();renderFavorites();
 }
 function renderTabs(){
