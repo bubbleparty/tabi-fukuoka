@@ -436,7 +436,7 @@ function renderTabs(){
 }
 function renderDay(){
  const d=dayInfo[activeDay];
- document.getElementById("dayCover").innerHTML=`<img src="${d.image}" alt="${esc(d.title)}照片" loading="lazy"><div class="day-cover-text"><div class="date">${d.date}</div><h3>${esc(d.title)}</h3><p>${esc(d.desc)}</p></div>`;
+ document.getElementById("dayCover").innerHTML=`<img src="${d.image}" alt="${esc(d.title)}照片" loading="lazy"<onerror="this.onerror=null;this.src='黑人.png'"<div class="day-cover-text"><div class="date">${d.date}</div><h3>${esc(d.title)}</h3><p>${esc(d.desc)}</p></div>`;
  const items=data.days[activeDay]||[];
  const timeline=document.getElementById("timeline");
  timeline.innerHTML=items.length?items.map(it=>`<article class="stop"><div class="stop-time">${esc(it.time_text||"待定")}</div><div><h4>${esc(it.title)}</h4><p>${esc(it.description||"尚未填寫備註")}</p><div class="stop-actions"><a class="text-btn" href="${mapUrl(it.map||it.title)}" target="_blank" rel="noopener">地圖 ↗</a>${isAdmin?`<button class="text-btn" data-edit="${esc(it.id)}">編輯</button><button class="text-btn" data-delete="${esc(it.id)}">刪除</button>`:""}</div></div></article>`).join(""):`<div class="empty">${isAdmin?"這一天還沒有安排行程。按「新增行程」開始規劃吧！":"這一天目前還沒有行程。"}</div>`;
