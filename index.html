@@ -141,15 +141,29 @@ body.is-admin .admin-only{display:inline-flex!important}
 body.is-admin .admin-only.block{display:block!important}
 .sync-note{font-size:12px;color:var(--muted);margin-top:8px}
 @media(max-width:760px){.login-panel{padding:12px 16px}.login-fields{align-items:stretch}.login-fields input{max-width:none;min-width:0;width:100%}.auth-area{width:100%;justify-content:flex-end}}
+/* 分頁切換 */
+.page-panel {
+display: none;
+}
+
+.page-panel.active {
+display: block;
+}
 </style>
 </head>
 <body>
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="#top"><span class="brand-mark">旅</span><span>旅序 Tabi.</span></a>
-    <nav class="nav" aria-label="主要導覽">
-      <a href="#itinerary">每日行程</a><a href="#favorites">景點收藏</a><a href="#transport">交通地圖</a>
-    </nav>
+   <nav class="nav" aria-label="主要導覽">
+  <a href="#" data-page="home">首頁</a>
+  <a href="#" data-page="itinerary">每日行程</a>
+  <a href="#" data-page="favorites">景點收藏</a>
+  <a href="#" data-page="transport">交通地圖</a>
+  <a href="#" data-page="preparation">行前準備</a>
+  <a href="#" data-page="orders">訂單管理</a>
+  <a href="#" data-page="weather">天氣資訊</a>
+</nav>
     <div class="auth-area">
       <span class="auth-status" id="authStatus">連線中…</span>
       <button class="btn ghost small" id="loginToggle">管理者登入</button>
@@ -168,6 +182,7 @@ body.is-admin .admin-only.block{display:block!important}
   <div class="sync-note">不需要登入；管理者登入後才能新增、修改或刪除內容。</div>
 </div>
 <main id="top" class="container">
+  <div class="page-panel active" data-page-panel="home">
   <section class="hero">
     <div class="hero-copy">
       <span class="eyebrow">A little journey journal</span>
@@ -177,7 +192,8 @@ body.is-admin .admin-only.block{display:block!important}
     </div>
     <div class="hero-photo" role="img" aria-label="日本街景照片"></div>
   </section>
-
+  </div>
+<div class="page-panel" data-page-panel="itinerary">
   <section id="itinerary">
     <div class="section-head">
       <div><span class="eyebrow">Your travel plan</span><h2>四日旅行計畫</h2><p>雲端同步行程，可直接查看。</p></div>
@@ -190,7 +206,9 @@ body.is-admin .admin-only.block{display:block!important}
     </div>
     <div class="note">開啟網址即可查看；只有登入後能修改。</div>
   </section>
-
+</div>
+  
+<div class="page-panel" data-page-panel="favorites">
   <section id="favorites">
     <div class="section-head">
       <div><span class="eyebrow">Places to remember</span><h2>景點收藏</h2><p>收藏內容會同步更新，要刪除的話請找林正庭。</p></div>
@@ -198,7 +216,9 @@ body.is-admin .admin-only.block{display:block!important}
     </div>
     <div class="favorites-grid" id="favoritesGrid"></div>
   </section>
-
+</div>
+  
+  <div class="page-panel" data-page-panel="transport">
   <section id="transport">
     <div class="section-head"><div><span class="eyebrow">Move around</span><h2>交通與地圖</h2><p>把常用工具放在同一頁，出門時更方便。</p></div></div>
     <div class="transport-grid">
@@ -219,6 +239,27 @@ body.is-admin .admin-only.block{display:block!important}
       <article class="transport-card"><div class="transport-icon">🚆</div><h3>JR 九州</h3><p>適合查詢前往近郊或跨城市的列車資訊。</p><a class="btn small" href="https://www.jrkyushu.co.jp/english/" target="_blank" rel="noopener">查看列車資訊 ↗</a></article>
     </div>
   </section>
+  </div>
+<div class="page-panel" data-page-panel="preparation">
+  <section id="preparation">
+    <h2>行前準備</h2>
+    <p>出發前千萬不要忘記帶這些！</p>
+  </section>
+</div>
+
+<div class="page-panel" data-page-panel="orders">
+  <section id="orders">
+    <h2>訂單管理</h2>
+    <p>集中管理旅遊訂單與票券。</p>
+  </section>
+</div>
+
+<div class="page-panel" data-page-panel="weather">
+  <section id="weather">
+    <h2>天氣資訊</h2>
+    <p>福岡的天氣｜12/21–12/24</p>
+  </section>
+</div>  
 </main>
 <footer>旅序 Tabi. · 專屬林家福岡行。<br><span id="footerStatus">正在連線雲端資料庫…</span></footer>
 
@@ -582,6 +623,37 @@ async function init(){
 }
 renderTabs();renderDay();renderFavorites();
 init();
+// ===== 網站分頁切換 =====
+const pageLinks = document.querySelectorAll(".nav a[data-page]");
+const pagePanels = document.querySelectorAll("[data-page-panel]");
+
+function showPage(pageName) {
+  pagePanels.forEach(panel => {
+    panel.classList.toggle(
+      "active",
+      panel.dataset.pagePanel === pageName
+    );
+  });
+
+  pageLinks.forEach(link => {
+    link.classList.toggle(
+      "active",
+      link.dataset.page === pageName
+    );
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+pageLinks.forEach(link => {
+  link.addEventListener("click", event => {
+    event.preventDefault();
+    showPage(link.dataset.page);
+  });
+});
+
+// 預設顯示首頁
+showPage("home");  
 </script>
 
 
