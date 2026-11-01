@@ -214,7 +214,16 @@ display: block;
       <div><span class="eyebrow">Places to remember</span><h2>景點收藏</h2><p>收藏內容會同步更新，要刪除的話請找林正庭。</p></div>
       <button class="btn secondary" id="addPlace">＋ 新增景點</button>
     </div>
-    <div class="favorites-grid" id="favoritesGrid"></div>
+   <div class="favorite-filter">
+  <button class="filter-btn active" data-favorite-filter="saved">
+    :hearts: 我的收藏 <span id="savedCount">0</span>
+  </button>
+  <button class="filter-btn" data-favorite-filter="all">
+    全部景點
+  </button>
+</div>
+
+<div class="favorites-grid" id="favoritesGrid"></div>
   </section>
 </div>
   
