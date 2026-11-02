@@ -37,7 +37,8 @@ h2{font-size:28px;margin:0}
 .section{margin-top:35px}
 .subtitle{color:var(--muted);margin:4px 0 18px;font-size:14px}
 .stats,.cards,.flights,.places,.transport{display:grid;gap:15px}
-.stats,.cards,.transport{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cards,.transport{grid-template-columns:repeat(3,minmax(0,1fr))}
 .flights{grid-template-columns:repeat(2,minmax(0,1fr))}
 .places{grid-template-columns:repeat(3,minmax(0,1fr))}
 .panel,.navcard,.flight,.place,.transport-card,.task{background:var(--white);border:1px solid var(--line);border-radius:20px}
@@ -147,7 +148,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
  <div class="hero">
   <div class="hero-copy">
    <small>FUKUOKA · 2026</small>
-   <h1>福岡四天三夜<br>出發！</h1>
+   <h1>福岡！出發！</h1>
    <p>12/21–12/24 林老杯出遊</p>
    <div class="pills">
     <span class="pill">📍 日本・福岡</span>
@@ -161,7 +162,6 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
  <div class="stats">
   <div class="panel"><small>距離出發還有</small><strong id="countdown">計算中</strong><small>12/21 出發</small></div>
   <div class="panel"><small>旅行日期</small><strong>12/21–12/24</strong><small>四天三夜</small></div>
-  <div class="panel"><small>旅行地點</small><strong>福岡</strong><small>日本九州</small></div>
  </div>
 
  <div class="section">
