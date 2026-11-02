@@ -1049,7 +1049,7 @@
        <div class="stop-actions">
         <a class="text-btn" href="${mapUrl(it.map||it.title)}"
            target="_blank" rel="noopener">地圖 ↗</a>
-        ${isAdmin?`
+        ${isAdmin?``<button class="text-btn" data-edit-place=
          <button class="text-btn" data-edit-place="${esc(p.id)}">編輯</button>
         <button class="text-btn" data-delete-place="${esc(p.id)}">刪除</button>
         `:""}
