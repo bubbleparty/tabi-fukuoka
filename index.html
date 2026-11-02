@@ -150,11 +150,13 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
    <small>FUKUOKA · 2026</small>
    <h1>福岡！出發！</h1>
    <p>12/21–12/24 林老杯出遊</p>
+
    <div class="pills">
     <span class="pill">📍 日本・福岡</span>
     <span class="pill">4 天 3 夜</span>
     <span class="pill">租車自駕</span>
    </div>
+  
   </div>
   <div class="hero-photo"></div>
  </div>
@@ -309,8 +311,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
     </select>
    </div>
    <div class="field">
-    <label for="pMap">Google 地圖地址／搜尋關鍵字／分享連結</label>
-    <input id="pMap" placeholder="可貼完整地址或 Google Maps 網址">
+    <label for="pMap">Google Google Maps關鍵字／連結</label>
+    <input id="pMap" placeholder="可貼不輸入，會自動以景點名稱搜尋">
    </div>
    <div class="field">
     <label for="pImage">景點照片（預設 黑人.png）</label>
@@ -321,7 +323,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
     <label for="pPassword" id="placePasswordLabel">設定景點管理密碼（6～128 碼）</label>
     <input id="pPassword" type="password" minlength="6" maxlength="128" autocomplete="new-password" placeholder="請記住密碼">
    </div>
-   <div class="note" id="passwordNotice">每個景點使用自己的密碼。日後編輯或刪除時需要輸入。</div>
+   <div class="note" id="passwordNotice">每個景點使用自己的密碼，編輯或刪除時需要輸入。</div>
    <div class="modal-actions">
     <button class="btn light" type="button" id="cancelPlaceModal">取消</button>
     <button class="btn" type="submit" id="placeSubmitBtn">新增景點</button>
@@ -433,7 +435,7 @@ function countdown(){
  const end=new Date("2026-12-25T00:00:00+09:00");
  $("countdown").textContent=now<start
   ?Math.ceil((start-now)/86400000)+" 天"
-  :now<end?"旅行中！":"旅行結束啦";
+  :now<end?"林老杯旅行中！":"已經回家啦";
 }
 countdown();
 
