@@ -878,6 +878,7 @@ let currentUser = null;
 let isAdmin = false;
 let toastTimer;
 let favoriteFilter = "saved";
+let editingPlaceId = null;
 let prepTasks = [];
 let prepFilter = "all";
 
@@ -1438,9 +1439,47 @@ function closePlaceModal(){
   placeBackdrop.classList.remove("open");
 }
 
-document.getElementById("addPlace").addEventListener("click",()=>{
+function openPlaceModal(id = null) {
+  if (id !== null && !requireAdmin()) return;
+
+  editingPlaceId = id;
+  const form = document.getElementById("placeForm");
+  form.reset();
+  clearImagePreview();
+
+  const place = id === null
+    ? null
+    : data.favorites.find(p => String(p.id) === String(id));
+
+  if (id !== null && !place) {
+    showToast("找不到景點資料");
+    return;
+  }
+
+  document.getElementById("placeModalTitle").textContent =
+    place ? "編輯景點" : "新增景點";
+
+  form.querySelector('button[type="submit"]').textContent =
+    place ? "儲存修改" : "新增收藏";
+
+  if (place) {
+    document.getElementById("pTitle").value = place.title || "";
+    document.getElementById("pDesc").value = place.description || "";
+    document.getElementById("pTag").value = place.tag || "景點";
+    document.getElementById("pMap").value = place.map || "";
+
+    pImagePreview.src = place.image || DEFAULT_PLACE_IMAGE;
+    pImagePreview.style.display = "block";
+  }
+
   placeBackdrop.classList.add("open");
+}
+
+document.getElementById("addPlace").addEventListener("click", () => {
+  openPlaceModal();
 });
+
+
 
 document.getElementById("closePlaceModal").addEventListener("click",closePlaceModal);
 document.getElementById("cancelPlaceModal").addEventListener("click",closePlaceModal);
