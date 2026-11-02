@@ -754,7 +754,7 @@ body.is-admin .admin-only.block{display:block!important}
           <input id="pImage" type="file" accept="image/jpeg,image/png,image/webp">
           <small style="color:#77786c">
             可選手機相簿或電腦圖片，限 JPG、PNG、WebP，最多 5MB。
-            未選照片時預設顯示 黑人.jpg。
+            未選照片時預設顯示 黑人.png。
           </small>
           <img
             id="pImagePreview"
@@ -808,7 +808,7 @@ const ADMIN_USER_ID = "12c4d579-650f-4f2d-b5cd-3d796905217f";
 const STORAGE_KEY = "tabi-fukuoka-prototype-v1";
 
 /* 預設照片：請放在 GitHub 與 index.html 同一層 */
-const DEFAULT_PLACE_IMAGE = "黑人.jpg";
+const DEFAULT_PLACE_IMAGE = "黑人.png";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
@@ -955,7 +955,7 @@ function renderDay(){
       src="${esc(d.image)}"
       alt="${esc(d.title)}照片"
       loading="lazy"
-      onerror="this.onerror=null;this.src='黑人.jpg'"
+      onerror="this.onerror=null;this.src='黑人.png'"
     >
     <div class="day-cover-text">
       <div class="date">${esc(d.date)}</div>
@@ -1049,7 +1049,7 @@ function renderFavorites(){
               src="${esc(imageUrl)}"
               alt="${esc(p.title)}照片"
               loading="lazy"
-              onerror="this.onerror=null;this.src='黑人.jpg'"
+              onerror="this.onerror=null;this.src='黑人.png'"
             >
             <button
               class="heart"
