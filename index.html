@@ -1,1973 +1,871 @@
-    
-  <!DOCTYPE html>
-  <html lang="zh-Hant">
-  <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f7f5e8">
-  <title>旅序 Tabi｜福岡</title>
-  <style>
-  :root{
-   --paper:#f7f5e8;--card:#fffdf7;--ink:#35372f;
-   --muted:#77786c;--sage:#77866c;--dark:#596a50;
-   --line:#e5e2d4;--shadow:0 12px 35px #3a3d2f14;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-   margin:0;background:var(--paper);color:var(--ink);
-   font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",
-   "PingFang TC","Microsoft JhengHei",sans-serif;
-   line-height:1.65;
-  }
-  button,input,select,textarea{font:inherit}
-  button{cursor:pointer}
-  a{color:inherit}
-  .topbar{
-   position:sticky;top:0;z-index:20;
-   background:#fffdf7ed;backdrop-filter:blur(16px);
-   border-bottom:1px solid var(--line);
-  }
-  .topbar-inner{
-   max-width:1120px;margin:auto;padding:13px 24px;
-   display:flex;align-items:center;justify-content:space-between;gap:12px;
-  }
-  .brand{
-   display:flex;align-items:center;gap:10px;
-   font-size:21px;font-weight:800;text-decoration:none;
-   white-space:nowrap;
-  }
-  .brand-mark{
-   width:35px;height:35px;border-radius:50%;
-   display:grid;place-items:center;background:var(--sage);
-   color:white;font-size:17px;
-  }
-  .auth-area{display:flex;align-items:center;gap:8px}
-  .auth-status{font-size:12px;color:var(--muted)}
-  .btn{
-   display:inline-flex;align-items:center;justify-content:center;
-   border:0;border-radius:999px;padding:10px 16px;
-   background:var(--sage);color:white;font-weight:700;
-   text-decoration:none;transition:.2s;
-  }
-  .btn:hover{background:var(--dark)}
-  .btn.small{padding:7px 12px;font-size:13px}
-  .btn.secondary{background:#eeeee4;color:var(--ink)}
-  .btn.ghost{
-   background:transparent;color:var(--dark);
-   border:1px solid var(--line);
-  }
-  .container{max-width:1120px;margin:auto;padding:28px 24px 80px}
-  .page-panel{display:none}
-  .page-panel.active{display:block}
-  .page-heading{
-   display:flex;align-items:center;gap:12px;
-   margin-right:auto;color:var(--muted);font-size:13px;
-  }
-  .page-heading[hidden]{display:none!important}
-  .back-home{
-   border:1px solid var(--line);border-radius:999px;
-   background:var(--card);color:var(--dark);
-   padding:7px 12px;font-weight:700;
-  }
-  .hero{
-   display:grid;grid-template-columns:1.05fr .95fr;
-   min-height:360px;margin:18px 0 34px;
-   border-radius:30px;overflow:hidden;
-   background:#e6e9dc;box-shadow:var(--shadow);
-  }
-  .hero-copy{
-   padding:clamp(26px,5vw,60px);
-   display:flex;flex-direction:column;
-   justify-content:center;align-items:flex-start;
-  }
-  .eyebrow{
-   font-size:12px;font-weight:800;letter-spacing:.18em;
-   color:var(--dark);
-  }
-  h1{
-   font-size:clamp(30px,4.4vw,52px);
-   line-height:1.25;margin:14px 0;
-  }
-  .hero-copy p{color:#696d60;margin:0 0 22px}
-  .hero-photo{
-   min-height:300px;position:relative;
-   background:#ddd url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYveyuvGJsXNwjaaakmiisdxtO3RZB0T2pJTQQJOb7vFchxNYy4kea2zHcKpSDCYunH_h59TPT8OqyawAAXfHRQNT8zBCHOLaT0M8wBZsyL2i1Al9Mb9Ev9t7G3e1ZCLvLZrnCpGT7_qEs/s1600/IMG_4021.JPG") center/cover no-repeat;
-  }
-  .hero-photo:after{
-   content:"FUKUOKA · JAPAN";
-   position:absolute;right:18px;bottom:18px;
-   background:#fffdf7e8;padding:8px 13px;
-   border-radius:999px;font-size:11px;font-weight:800;
-  }
-  .trip-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
-  .pill{
-   border:1px solid #596a5038;border-radius:999px;
-   padding:6px 11px;font-size:12px;color:var(--dark);
-   background:#ffffff73;
-  }
-  .section-head{
-   display:flex;align-items:end;justify-content:space-between;
-   gap:16px;margin:44px 0 18px;
-  }
-  .section-head h2{
-   font-size:clamp(23px,3vw,31px);margin:0;
-  }
-  .section-head p{
-   margin:4px 0 0;color:var(--muted);font-size:14px;
-  }
-  .dashboard-grid,.home-card-grid,.transport-grid{
-   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-   gap:14px;
-  }
-  .dashboard-grid{margin-bottom:26px}
-  .info-card,.flight-card,.weather-card,.transport-card,.prep-item{
-   background:var(--card);border:1px solid var(--line);
-   border-radius:18px;padding:18px;
-  }
-  .info-card small,.flight-card small{color:var(--muted)}
-  .info-card strong{display:block;font-size:24px;margin:5px 0}
-  .flight-list,.weather-grid{
-   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-   gap:14px;margin:15px 0;
-  }
-  .flight-card h3{margin:0 0 12px}
-  .flight-route{
-   display:flex;justify-content:space-between;
-   align-items:center;gap:10px;margin:12px 0;
-  }
-  .flight-route strong{font-size:23px}
-  .flight-card p,.weather-card p,.transport-card p{
-   color:var(--muted);font-size:13px;
-  }
-  .home-menu{margin:26px 0 38px}
-  .home-menu .section-head{margin:18px 0 16px}
-  .home-link-card{
-   border:1px solid var(--line);background:var(--card);
-   border-radius:20px;padding:20px;text-align:left;
-   min-height:140px;display:flex;align-items:flex-start;
-   gap:12px;position:relative;color:var(--ink);
-   box-shadow:0 5px 20px #3a3d2f09;transition:.2s;
-  }
-  .home-link-card:hover{
-   transform:translateY(-3px);
-   border-color:var(--sage);box-shadow:var(--shadow);
-  }
-  .home-card-icon{
-   display:grid;place-items:center;flex:0 0 43px;
-   width:43px;height:43px;border-radius:13px;
-   background:#edf0e6;color:var(--dark);font-size:26px;
-  }
-  .home-card-text{display:flex;flex-direction:column;gap:5px}
-  .home-card-text strong{font-size:17px}
-  .home-card-text small{
-   font-size:12px;color:var(--muted);line-height:1.5;
-  }
-  .home-card-arrow{
-   position:absolute;right:17px;bottom:14px;
-   color:var(--sage);font-size:17px;
-  }
-  .day-tabs{
-   display:flex;gap:9px;overflow-x:auto;
-   padding:3px 1px 12px;margin-bottom:18px;
-  }
-  .day-tab,.filter-btn{
-   flex:0 0 auto;border:1px solid var(--line);
-   background:var(--card);border-radius:999px;
-   padding:9px 16px;color:var(--muted);
-  }
-  .day-tab.active,.filter-btn.active{
-   background:var(--sage);border-color:var(--sage);color:white;
-  }
-  .day-layout{
-   display:grid;grid-template-columns:.85fr 1.15fr;
-   gap:22px;align-items:start;
-  }
-  .day-cover{
-   position:relative;min-height:310px;
-   overflow:hidden;border-radius:22px;
-   background:#ddd;box-shadow:var(--shadow);
-  }
-  .day-cover img{
-   position:absolute;inset:0;width:100%;height:100%;
-   object-fit:cover;
-  }
-  .day-cover:after{
-   content:"";position:absolute;inset:40% 0 0;
-   background:linear-gradient(transparent,#191d17ad);
-  }
-  .day-cover-text{
-   position:absolute;z-index:1;left:22px;right:22px;
-   bottom:20px;color:white;
-  }
-  .day-cover-text .date{font-size:12px;letter-spacing:.12em}
-  .day-cover-text h3{font-size:27px;margin:6px 0;line-height:1.25}
-  .day-cover-text p{font-size:13px;margin:0}
-  .timeline,.prep-list{display:grid;gap:12px}
-  .stop{
-   display:grid;grid-template-columns:72px 1fr;gap:14px;
-   padding:17px;background:var(--card);
-   border:1px solid var(--line);border-radius:18px;
-  }
-  .stop-time{font-size:12px;font-weight:800;color:var(--dark)}
-  .stop h4{margin:0 0 4px;font-size:16px}
-  .stop p{margin:0;color:var(--muted);font-size:13px}
-  .stop-actions{
-   display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;
-  }
-  .text-btn{
-   border:0;background:transparent;padding:0;
-   color:var(--dark);font-size:12px;font-weight:700;
-   text-decoration:none;
-  }
-  .text-btn:hover{text-decoration:underline}
-  .note{
-   background:#eeeee4;border-radius:18px;
-   padding:18px 20px;color:#626657;
-   font-size:13px;margin-top:20px;
-  }
-  .empty{
-   padding:24px;text-align:center;color:var(--muted);
-   background:var(--card);border:1px dashed var(--line);
-   border-radius:18px;
-  }
-  .favorite-filter,.prep-filters{
-   display:flex;gap:9px;flex-wrap:wrap;margin:16px 0;
-  }
-  .favorites-grid{
-   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-   gap:16px;
-  }
-  .place-card{
-   background:var(--card);border:1px solid var(--line);
-   border-radius:20px;overflow:hidden;
-   box-shadow:0 6px 20px #3a3d2f0a;
-  }
-  .place-image{height:180px;position:relative;background:#ddd}
-  .place-image img{
-   display:block;width:100%;height:100%;object-fit:cover;
-  }
-  .heart{
-   position:absolute;top:12px;right:12px;
-   border:0;border-radius:50%;width:38px;height:38px;
-   background:#fffdf7ef;color:#a85d58;font-size:19px;
-  }
-  .place-content{padding:16px}
-  .place-content h3{margin:0 0 5px;font-size:17px}
-  .place-content p{
-   font-size:13px;color:var(--muted);margin:0 0 12px;
-  }
-  .place-footer{
-   display:flex;justify-content:space-between;
-   align-items:center;gap:10px;flex-wrap:wrap;
-  }
-  .tag{
-   font-size:11px;background:#edf0e6;color:var(--dark);
-   padding:4px 8px;border-radius:999px;
-  }
-  .transport-icon{font-size:25px}
-  .transport-card h3{margin:8px 0 5px;font-size:16px}
-  .prep-form{
-   display:grid;grid-template-columns:minmax(0,1fr) 140px auto;
-   gap:9px;margin:18px 0;
-  }
-  .prep-form input,.prep-form select{
-   min-width:0;border:1px solid var(--line);
-   border-radius:12px;padding:10px;background:white;
-  }
-  .prep-item{display:flex;align-items:center;gap:12px;padding:12px 15px}
-  .prep-item input{width:19px;height:19px;accent-color:var(--sage)}
-  .prep-name{flex:1;min-width:0}
-  .prep-item.done .prep-name{
-   text-decoration:line-through;color:var(--muted);
-  }
-  .prep-progress{
-   height:8px;background:#e8e9de;
-   border-radius:99px;overflow:hidden;margin:9px 0;
-  }
-  .prep-progress span{
-   display:block;height:100%;background:var(--sage);
-   transition:width .2s;
-  }
-  .modal-backdrop{
-   position:fixed;inset:0;background:#23271f73;
-   z-index:50;display:none;align-items:center;
-   justify-content:center;padding:18px;
-  }
-  .modal-backdrop.open{display:flex}
-  .modal{
-   width:min(560px,100%);max-height:90vh;overflow:auto;
-   background:var(--card);border-radius:24px;padding:24px;
-   box-shadow:0 25px 80px #0003;
-  }
-  .modal-head{
-   display:flex;justify-content:space-between;
-   align-items:center;gap:12px;margin-bottom:18px;
-  }
-  .modal-head h2{font-size:22px;margin:0}
-  .close{
-   border:0;background:#efeee6;width:36px;height:36px;
-   border-radius:50%;font-size:20px;
-  }
-  .form-grid{
-   display:grid;grid-template-columns:1fr 1fr;gap:13px;
-  }
-  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
-  .field.full{grid-column:1/-1}
-  .field label{font-size:12px;font-weight:800;color:var(--muted)}
-  .field input,.field textarea,.field select{
-   width:100%;border:1px solid var(--line);
-   border-radius:12px;background:white;
-   padding:11px 12px;color:var(--ink);outline:none;
-  }
-  .field textarea{min-height:86px;resize:vertical}
-  .modal-actions{
-   display:flex;justify-content:flex-end;gap:9px;margin-top:16px;
-  }
-  .toast{
-   position:fixed;bottom:22px;left:50%;
-   transform:translateX(-50%);background:#35372f;
-   color:white;border-radius:999px;padding:10px 16px;
-   font-size:13px;z-index:80;display:none;
-   max-width:90%;text-align:center;
-  }
-  .toast.show{display:block}
-  .login-panel{
-   display:none;max-width:1120px;margin:auto;
-   padding:12px 24px 16px;background:var(--card);
-   border-bottom:1px solid var(--line);
-  }
-  .login-panel.open{display:block}
-  .login-fields{
-   display:flex;gap:8px;flex-wrap:wrap;align-items:center;
-  }
-  .login-fields input{
-   min-width:180px;max-width:240px;
-   border:1px solid var(--line);border-radius:10px;
-   padding:9px 11px;background:white;
-  }
-  .sync-note{font-size:12px;color:var(--muted);margin-top:8px}
-  .admin-only{display:none!important}
-  body.is-admin .admin-only{display:inline-flex!important}
-  footer{
-   text-align:center;color:var(--muted);
-   font-size:12px;padding:28px 16px 42px;
-  }
-  @media(max-width:760px){
-   .topbar-inner{padding:12px 16px;gap:8px}
-   .brand{font-size:17px}
-   .brand-mark{width:30px;height:30px}
-   .auth-status{display:none}
-   .topbar .btn{padding:7px 9px;font-size:11px}
-   .topbar .btn.admin-only{display:none!important}
-   .page-heading{font-size:12px;gap:8px}
-   .back-home{padding:6px 9px;font-size:12px}
-   .container{padding:14px 16px 56px}
-   .hero{
-    grid-template-columns:1fr;margin:10px 0 26px;
-    border-radius:23px;
-   }
-   .hero-copy{padding:27px 23px 24px}
-   .hero-photo{min-height:210px;grid-row:1}
-   h1{font-size:clamp(27px,7.4vw,36px)}
-   .hero-copy p{font-size:14px;margin-bottom:15px}
-   .section-head{margin:34px 0 14px;align-items:start}
-   .section-head .btn{font-size:12px;padding:8px 12px}
-   .dashboard-grid,.flight-list,.weather-grid,
-   .transport-grid,.prep-form{grid-template-columns:1fr}
-   .home-card-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;
-   }
-   .home-link-card{
-    padding:15px;min-height:145px;
-    flex-direction:column;gap:9px;
-   }
-   .home-card-icon{
-    width:39px;height:39px;flex-basis:39px;font-size:23px;
-   }
-   .home-card-text strong{font-size:15px}
-   .home-card-text small{font-size:12px}
-   .day-layout{grid-template-columns:1fr;gap:14px}
-   .day-cover{min-height:225px}
-   .stop{grid-template-columns:54px 1fr;padding:14px;gap:10px}
-   .favorites-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;
-   }
-   .place-image{height:135px}
-   .place-content{padding:12px}
-   .place-content h3{font-size:15px}
-   .form-grid{grid-template-columns:1fr}
-   .field.full{grid-column:auto}
-   .login-panel{padding:12px 16px}
-   .login-fields input{min-width:0;max-width:none;width:100%}
-  }
-  @media(max-width:390px){
-   .favorites-grid{grid-template-columns:1fr}
-   .hero-photo{min-height:185px}
-   .brand{font-size:15px}
-   #currentPageTitle{display:none}
-  }
-  </style>
-  </head>
-  <body>
   
-  <header class="topbar">
-   <div class="topbar-inner">
-    <a class="brand" href="#top">
-     <span class="brand-mark">旅</span>
-     <span>旅序 Tabi.</span>
-    </a>
-    <div class="page-heading" id="pageHeading" hidden>
-     <button class="back-home" data-go="home">← 回首頁</button>
-     <span id="currentPageTitle"></span>
-    </div>
-    <div class="auth-area">
-     <span class="auth-status" id="authStatus">連線中…</span>
-     <button class="btn ghost small" id="loginToggle">管理者登入</button>
-     <button class="btn ghost small" id="logoutBtn" style="display:none">登出</button>
-     <button class="btn small admin-only" id="addStopTop">＋ 新增行程</button>
-    </div>
-   </div>
-  </header>
-  
-  <div class="login-panel" id="loginPanel">
-   <div class="login-fields">
-    <input id="loginEmail" type="email" autocomplete="username" placeholder="管理者 Email">
-    <input id="loginPassword" type="password" autocomplete="current-password" placeholder="管理者密碼">
-    <button class="btn small" id="loginBtn">登入</button>
-    <button class="btn ghost small" id="closeLogin">取消</button>
-   </div>
-   <div class="sync-note">不用登入就能看行程；行程和景點只有管理者能修改。</div>
-  </div>
-  
-  <main id="top" class="container">
-  
-  <!-- 首頁 -->
-  <div class="page-panel active" data-page-panel="home">
-   <section class="hero">
-    <div class="hero-copy">
-     <span class="eyebrow">FUKUOKA · 2026</span>
-     <h1>福岡四天三夜<br>出發！</h1>
-     <p>12/21-12/24 林老杯出遊</p>
-     <div class="trip-meta">
-      <span class="pill">📍 日本・福岡</span>
-      <span class="pill">4 天 3 夜</span>
-      <span class="pill">租車自駕</span>
-     </div>
-    </div>
-    <div class="hero-photo" role="img" aria-label="日本街景照片"></div>
-   </section>
-  
-   <div class="dashboard-grid">
-    <div class="info-card">
-     <small>距離出發還有</small>
-     <strong id="countdown">計算中…</strong>
-     <small>12/21 出發</small>
-    </div>
-    <div class="info-card">
-     <small>旅行日期</small>
-     <strong>12/21–12/24</strong>
-     <small>四天三夜</small>
-    </div>
-    <div class="info-card" data-go="weather" style="cursor:pointer">
-     <small>福岡天氣</small>
-     <strong>查看天氣預報</strong>
-     <small>看天氣決定穿啥</small>
-    </div>
-   </div>
-  
-   <div class="section-head">
-    <div>
-     <h2>飛機時間先記一下</h2>
-     <p>其他訂票資訊放在「機票＆訂單」。</p>
-    </div>
-   </div>
-  
-   <div class="flight-list">
-    <article class="flight-card">
-     <h3>去程・12/21</h3>
-     <div class="flight-route">
-      <div><strong>06:50</strong><br><small>桃園 T2</small></div>
-      <span>CI110 →</span>
-      <div><strong>10:00</strong><br><small>福岡 T1</small></div>
-     </div>
-     <p>中華航空</p>
-    </article>
-    <article class="flight-card">
-     <h3>回程・12/24</h3>
-     <div class="flight-route">
-      <div><strong>20:35</strong><br><small>福岡 T1</small></div>
-      <span>CI117 →</span>
-      <div><strong>22:20</strong><br><small>桃園 T2</small></div>
-     </div>
-     <p>中華航空</p>
-    </article>
-   </div>
-  
-   <section class="home-menu">
-    <div class="section-head">
-     <div>
-      <h2>想看什麼？</h2>
-      <p>要找的資訊都放這裡了，點進去就好。</p>
-     </div>
-    </div>
-  
-    <div class="home-card-grid">
-     <button class="home-link-card" data-go="itinerary">
-      <span class="home-card-icon">▦</span>
-      <span class="home-card-text">
-       <strong>每日行程</strong>
-       <small>四天要去哪裡</small>
-      </span>
-      <span class="home-card-arrow">↗</span>
-     </button>
-     <button class="home-link-card" data-go="favorites">
-      <span class="home-card-icon">♡</span>
-      <span class="home-card-text">
-       <strong>景點收藏</strong>
-       <small>想去的先存起來</small>
-      </span>
-      <span class="home-card-arrow">↗</span>
-     </button>
-     <button class="home-link-card" data-go="preparation">
-      <span class="home-card-icon">☑</span>
-      <span class="home-card-text">
-       <strong>行前準備</strong>
-       <small>出發前確認一下</small>
-      </span>
-      <span class="home-card-arrow">↗</span>
-     </button>
-     <button class="home-link-card" data-go="orders">
-      <span class="home-card-icon">▤</span>
-      <span class="home-card-text">
-       <strong>機票＆訂單</strong>
-       <small>機票跟訂單都在這</small>
-      </span>
-      <span class="home-card-arrow">↗</span>
-     </button>
-     <button class="home-link-card" data-go="weather">
-      <span class="home-card-icon">☀</span>
-      <span class="home-card-text">
-       <strong>福岡天氣</strong>
-       <small>出發前看看天氣</small>
-      </span>
-      <span class="home-card-arrow">↗</span>
-     </button>
-     <button class="home-link-card" data-go="transport">
-      <span class="home-card-icon">⌖</span>
-      <span class="home-card-text">
-       <strong>交通地圖</strong>
-       <small>路線跟導航看這裡</small>
-      </span>
-      <span class="home-card-arrow">↗</span>
-     </button>
-    </div>
-   </section>
-  </div>
-  
-  <!-- 每日行程 -->
-  <div class="page-panel" data-page-panel="itinerary">
-   <section>
-    <div class="section-head">
-     <div>
-      <span class="eyebrow">DAY BY DAY</span>
-      <h2>每日行程</h2>
-      <p>想看哪一天，直接點日期。</p>
-     </div>
-     <button class="btn admin-only" id="addStop">＋ 新增行程</button>
-    </div>
-    <div class="day-tabs" id="dayTabs"></div>
-    <div class="day-layout">
-     <div class="day-cover" id="dayCover"></div>
-     <div class="timeline" id="timeline"></div>
-    </div>
-    <div class="note">如果行程有改，這裡會一起更新。</div>
-   </section>
-  </div>
-  
-  <!-- 景點收藏 -->
-  <div class="page-panel" data-page-panel="favorites">
-   <section>
-    <div class="section-head">
-     <div>
-      <span class="eyebrow">SAVED PLACES</span>
-      <h2>景點收藏</h2>
-      <p>有想去的就按愛心，大家都看得到。</p>
-     </div>
-     <button class="btn secondary" id="addPlace">＋ 新增景點</button>
-    </div>
-    <div class="favorite-filter">
-     <button class="filter-btn active" data-favorite-filter="saved">
-      ♥ 已收藏 <span id="savedCount">0</span>
-     </button>
-     <button class="filter-btn" data-favorite-filter="all">
-      全部景點
-     </button>
-    </div>
-    <div class="favorites-grid" id="favoritesGrid"></div>
-   </section>
-  </div>
-  
-  <!-- 行前準備 -->
-  <div class="page-panel" data-page-panel="preparation">
-   <section>
-    <div class="section-head">
-     <div>
-      <h2>行前準備</h2>
-      <p>想到什麼就加進來，帶好了直接打勾，大家都看得到。</p>
-     </div>
-    </div>
-    <div class="info-card">
-     <strong id="prepSummary">正在讀取…</strong>
-     <div class="prep-progress">
-      <span id="prepBar" style="width:0%"></span>
-     </div>
-     <small>清單會自動同步，訪客不用登入也能新增和打勾。</small>
-    </div>
-    <form class="prep-form" id="prepForm">
-     <input id="prepTitle" maxlength="100" required placeholder="還要帶什麼？例如：護照">
-     <select id="prepCategory">
-      <option>證件</option>
-      <option>衣物</option>
-      <option>電子用品</option>
-      <option>藥品</option>
-      <option selected>其他</option>
-     </select>
-     <button class="btn" type="submit">＋ 加進清單</button>
-    </form>
-    <div class="prep-filters">
-     <button class="filter-btn active" data-prep-filter="all">全部</button>
-     <button class="filter-btn" data-prep-filter="todo">還沒準備</button>
-     <button class="filter-btn" data-prep-filter="done">已完成</button>
-    </div>
-    <div class="prep-list" id="prepList">
-     <div class="empty">正在讀取清單…</div>
-    </div>
-   </section>
-  </div>
-  
-  <!-- 機票訂單 -->
-  <div class="page-panel" data-page-panel="orders">
-   <section>
-    <div class="section-head">
-     <div>
-      <h2>訂單管理</h2>
-      <p>機票、套票都放這裡，臨時要找比較快。</p>
-     </div>
-    </div>
-    <div class="flight-list">
-     <article class="flight-card">
-      <h3>✈️ 去程｜12/21（一）</h3>
-      <div class="flight-route">
-       <div><strong>06:50</strong><br><small>桃園機場・第二航廈</small></div>
-       <span>CI110 →</span>
-       <div><strong>10:00</strong><br><small>福岡機場・第一航廈</small></div>
-      </div>
-      <p>中華航空｜A330-300｜飛行約 2 小時 10 分</p>
-     </article>
-     <article class="flight-card">
-      <h3>✈️ 回程｜12/24（四）</h3>
-      <div class="flight-route">
-       <div><strong>20:35</strong><br><small>福岡機場・第一航廈</small></div>
-       <span>CI117 →</span>
-       <div><strong>22:20</strong><br><small>桃園機場・第二航廈</small></div>
-      </div>
-      <p>中華航空｜A321neo｜飛行約 2 小時 45 分</p>
-     </article>
-    </div>
-    <div class="transport-grid">
-     <article class="transport-card">
-      <div class="transport-icon">🎟️</div>
-      <h3>阿蘇火山＋高千穗遊船套票</h3>
-      <p>已收藏的 Klook 套票連結，出發前可快速查看票券資訊。</p>
-      <a class="btn small" href="https://s.klook.com/c/xXW4pGdNX6"
-         target="_blank" rel="noopener noreferrer">
-       開啟 Klook 套票 ↗
-      </a>
-     </article>
-    </div>
-    <div class="note">機票時間以航空公司最新通知為準，出發前記得再確認一次。</div>
-   </section>
-  </div>
-  
-  <!-- 天氣 -->
-  <div class="page-panel" data-page-panel="weather">
-   <section>
-    <div class="section-head">
-     <div>
-      <h2>福岡天氣</h2>
-      <p>12/21～12/24 的天氣，出發前再來看一下。</p>
-     </div>
-     <button class="btn secondary small" id="refreshWeather">更新天氣</button>
-    </div>
-    <div id="weatherContent" class="note">正在查天氣…</div>
-    <div class="note">天氣會變，出門前還是要再確認一下喔。</div>
-   </section>
-  </div>
-  
-  <!-- 交通 -->
-  <div class="page-panel" data-page-panel="transport">
-   <section>
-    <div class="section-head">
-     <div>
-      <span class="eyebrow">MOVE AROUND</span>
-      <h2>交通與地圖</h2>
-      <p>地圖跟交通資訊都放這裡。</p>
-     </div>
-    </div>
-    <div class="transport-grid">
-     <article class="transport-card">
-      <div class="transport-icon">🗺️</div>
-      <h3>Google 地圖</h3>
-      <p>搜尋福岡景點、規劃路線。</p>
-      <a class="btn small" href="https://www.google.com/maps/search/Fukuoka/"
-         target="_blank" rel="noopener">開啟地圖 ↗</a>
-     </article>
-     <article class="transport-card">
-      <div class="transport-icon">🚇</div>
-      <h3>福岡市地下鐵</h3>
-      <p>確認路線、轉乘與營運資訊。</p>
-      <a class="btn small" href="https://subway.city.fukuoka.lg.jp/eng/"
-         target="_blank" rel="noopener">查看官方資訊 ↗</a>
-     </article>
-     <article class="transport-card">
-      <div class="transport-icon">🚆</div>
-      <h3>JR 九州</h3>
-      <p>查詢前往近郊或跨城市的列車資訊。</p>
-      <a class="btn small" href="https://www.jrkyushu.co.jp/english/"
-         target="_blank" rel="noopener">查看列車資訊 ↗</a>
-     </article>
-    </div>
-   </section>
-  </div>
-  
-  </main>
-  
-  <footer>
-   旅序 Tabi. · 專屬林家福岡行。<br>
-   <span id="footerStatus">正在連線雲端資料庫…</span>
-  </footer>
-  
-  <!-- 行程編輯視窗 -->
-  <div class="modal-backdrop" id="modalBackdrop">
-   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-head">
-     <h2 id="modalTitle">編輯行程</h2>
-     <button class="close" id="closeModal">×</button>
-    </div>
-    <form id="editForm">
-     <div class="form-grid">
-      <div class="field">
-       <label for="fDay">第幾天</label>
-       <select id="fDay">
-        <option value="0">Day 1</option>
-        <option value="1">Day 2</option>
-        <option value="2">Day 3</option>
-        <option value="3">Day 4</option>
-       </select>
-      </div>
-      <div class="field">
-       <label for="fTime">時間</label>
-       <input id="fTime" placeholder="例如 09:30">
-      </div>
-      <div class="field full">
-       <label for="fTitle">行程名稱</label>
-       <input id="fTitle" required>
-      </div>
-      <div class="field full">
-       <label for="fDesc">行程備註</label>
-       <textarea id="fDesc"></textarea>
-      </div>
-      <div class="field full">
-       <label for="fMap">地圖搜尋關鍵字</label>
-       <input id="fMap">
-      </div>
-     </div>
-     <div class="modal-actions">
-      <button type="button" class="btn ghost" id="cancelModal">取消</button>
-      <button type="submit" class="btn">儲存行程</button>
-     </div>
-    </form>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f5e8">
+<title>旅序 Tabi.｜福岡</title>
+<style>
+:root{--bg:#f7f5e8;--white:#fffdf7;--ink:#35372f;--muted:#77786c;--green:#77866c;--line:#e5e2d4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.65}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+header{position:sticky;top:0;z-index:20;background:#fffdf7f2;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top{max-width:1100px;margin:auto;padding:13px 20px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:21px;white-space:nowrap;cursor:pointer}
+.logo{width:36px;height:36px;border-radius:50%;background:var(--green);color:white;display:grid;place-items:center}
+.page-title{flex:1;color:var(--muted);font-size:13px}
+button{border:0}
+.btn{background:var(--green);color:white;border-radius:99px;padding:10px 16px;font-weight:700}
+.btn.light{background:var(--white);border:1px solid var(--line);color:var(--green)}
+.btn.small{font-size:12px;padding:7px 11px}
+main{max-width:1100px;margin:auto;padding:24px 20px 65px}
+.page{display:none}
+.page.active{display:block}
+.hero{display:grid;grid-template-columns:1fr 1fr;overflow:hidden;background:#e6e9dc;border-radius:26px;min-height:310px}
+.hero-copy{padding:40px;display:flex;flex-direction:column;justify-content:center}
+.hero h1{font-size:clamp(30px,5vw,50px);line-height:1.3;margin:10px 0}
+.hero p{color:var(--muted)}
+.hero-photo{min-height:230px;background:url("https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80") center/cover}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{border:1px solid #77866c55;border-radius:99px;padding:5px 10px;font-size:12px}
+h2{font-size:28px;margin:0}
+.section{margin-top:35px}
+.subtitle{color:var(--muted);margin:4px 0 18px;font-size:14px}
+.stats,.cards,.flights,.places,.transport{display:grid;gap:15px}
+.stats,.cards,.transport{grid-template-columns:repeat(3,minmax(0,1fr))}
+.flights{grid-template-columns:repeat(2,minmax(0,1fr))}
+.places{grid-template-columns:repeat(3,minmax(0,1fr))}
+.panel,.navcard,.flight,.place,.transport-card,.task{background:var(--white);border:1px solid var(--line);border-radius:20px}
+.panel,.flight,.transport-card{padding:20px}
+.panel strong{display:block;font-size:27px;margin:7px 0}
+.panel small,.flight small{color:var(--muted)}
+.navcard{padding:20px;text-align:left;min-height:145px;display:flex;flex-direction:column;gap:9px;color:var(--ink)}
+.navcard .emoji{font-size:26px}
+.navcard strong{font-size:18px}
+.navcard small{color:var(--muted)}
+.flight strong{font-size:23px}
+.flight-row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:12px 0}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}
+.tabs{display:flex;gap:9px;overflow-x:auto;padding-bottom:12px}
+.tab{background:var(--white);border:1px solid var(--line);border-radius:99px;padding:9px 15px;white-space:nowrap;color:var(--muted)}
+.tab.active{background:var(--green);color:white}
+.day-layout{display:grid;grid-template-columns:0.85fr 1.15fr;gap:18px}
+.cover{height:300px;border-radius:20px;overflow:hidden;position:relative;background:#ddd}
+.cover img{width:100%;height:100%;object-fit:cover}
+.cover-text{position:absolute;bottom:0;left:0;right:0;padding:24px;color:white;background:linear-gradient(transparent,#0009)}
+.cover-text h3{font-size:25px;margin:4px 0}
+.timeline,.tasks{display:grid;gap:12px}
+.stop{background:var(--white);border:1px solid var(--line);border-radius:17px;padding:15px;display:grid;grid-template-columns:65px 1fr;gap:12px}
+.stop h3{margin:0;font-size:16px}
+.stop p{font-size:13px;color:var(--muted);margin:5px 0}
+.time{font-size:12px;font-weight:800;color:var(--green)}
+.actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:9px}
+.linkbtn{background:none;padding:0;color:#596a50;font-size:13px;font-weight:700;text-decoration:none}
+.place{overflow:hidden}
+.place-image{height:185px;position:relative;background:#ddd}
+.place-image img{width:100%;height:100%;object-fit:cover;display:block}
+.heart{position:absolute;right:12px;top:12px;background:#fffdf7eb;color:#a85d58;border-radius:50%;width:40px;height:40px;font-size:21px}
+.place-body{padding:17px}
+.place-body h3{margin:8px 0;font-size:17px;overflow-wrap:anywhere}
+.place-body p{font-size:13px;color:var(--muted)}
+.tag{display:inline-block;background:#edf0e6;border-radius:99px;color:#596a50;padding:3px 9px;font-size:11px}
+.place-footer{display:flex;justify-content:space-between;gap:9px;flex-wrap:wrap;margin-top:13px}
+.note{padding:16px;background:#eeeee4;border-radius:16px;color:#626657;font-size:13px;margin-top:16px}
+.empty{padding:25px;background:var(--white);border:1px dashed var(--line);border-radius:17px;color:var(--muted)}
+.task{display:flex;align-items:center;gap:12px;padding:12px 16px}
+.task input{width:20px;height:20px;accent-color:var(--green)}
+.task.done .task-name{text-decoration:line-through;color:var(--muted)}
+.task-name{flex:1}
+.task-form{display:grid;grid-template-columns:1fr 130px auto;gap:8px;margin:15px 0}
+input,textarea,select{border:1px solid var(--line);border-radius:11px;background:white;padding:10px;color:var(--ink);min-width:0}
+textarea{resize:vertical;min-height:90px}
+.progress{height:9px;background:#e8e9de;border-radius:99px;overflow:hidden}
+.progress span{display:block;height:100%;background:var(--green)}
+.modal-bg{position:fixed;inset:0;z-index:50;background:#23271f80;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-bg.open{display:flex}
+.modal{background:var(--white);padding:22px;border-radius:22px;width:min(540px,100%);max-height:90vh;overflow:auto}
+.modal-head{display:flex;justify-content:space-between;align-items:center}
+.modal-head h2{font-size:23px}
+.close{border-radius:50%;width:36px;height:36px;font-size:20px;background:#eee}
+.field{display:grid;gap:5px;margin:12px 0}
+.field label{font-size:13px;font-weight:700}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#35372f;color:white;padding:12px 18px;border-radius:99px;display:none;z-index:90;max-width:90%;text-align:center}
+.toast.show{display:block}
+.login-panel{display:none;padding:15px 20px;background:var(--white);border-bottom:1px solid var(--line)}
+.login-panel.open{display:flex;flex-wrap:wrap;gap:8px}
+.admin-only{display:none!important}
+body.admin .admin-only{display:inline-flex!important}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
+@media(max-width:750px){
+ .top{padding:11px 14px;gap:8px}
+ .brand{font-size:17px}
+ .logo{width:31px;height:31px}
+ main{padding:17px 15px 55px}
+ .hero{grid-template-columns:1fr}
+ .hero-photo{grid-row:1;min-height:190px}
+ .hero-copy{padding:25px}
+ .stats,.flights,.transport,.day-layout,.task-form{grid-template-columns:1fr}
+ .cards,.places{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .navcard{padding:15px;min-height:145px}
+ .place-image{height:135px}
+ .place-body{padding:12px}
+ .place-body h3{font-size:15px}
+ .stop{grid-template-columns:50px 1fr}
+ .section-head h2{font-size:24px}
+}
+@media(max-width:370px){
+ .places{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="top">
+  <div class="brand" id="homeLogo"><span class="logo">旅</span>旅序 Tabi.</div>
+  <button class="btn light small" id="backBtn" hidden>← 回首頁</button>
+  <span class="page-title" id="pageTitle"></span>
+  <button class="btn light small" id="loginToggle">登入</button>
+  <button class="btn light small" id="logoutBtn" hidden>登出</button>
+ </div>
+</header>
+
+<div class="login-panel" id="loginPanel">
+ <input id="loginEmail" type="email" placeholder="管理者 Email">
+ <input id="loginPassword" type="password" placeholder="密碼">
+ <button class="btn small" id="loginBtn">登入</button>
+ <button class="btn light small" id="closeLogin">取消</button>
+</div>
+
+<main>
+
+<section class="page active" id="homePage">
+ <div class="hero">
+  <div class="hero-copy">
+   <small>FUKUOKA · 2026</small>
+   <h1>福岡四天三夜<br>出發！</h1>
+   <p>12/21–12/24 林老杯出遊</p>
+   <div class="pills">
+    <span class="pill">📍 日本・福岡</span>
+    <span class="pill">4 天 3 夜</span>
+    <span class="pill">租車自駕</span>
    </div>
   </div>
-  
-  <!-- 景點新增／編輯視窗 -->
-  <div class="modal-backdrop" id="placeBackdrop">
-   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="placeModalTitle">
-    <div class="modal-head">
-     <h2 id="placeModalTitle">新增景點</h2>
-     <button class="close" id="closePlaceModal">×</button>
-    </div>
-    <form id="placeForm">
-     <div class="form-grid">
-      <div class="field full">
-       <label for="pTitle">景點名稱</label>
-       <input id="pTitle" required placeholder="例如 大濠公園">
-      </div>
-      <div class="field full">
-       <label for="pDesc">景點介紹</label>
-       <textarea id="pDesc" placeholder="為什麼想去？那裡有啥？"></textarea>
-      </div>
-      <div class="field full">
-       <label for="pImage">景點照片（可不選）</label>
-       <input id="pImage" type="file" accept="image/jpeg,image/png,image/webp">
-       <small style="color:var(--muted)">
-        JPG、PNG、WebP，最多 5MB。未選照片時預設使用 黑人.png。
-        編輯時未重新選照片，會保留原照片。
-       </small>
-       <img id="pImagePreview" alt="照片預覽"
-        style="display:none;width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-top:8px">
-      </div>
-      <div class="field">
-       <label for="pTag">分類</label>
-       <select id="pTag">
-        <option>景點</option>
-        <option>美食</option>
-        <option>購物</option>
-        <option>咖啡廳</option>
-       </select>
-      </div>
-      <div class="field">
-       <label for="pMap">Google 地圖地址／搜尋關鍵字</label>
-  <input
-    id="pMap"
-    type="text"
-    placeholder="貼上完整地址，或輸入景點名稱"
-    
-  <div class="field full" id="placePasswordField">
-    <label for="pEditPassword">編輯密碼</label>
-    <input
-      id="pEditPassword"
-      type="password"
-      minlength="6"
-      autocomplete="new-password"
-      placeholder="至少 6 碼，日後修改景點時使用"
-    >
-    <small>請記住密碼，以後修改這個景點需要使用。</small>
-  </div>
-  
-  >
-      </div>
-     </div>
-     <div class="modal-actions">
-      <button type="button" class="btn ghost" id="cancelPlaceModal">取消</button>
-      <button type="submit" class="btn" id="placeSubmitBtn">新增收藏</button>
-     </div>
-    </form>
+  <div class="hero-photo"></div>
+ </div>
+
+ <div class="stats">
+  <div class="panel"><small>距離出發還有</small><strong id="countdown">計算中</strong><small>12/21 出發</small></div>
+  <div class="panel"><small>旅行日期</small><strong>12/21–12/24</strong><small>四天三夜</small></div>
+  <div class="panel"><small>旅行地點</small><strong>福岡</strong><small>日本九州</small></div>
+ </div>
+
+ <div class="section">
+  <h2>飛機時間先記一下</h2>
+  <p class="subtitle">其他訂票資訊放在「機票＆訂單」。</p>
+  <div class="flights">
+   <div class="flight">
+    <h3>去程・12/21</h3>
+    <div class="flight-row"><div><strong>06:50</strong><br><small>桃園 T2</small></div><span>CI110 →</span><div><strong>10:00</strong><br><small>福岡 T1</small></div></div>
+    <small>中華航空</small>
+   </div>
+   <div class="flight">
+    <h3>回程・12/24</h3>
+    <div class="flight-row"><div><strong>20:35</strong><br><small>福岡 T1</small></div><span>CI117 →</span><div><strong>22:20</strong><br><small>桃園 T2</small></div></div>
+    <small>中華航空</small>
    </div>
   </div>
-  
-  <div class="toast" id="toast"></div>
-  
-  <div class="container" id="importPanel" style="display:none;padding-top:0">
-   <div class="note">
-    <strong>管理者資料初始化</strong>
-    <p>雲端沒有行程與景點時，可以匯入原本資料或內建範例。</p>
-    <button class="btn small" id="importBtn">匯入原本資料／範例</button>
-    <button class="btn ghost small" id="refreshBtn">重新讀取雲端</button>
-   </div>
+ </div>
+
+ <div class="section">
+  <h2>想看什麼？</h2>
+  <p class="subtitle">要找的資訊都放這裡了，點進去就好。</p>
+  <div class="cards">
+   <button class="navcard" data-go="itinerary"><span class="emoji">▦</span><strong>每日行程</strong><small>四天要去哪裡 ↗</small></button>
+   <button class="navcard" data-go="favorites"><span class="emoji">♡</span><strong>景點收藏</strong><small>想去的先存起來 ↗</small></button>
+   <button class="navcard" data-go="preparation"><span class="emoji">☑</span><strong>行前準備</strong><small>出發前確認一下 ↗</small></button>
+   <button class="navcard" data-go="orders"><span class="emoji">▤</span><strong>機票＆訂單</strong><small>機票跟訂單都在這 ↗</small></button>
+   <button class="navcard" data-go="weather"><span class="emoji">☀</span><strong>福岡天氣</strong><small>出發前看看天氣 ↗</small></button>
+   <button class="navcard" data-go="transport"><span class="emoji">⌖</span><strong>交通地圖</strong><small>路線跟導航看這裡 ↗</small></button>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-  "use strict";
-  
-  /* 雲端設定 */
-  const SUPABASE_URL =
-   "https://bnywfheecgrcdrexxayd.supabase.co";
-  
-  const SUPABASE_PUBLISHABLE_KEY =
-   "sb_publishable_4XLh23ko9Aph0Q61vqNq7w_fG6pDGiX";
-  
-  const ADMIN_USER_ID =
-   "12c4d579-650f-4f2d-b5cd-3d796905217f";
-  
-  const STORAGE_KEY = "tabi-fukuoka-prototype-v1";
-  
-  /* 預設景點照片 */
-  const DEFAULT_PLACE_IMAGE = "黑人.png";
-  
-  const supabaseClient = window.supabase.createClient(
-   SUPABASE_URL,
-   SUPABASE_PUBLISHABLE_KEY,
-   {db:{schema:"public"}}
-  );
-  
-  const dayInfo = [
-   {
-    title:"抵達福岡",
-    date:"DAY 01 · 12/21",
-    desc:"抵達後先取車、放行李，其他看時間再安排。",
-    image:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80"
-   },
-   {
-    title:"福岡市區",
-    date:"DAY 02 · 12/22",
-    desc:"市區逛逛，想吃什麼到時候再決定。",
-    image:"https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=1000&q=80"
-   },
-   {
-    title:"近郊走走",
-    date:"DAY 03 · 12/23",
-    desc:"今天會跑比較遠，出門時間別拖太晚。",
-    image:"https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1000&q=80"
-   },
-   {
-    title:"回台灣啦",
-    date:"DAY 04 · 12/24",
-    desc:"最後補買一下，別忘了要提早還車、去機場。",
-    image:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1000&q=80"
-   }
-  ];
-  
-  const initialData = {
-   days:[
-    [
-     {time:"10:00",title:"抵達福岡機場",desc:"領取行李、確認交通方式。",map:"福岡機場"},
-     {time:"18:00",title:"入住飯店",desc:"先放好行李，稍作休息。",map:"博多車站"},
-     {time:"19:00",title:"博多晚餐",desc:"找一家附近的拉麵或居酒屋。",map:"博多拉麵"}
-    ],
-    [
-     {time:"09:30",title:"太宰府天滿宮",desc:"參拜、逛參道，試試梅枝餅。",map:"太宰府天滿宮"},
-     {time:"13:30",title:"大濠公園",desc:"湖畔散步。",map:"大濠公園"},
-     {time:"17:00",title:"天神逛街",desc:"百貨、藥妝與晚餐自由安排。",map:"天神 福岡"}
-    ],
-    [
-     {time:"10:00",title:"柳川遊船（備選）",desc:"先確認交通與營運。",map:"柳川遊船"},
-     {time:"14:00",title:"咖啡廳休息",desc:"保留彈性時間。",map:"福岡 咖啡廳"}
-    ],
-    [
-     {time:"09:30",title:"最後採買",desc:"預留前往機場的時間。",map:"博多車站 購物"},
-     {time:"17:00",title:"前往機場",desc:"確認航廈、行李與登機時間。",map:"福岡機場"}
-    ]
-   ],
-   favorites:[
-    {title:"太宰府天滿宮",desc:"隨便逛逛。",tag:"文化景點",image:DEFAULT_PLACE_IMAGE,map:"太宰府天滿宮",saved:true},
-    {title:"大濠公園",desc:"享受悠閒午後。",tag:"自然散步",image:DEFAULT_PLACE_IMAGE,map:"大濠公園",saved:false},
-    {title:"博多運河城",desc:"購物、餐廳。",tag:"購物美食",image:DEFAULT_PLACE_IMAGE,map:"博多運河城",saved:false}
-   ]
-  };
-  
-  let data = {days:[[],[],[],[]],favorites:[]};
-  let activeDay = 0;
-  let editingId = null;
-  let editingPlaceId = null;
-  let currentUser = null;
-  let isAdmin = false;
-  let favoriteFilter = "saved";
-  let prepTasks = [];
-  let prepFilter = "all";
-  let toastTimer;
-  let previewObjectUrl = null;
-  
-  const $ = id => document.getElementById(id);
-  
-  function esc(value=""){
-   return String(value??"").replace(/[&<>"']/g,c=>({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-   }[c]));
-  }
-  
-  function mapUrl(query){
-   return "https://www.google.com/maps/search/?api=1&query="
-    +encodeURIComponent(query||"Fukuoka");
-  }
-  
-  function showToast(message){
-   $("toast").textContent=message;
-   $("toast").classList.add("show");
-   clearTimeout(toastTimer);
-   toastTimer=setTimeout(()=>$("toast").classList.remove("show"),3000);
-  }
-  
-  function setStatus(message){
-   $("authStatus").textContent=message;
-   $("footerStatus").textContent=message;
-  }
-  
-  function requireAdmin(){
-   if(!isAdmin){
-    showToast("請先以管理者身分登入");
-    return false;
-   }
-   return true;
-  }
-  
-  function setAdminUI(){
-   document.body.classList.toggle("is-admin",isAdmin);
-   $("loginToggle").style.display=isAdmin?"none":"inline-flex";
-   $("logoutBtn").style.display=isAdmin?"inline-flex":"none";
-   $("authStatus").textContent=isAdmin?"管理者已登入":"訪客可直接查看";
-   renderDay();
-   renderFavorites();
-  }
-  
-  /* 每日行程 */
-  function renderTabs(){
-   $("dayTabs").innerHTML=dayInfo.map((d,i)=>`
-    <button class="day-tab ${i===activeDay?"active":""}" data-day="${i}">
-     Day ${i+1} · ${esc(d.title)}
-    </button>
-   `).join("");
-  
-   $("dayTabs").querySelectorAll("[data-day]").forEach(button=>{
-    button.addEventListener("click",()=>{
-     activeDay=Number(button.dataset.day);
-     renderTabs();
-     renderDay();
-    });
-   });
-  }
-  
-  function renderDay(){
-   const d=dayInfo[activeDay];
-  
-   $("dayCover").innerHTML=`
-    <img src="${esc(d.image)}"
-         alt="${esc(d.title)}照片"
-         loading="lazy">
-    <div class="day-cover-text">
-     <div class="date">${esc(d.date)}</div>
-     <h3>${esc(d.title)}</h3>
-     <p>${esc(d.desc)}</p>
-    </div>
-   `;
-  
-   const items=data.days[activeDay]||[];
-  
-   $("timeline").innerHTML=items.length
-    ?items.map(it=>`
-     <article class="stop">
-      <div class="stop-time">${esc(it.time_text||"待定")}</div>
-      <div>
-       <h4>${esc(it.title)}</h4>
-       <p>${esc(it.description||"尚未填寫備註")}</p>
-       <div class="stop-actions">
-        <a class="text-btn" href="${mapUrl(it.map||it.title)}"
-           target="_blank" rel="noopener">地圖 ↗</a>
-        ${isAdmin?``<button class="text-btn" data-edit-place=
-         <button class="text-btn" data-edit-place="${esc(p.id)}">編輯</button>
-        <button class="text-btn" data-delete-place="${esc(p.id)}">刪除</button>
-        `:""}
-       </div>
-      </div>
-     </article>
-    `).join("")
-    :`<div class="empty">這一天目前還沒有行程。</div>`;
-  
-   $("timeline").querySelectorAll("[data-edit]").forEach(button=>{
-    button.addEventListener("click",()=>openStopModal(button.dataset.edit));
-   });
-  
-   $("timeline").querySelectorAll("[data-delete]").forEach(button=>{
-    button.addEventListener("click",async()=>{
-     if(!requireAdmin())return;
-     if(!confirm("確定刪除這個行程嗎？"))return;
-  
-     const {error}=await supabaseClient
-      .from("itinerary_items")
-      .delete()
-      .eq("id",button.dataset.delete);
-  
-     if(error){
-      showToast("刪除失敗："+error.message);
-      return;
-     }
-  
-     await loadCloudData();
-     showToast("行程已刪除");
-    });
-   });
-  }
-  
-  /* 景點收藏 */
-  function renderFavorites(){
-   const grid=$("favoritesGrid");
-  
-   $("savedCount").textContent=
-    data.favorites.filter(p=>p.saved).length;
-  
-   document.querySelectorAll("[data-favorite-filter]").forEach(button=>{
-    button.classList.toggle(
-     "active",
-     button.dataset.favoriteFilter===favoriteFilter
-    );
-   });
-  
-   const visible=favoriteFilter==="saved"
-    ?data.favorites.filter(p=>p.saved)
-    :data.favorites;
-  
-   grid.innerHTML=visible.length
-    ?visible.map(p=>`
-     <article class="place-card">
-      <div class="place-image">
-       <img
-        src="${esc(p.image||DEFAULT_PLACE_IMAGE)}"
-        alt="${esc(p.title)}照片"
-        loading="lazy"
-        onerror="this.onerror=null;this.src='黑人.png'"
-       >
-       <button class="heart" data-heart="${esc(p.id)}"
-        aria-label="切換收藏">
-        ${p.saved?"♥":"♡"}
-       </button>
-      </div>
-      <div class="place-content">
-       <span class="tag">${esc(p.tag||"景點")}</span>
-       <h3>${esc(p.title)}</h3>
-       <p>${esc(p.description||"還沒寫介紹")}</p>
-       <div class="place-footer">
-        <a class="text-btn" href="${mapUrl(p.map||p.title)}"
-           target="_blank" rel="noopener">看地圖 ↗</a>
-        ${isAdmin?`
-         <button class="text-btn" data-edit-place="${esc(p.id)}">編輯</button>
-         <button class="text-btn" data-delete-place="${esc(p.id)}">刪除</button>
-        `:""}
-       </div>
-      </div>
-     </article>
-    `).join("")
-    :`<div class="empty">
-      ${favoriteFilter==="saved"
-       ?"目前還沒收藏景點，切到「全部景點」看看吧。"
-       :"目前還沒有景點。"}
-     </div>`;
-  
-   grid.querySelectorAll("[data-heart]").forEach(button=>{
-    button.addEventListener("click",async()=>{
-     const p=data.favorites.find(x=>String(x.id)===button.dataset.heart);
-     if(!p)return;
-  
-     const {error}=await supabaseClient
-      .from("favorite_items")
-      .update({saved:!p.saved})
-      .eq("id",p.id);
-  
-     if(error){
-      showToast("更新失敗："+error.message);
-      return;
-     }
-     await loadCloudData();
-    });
-   });
-  
-   /* 管理者編輯景點 */
-   grid.querySelectorAll("[data-edit-place]").forEach(button=>{
-    button.addEventListener("click",()=>{
-     openEditPlaceModal(button.dataset.editPlace);
-    });
-   });
-  
-   /* 管理者刪除景點 */
-   grid.querySelectorAll("[data-delete-place]").forEach(button=>{
-    button.addEventListener("click",async()=>{
-     if(!requireAdmin())return;
-     if(!confirm("確定刪除這個景點嗎？"))return;
-  
-     const {error}=await supabaseClient
-      .from("favorite_items")
-      .delete()
-      .eq("id",button.dataset.deletePlace);
-  
-     if(error){
-      showToast("刪除失敗："+error.message);
-      return;
-     }
-     await loadCloudData();
-     showToast("景點已刪除");
-    });
-   });
-  }
-  
-  document.querySelectorAll("[data-favorite-filter]").forEach(button=>{
-   button.addEventListener("click",()=>{
-    favoriteFilter=button.dataset.favoriteFilter;
-    renderFavorites();
-   });
+ </div>
+</section>
+
+<section class="page" id="itineraryPage">
+ <div class="section-head">
+  <div><h2>每日行程</h2><p class="subtitle">點選日期查看當天安排。</p></div>
+  <button class="btn small admin-only" id="addStop">＋ 新增行程</button>
+ </div>
+ <div class="tabs" id="dayTabs"></div>
+ <div class="day-layout">
+  <div class="cover" id="dayCover"></div>
+  <div class="timeline" id="timeline"></div>
+ </div>
+</section>
+
+<section class="page" id="favoritesPage">
+ <div class="section-head">
+  <div><h2>景點收藏</h2><p class="subtitle">有想去的就按愛心，大家都看得到。</p></div>
+  <button class="btn small" id="addPlace">＋ 新增景點</button>
+ </div>
+ <div class="tabs">
+  <button class="tab active" data-filter="saved">♥ 已收藏 <span id="savedCount">0</span></button>
+  <button class="tab" data-filter="all">全部景點</button>
+ </div>
+ <div class="places" id="favoritesGrid"></div>
+</section>
+
+<section class="page" id="preparationPage">
+ <h2>行前準備</h2>
+ <p class="subtitle">想到什麼就加進來，帶好了直接打勾。</p>
+ <div class="panel">
+  <strong id="prepSummary">讀取中…</strong>
+  <div class="progress"><span id="prepBar" style="width:0%"></span></div>
+ </div>
+ <form id="prepForm" class="task-form">
+  <input id="prepTitle" required maxlength="100" placeholder="還要帶什麼？">
+  <select id="prepCategory">
+   <option>證件</option><option>衣物</option><option>電子用品</option><option>藥品</option><option>其他</option>
+  </select>
+  <button class="btn" type="submit">＋ 加入</button>
+ </form>
+ <div class="tabs">
+  <button class="tab active" data-prep-filter="all">全部</button>
+  <button class="tab" data-prep-filter="todo">未完成</button>
+  <button class="tab" data-prep-filter="done">已完成</button>
+ </div>
+ <div class="tasks" id="prepList"></div>
+</section>
+
+<section class="page" id="ordersPage">
+ <h2>機票＆訂單</h2>
+ <p class="subtitle">訂單資訊放在這裡。</p>
+ <div class="flights">
+  <div class="flight">
+   <h3>✈️ 去程｜12/21</h3>
+   <div class="flight-row"><strong>06:50</strong><span>CI110 →</span><strong>10:00</strong></div>
+   <p>桃園第二航廈 → 福岡第一航廈</p>
+   <small>中華航空</small>
+  </div>
+  <div class="flight">
+   <h3>✈️ 回程｜12/24</h3>
+   <div class="flight-row"><strong>20:35</strong><span>CI117 →</span><strong>22:20</strong></div>
+   <p>福岡第一航廈 → 桃園第二航廈</p>
+   <small>中華航空</small>
+  </div>
+ </div>
+ <div class="section panel">
+  <h3>🎟️ 阿蘇火山＋高千穗遊船套票</h3>
+  <a href="https://s.klook.com/c/xXW4pGdNX6" target="_blank" rel="noopener">查看 Klook 套票 ↗</a>
+ </div>
+</section>
+
+<section class="page" id="weatherPage">
+ <div class="section-head"><h2>福岡天氣</h2><button class="btn small" id="refreshWeather">更新</button></div>
+ <div class="panel" id="weatherContent">正在查詢…</div>
+ <div class="note">天氣預報通常只能查詢未來約 16 天，出發前再確認。</div>
+</section>
+
+<section class="page" id="transportPage">
+ <h2>交通地圖</h2>
+ <p class="subtitle">常用交通資訊。</p>
+ <div class="transport">
+  <div class="transport-card"><h3>🗺️ Google 地圖</h3><a href="https://www.google.com/maps/search/Fukuoka/" target="_blank">開啟地圖 ↗</a></div>
+  <div class="transport-card"><h3>🚇 福岡地下鐵</h3><a href="https://subway.city.fukuoka.lg.jp/eng/" target="_blank">官方網站 ↗</a></div>
+  <div class="transport-card"><h3>🚆 JR 九州</h3><a href="https://www.jrkyushu.co.jp/english/" target="_blank">官方網站 ↗</a></div>
+ </div>
+</section>
+
+</main>
+
+<footer>旅序 Tabi. · 林家福岡旅行<br><span id="status">正在連線…</span></footer>
+
+<div class="modal-bg" id="placeBackdrop">
+ <div class="modal">
+  <div class="modal-head"><h2 id="placeModalTitle">新增景點</h2><button class="close" id="closePlaceModal">×</button></div>
+  <form id="placeForm">
+   <div class="field"><label>景點名稱</label><input id="pTitle" required></div>
+   <div class="field"><label>景點介紹</label><textarea id="pDesc"></textarea></div>
+   <div class="field"><label>分類</label>
+    <select id="pTag"><option>景點</option><option>美食</option><option>購物</option><option>咖啡廳</option></select>
+   </div>
+   <div class="field"><label>Google 地圖地址／搜尋關鍵字／分享連結</label><input id="pMap" placeholder="可貼完整地址或 Google Maps 網址"></div>
+   <div class="field">
+    <label>景點照片（預設 黑人.png）</label>
+    <input id="pImage" type="file" accept="image/jpeg,image/png,image/webp">
+    <img id="pImagePreview" alt="預覽" style="display:none;width:100%;max-height:200px;object-fit:cover;border-radius:12px">
+   </div>
+   <div class="note" id="passwordNotice">訪客編輯及刪除需要後端密碼驗證；目前尚未啟用。</div>
+   <div class="modal-actions">
+    <button class="btn light" type="button" id="cancelPlaceModal">取消</button>
+    <button class="btn" type="submit" id="placeSubmitBtn">新增景點</button>
+   </div>
+  </form>
+ </div>
+</div>
+
+<div class="modal-bg" id="stopBackdrop">
+ <div class="modal">
+  <div class="modal-head"><h2 id="stopModalTitle">行程</h2><button class="close" id="closeStopModal">×</button></div>
+  <form id="stopForm">
+   <div class="field"><label>日期</label><select id="fDay"><option value="1">Day 1</option><option value="2">Day 2</option><option value="3">Day 3</option><option value="4">Day 4</option></select></div>
+   <div class="field"><label>時間</label><input id="fTime" placeholder="09:30"></div>
+   <div class="field"><label>名稱</label><input id="fTitle" required></div>
+   <div class="field"><label>備註</label><textarea id="fDesc"></textarea></div>
+   <div class="field"><label>地圖地址</label><input id="fMap"></div>
+   <div class="modal-actions"><button class="btn light" type="button" id="cancelStopModal">取消</button><button class="btn" type="submit">儲存</button></div>
+  </form>
+ </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+"use strict";
+
+const SUPABASE_URL="https://bnywfheecgrcdrexxayd.supabase.co";
+const SUPABASE_KEY="sb_publishable_4XLh23ko9Aph0Q61vqNq7w_fG6pDGiX";
+const ADMIN_USER_ID="12c4d579-650f-4f2d-b5cd-3d796905217f";
+const DEFAULT_IMAGE="黑人.png";
+
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+let isAdmin=false;
+let currentUser=null;
+let favorites=[];
+let days=[[],[],[],[]];
+let prep=[];
+let activeDay=0;
+let favoriteFilter="saved";
+let prepFilter="all";
+let editingPlaceId=null;
+let editingStopId=null;
+let previewUrl=null;
+let toastTimer;
+
+const dayInfo=[
+ {title:"抵達福岡",date:"12/21",image:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80"},
+ {title:"福岡市區",date:"12/22",image:"https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=1000&q=80"},
+ {title:"近郊走走",date:"12/23",image:"https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1000&q=80"},
+ {title:"回台灣啦",date:"12/24",image:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1000&q=80"}
+];
+
+function toast(s){
+ $("toast").textContent=s;
+ $("toast").classList.add("show");
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>$("toast").classList.remove("show"),3500);
+}
+function requireAdmin(){
+ if(!isAdmin){toast("只有管理者可以執行此操作");return false}
+ return true;
+}
+function mapUrl(q){
+ const value=String(q||"福岡").trim();
+ if(/^https:\/\/(www\.)?google\.[^/]+\/maps(?:\/|$)/i.test(value)
+   ||/^https:\/\/maps\.app\.goo\.gl\//i.test(value)){
+  return value;
+ }
+ return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(value);
+}
+function showPage(name){
+ const pages=["home","itinerary","favorites","preparation","orders","weather","transport"];
+ if(!pages.includes(name))name="home";
+ pages.forEach(p=>$(p+"Page").classList.toggle("active",p===name));
+ $("backBtn").hidden=name==="home";
+ $("pageTitle").textContent=name==="home"?"":({
+  itinerary:"每日行程",favorites:"景點收藏",
+  preparation:"行前準備",orders:"機票＆訂單",
+  weather:"福岡天氣",transport:"交通地圖"
+ })[name];
+ window.scrollTo(0,0);
+ if(name==="preparation")loadPrep();
+ if(name==="weather")loadWeather();
+}
+document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>showPage(b.dataset.go));
+$("homeLogo").onclick=()=>showPage("home");
+$("backBtn").onclick=()=>showPage("home");
+
+function countdown(){
+ const now=new Date();
+ const start=new Date("2026-12-21T00:00:00+09:00");
+ const end=new Date("2026-12-25T00:00:00+09:00");
+ $("countdown").textContent=now<start
+  ?Math.ceil((start-now)/86400000)+" 天"
+  :now<end?"旅行中！":"旅行結束啦";
+}
+countdown();
+
+function updateAdminUI(){
+ document.body.classList.toggle("admin",isAdmin);
+ $("loginToggle").hidden=isAdmin;
+ $("logoutBtn").hidden=!isAdmin;
+ renderFavorites();
+ renderDay();
+}
+
+async function loadCloudData(){
+ try{
+  const [a,b]=await Promise.all([
+   db.from("itinerary_items").select("*").order("day_number").order("sort_order"),
+   db.from("favorite_items").select("*").order("sort_order")
+  ]);
+  if(a.error)throw a.error;
+  if(b.error)throw b.error;
+
+  days=[[],[],[],[]];
+  (a.data||[]).forEach(item=>{
+   const n=Number(item.day_number)-1;
+   if(n>=0&&n<4)days[n].push(item);
   });
-  
-  /* 雲端讀取 */
-  async function loadCloudData(){
-   setStatus("正在讀取雲端資料…");
-  
-   const [a,b]=await Promise.all([
-    supabaseClient.from("itinerary_items")
-     .select("*").order("day_number").order("sort_order"),
-    supabaseClient.from("favorite_items")
-     .select("*").order("sort_order")
-   ]);
-  
-   if(a.error||b.error){
-    const error=a.error||b.error;
-    setStatus("資料讀取失敗");
-    showToast("讀取失敗："+error.message);
-    return;
-   }
-  
-   data={days:[[],[],[],[]],favorites:b.data||[]};
-  
-   (a.data||[]).forEach(row=>{
-    const day=Number(row.day_number)-1;
-    if(day>=0&&day<4)data.days[day].push(row);
-   });
-  
-   renderTabs();
-   renderDay();
-   renderFavorites();
-   setStatus("雲端同步完成");
-  
-   $("importPanel").style.display=
-    isAdmin&&(a.data||[]).length===0&&(b.data||[]).length===0
-     ?"block":"none";
-  }
-  
-  /* 初始化資料 */
-  async function importInitialData(){
-   if(!requireAdmin())return;
-  
-   const [a,b]=await Promise.all([
-    supabaseClient.from("itinerary_items")
-     .select("*",{count:"exact",head:true}),
-    supabaseClient.from("favorite_items")
-     .select("*",{count:"exact",head:true})
-   ]);
-  
-   if(a.error||b.error){
-    showToast("無法確認雲端資料狀態");
-    return;
-   }
-  
-   if((a.count||0)>0||(b.count||0)>0){
-    showToast("雲端已有資料，已停止匯入");
-    return;
-   }
-  
-   let local=null;
-   try{
-    const raw=localStorage.getItem(STORAGE_KEY);
-    if(raw)local=JSON.parse(raw);
-   }catch(e){}
-  
-   const source=local&&Array.isArray(local.days)&&Array.isArray(local.favorites)
-    ?local:initialData;
-  
-   const itineraryRows=[];
-  
-   (source.days||[]).forEach((items,dayIndex)=>{
-    (items||[]).forEach((it,index)=>{
-     itineraryRows.push({
-      day_number:dayIndex+1,
-      time_text:it.time||it.time_text||"",
-      title:it.title,
-      description:it.desc||it.description||"",
-      tag:"",
-      map:it.map||it.title,
-      sort_order:index
-     });
-    });
-   });
-  
-   const favoriteRows=(source.favorites||[]).map((p,index)=>({
-    title:p.title,
-    description:p.desc||p.description||"",
-    image:p.image||DEFAULT_PLACE_IMAGE,
-    tag:p.tag||"景點",
-    map:p.map||p.title,
-    saved:p.saved!==false,
-    sort_order:index
-   }));
-  
-   if(itineraryRows.length){
-    const {error}=await supabaseClient
-     .from("itinerary_items").insert(itineraryRows);
-    if(error){
-     showToast("行程匯入失敗："+error.message);
-     return;
-    }
-   }
-  
-   if(favoriteRows.length){
-    const {error}=await supabaseClient
-     .from("favorite_items").insert(favoriteRows);
-    if(error){
-     showToast("景點匯入失敗："+error.message);
-     return;
-    }
-   }
-  
-   await loadCloudData();
-   showToast("資料已匯入！");
-  }
-  
-  /* 行程視窗 */
-  const stopBackdrop=$("modalBackdrop");
-  
-  function openStopModal(id=null){
-   if(!requireAdmin())return;
-  
-   editingId=id;
-  
-   const item=id===null
-    ?{day_number:activeDay+1,time_text:"",title:"",description:"",map:""}
-    :data.days.flat().find(x=>String(x.id)===String(id));
-  
-   if(!item)return;
-  
-   $("modalTitle").textContent=id===null?"新增行程":"編輯行程";
-   $("fDay").value=String(Number(item.day_number||activeDay+1)-1);
-   $("fTime").value=item.time_text||"";
-   $("fTitle").value=item.title||"";
-   $("fDesc").value=item.description||"";
-   $("fMap").value=item.map||item.title||"";
-  
-   stopBackdrop.classList.add("open");
-  }
-  
-  function closeStopModal(){
-   stopBackdrop.classList.remove("open");
-  }
-  
-  $("addStop").addEventListener("click",()=>openStopModal());
-  $("addStopTop").addEventListener("click",()=>openStopModal());
-  $("closeModal").addEventListener("click",closeStopModal);
-  $("cancelModal").addEventListener("click",closeStopModal);
-  
-  stopBackdrop.addEventListener("click",e=>{
-   if(e.target===stopBackdrop)closeStopModal();
-  });
-  
-  $("editForm").addEventListener("submit",async e=>{
-   e.preventDefault();
-   if(!requireAdmin())return;
-  
-   const day=Number($("fDay").value)+1;
-   const row={
-    day_number:day,
-    time_text:$("fTime").value.trim(),
-    title:$("fTitle").value.trim(),
-    description:$("fDesc").value.trim(),
-    map:$("fMap").value.trim()
-   };
-  
-   if(!row.title)return;
-  
-   let result;
-  
-   if(editingId){
-    result=await supabaseClient
-     .from("itinerary_items")
-     .update(row).eq("id",editingId);
-   }else{
-    const {data:existing,error}=await supabaseClient
-     .from("itinerary_items")
-     .select("sort_order")
-     .eq("day_number",day)
-     .order("sort_order",{ascending:false})
-     .limit(1);
-  
-    if(error){
-     showToast("讀取排序失敗："+error.message);
-     return;
-    }
-  
-    row.sort_order=(existing?.[0]?.sort_order??-1)+1;
-    result=await supabaseClient.from("itinerary_items").insert(row);
-   }
-  
-   if(result.error){
-    showToast("儲存失敗："+result.error.message);
-    return;
-   }
-  
-   activeDay=day-1;
-   closeStopModal();
-   await loadCloudData();
-   showToast("行程已儲存");
-  });
-  
-  /* 景點照片預覽 */
-  const pImageInput=$("pImage");
-  const pImagePreview=$("pImagePreview");
-  const placeBackdrop=$("placeBackdrop");
-  
-  function clearPreview(){
-   if(previewObjectUrl){
-    URL.revokeObjectURL(previewObjectUrl);
-    previewObjectUrl=null;
-   }
-   pImagePreview.removeAttribute("src");
-   pImagePreview.style.display="none";
-  }
-  
-  pImageInput.addEventListener("change",()=>{
-   const file=pImageInput.files?.[0];
-  
-   if(previewObjectUrl){
-    URL.revokeObjectURL(previewObjectUrl);
-    previewObjectUrl=null;
-   }
-  
-   if(!file){
-    if(editingPlaceId!==null){
-     const original=data.favorites.find(
-      p=>String(p.id)===String(editingPlaceId)
-     );
-     pImagePreview.src=original?.image||DEFAULT_PLACE_IMAGE;
-     pImagePreview.style.display="block";
-    }else{
-     clearPreview();
-    }
-    return;
-   }
-  
-   if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
-    showToast("請選擇 JPG、PNG 或 WebP");
-    pImageInput.value="";
-    return;
-   }
-  
-   if(file.size>5*1024*1024){
-    showToast("圖片不能超過 5MB");
-    pImageInput.value="";
-    return;
-   }
-  
-   previewObjectUrl=URL.createObjectURL(file);
-   pImagePreview.src=previewObjectUrl;
-   pImagePreview.style.display="block";
-  });
-  
-  /* 圖片上傳 */
-  async function uploadPlaceImage(file){
-   const extension=file.type==="image/png"?"png":
-    file.type==="image/webp"?"webp":"jpg";
-  
-   const path=`${crypto.randomUUID()}.${extension}`;
-  
-   const {error}=await supabaseClient.storage
-    .from("travel-photos")
-    .upload(path,file,{
-     contentType:file.type,
-     upsert:false
-    });
-  
-   if(error)throw error;
-  
-   const {data:result}=supabaseClient.storage
-    .from("travel-photos")
-    .getPublicUrl(path);
-  
-   return result.publicUrl;
-  }
-  
-  /* 新增景點 */
-  function openNewPlaceModal(){
-   editingPlaceId=null;
-   $("placeForm").reset();
-   clearPreview();
-   $("placeModalTitle").textContent="新增景點";
-   $("placeSubmitBtn").textContent="新增收藏";
-   placeBackdrop.classList.add("open");
-  }
-  
-  /* 編輯景點 */
-  function openEditPlaceModal(id){
-   if(!requireAdmin())return;
-  
-   const p=data.favorites.find(x=>String(x.id)===String(id));
-  
-   if(!p){
-    showToast("找不到這個景點");
-    return;
-   }
-  
-   editingPlaceId=p.id;
-  
-   $("placeForm").reset();
-   clearPreview();
-  
-   $("placeModalTitle").textContent="編輯景點";
-   $("placeSubmitBtn").textContent="儲存修改";
-  
-   $("pTitle").value=p.title||"";
-   $("pDesc").value=p.description||"";
-   $("pMap").value=p.map||"";
-  
-   const tagSelect=$("pTag");
-  
-   if(p.tag&&!Array.from(tagSelect.options).some(
-    option=>option.value===p.tag
-   )){
-    tagSelect.add(new Option(p.tag,p.tag));
-   }
-  
-   tagSelect.value=p.tag||"景點";
-  
-   pImagePreview.src=p.image||DEFAULT_PLACE_IMAGE;
-   pImagePreview.style.display="block";
-  
-   placeBackdrop.classList.add("open");
-  }
-  
-  function closePlaceModal(){
-   placeBackdrop.classList.remove("open");
-   clearPreview();
-   editingPlaceId=null;
-  }
-  
-  $("addPlace").addEventListener("click",openNewPlaceModal);
-  $("closePlaceModal").addEventListener("click",closePlaceModal);
-  $("cancelPlaceModal").addEventListener("click",closePlaceModal);
-  
-  placeBackdrop.addEventListener("click",e=>{
-   if(e.target===placeBackdrop)closePlaceModal();
-  });
-  
-  /* 新增與修改共用儲存 */
-  $("placeForm").addEventListener("submit",async e=>{
-   e.preventDefault();
-  
-   const button=$("placeSubmitBtn");
-   const title=$("pTitle").value.trim();
-   const file=pImageInput.files?.[0];
-   const editing=editingPlaceId!==null;
-  
-   if(!title)return;
-  
-   if(editing&&!requireAdmin())return;
-  
-   if(file&&!["image/jpeg","image/png","image/webp"].includes(file.type)){
-    showToast("圖片格式不支援");
-    return;
-   }
-  
-   if(file&&file.size>5*1024*1024){
-    showToast("圖片不能超過 5MB");
-    return;
-   }
-  
-   button.disabled=true;
-  
-   try{
-    const original=editing
-     ?data.favorites.find(p=>String(p.id)===String(editingPlaceId))
-     :null;
-  
-    if(editing&&!original)throw new Error("找不到原本的景點");
-  
-    showToast(file?"正在上傳照片…":"正在儲存景點…");
-  
-    let image=editing
-     ?original.image||DEFAULT_PLACE_IMAGE
-     :DEFAULT_PLACE_IMAGE;
-  
-    if(file){
-     image=await uploadPlaceImage(file);
-    }
-  
-    const row={
-     title,
-     description:$("pDesc").value.trim(),
-     image,
-     tag:$("pTag").value,
-     map:$("pMap").value.trim()||title
-    };
-  
-    let result;
-  
-    if(editing){
-     result=await supabaseClient
-      .from("favorite_items")
-      .update(row)
-      .eq("id",editingPlaceId);
-    }else{
-     const {data:existing,error}=await supabaseClient
-      .from("favorite_items")
-      .select("sort_order")
-      .order("sort_order",{ascending:false})
-      .limit(1);
-  
-     if(error)throw error;
-  
-     row.saved=true;
-     row.sort_order=(existing?.[0]?.sort_order??-1)+1;
-  
-     result=await supabaseClient
-      .from("favorite_items")
-      .insert(row);
-    }
-  
-    if(result.error)throw result.error;
-  
-    closePlaceModal();
-    $("placeForm").reset();
-  
-    await loadCloudData();
-  
-    showToast(editing?"景點修改成功！":"景點新增成功！");
-   }catch(error){
-    showToast("儲存失敗："+error.message);
-   }finally{
-    button.disabled=false;
-   }
-  });
-  
-  /* 登入 */
-  $("loginToggle").addEventListener("click",()=>{
-   $("loginPanel").classList.toggle("open");
-  });
-  
-  $("closeLogin").addEventListener("click",()=>{
-   $("loginPanel").classList.remove("open");
-  });
-  
-  $("loginBtn").addEventListener("click",async()=>{
-   const email=$("loginEmail").value.trim();
-   const password=$("loginPassword").value;
-  
-   if(!email||!password){
-    showToast("請輸入 Email 和密碼");
-    return;
-   }
-  
-   const {data:result,error}=await supabaseClient.auth
-    .signInWithPassword({email,password});
-  
-   if(error){
-    showToast("登入失敗："+error.message);
-    return;
-   }
-  
-   currentUser=result.user;
-   isAdmin=currentUser.id===ADMIN_USER_ID;
-  
-   if(!isAdmin){
-    await supabaseClient.auth.signOut();
-    currentUser=null;
-    isAdmin=false;
-    setAdminUI();
-    showToast("這個帳號沒有管理權限");
-    return;
-   }
-  
-   $("loginPanel").classList.remove("open");
-   setAdminUI();
-   await loadCloudData();
-   showToast("管理者登入成功");
-  });
-  
-  $("logoutBtn").addEventListener("click",async()=>{
-   const {error}=await supabaseClient.auth.signOut();
-  
-   if(error){
-    showToast("登出失敗："+error.message);
-    return;
-   }
-  
-   currentUser=null;
-   isAdmin=false;
-   setAdminUI();
-   await loadCloudData();
-   showToast("已登出");
-  });
-  
-  $("importBtn").addEventListener("click",importInitialData);
-  $("refreshBtn").addEventListener("click",loadCloudData);
-  
-  /* 倒數 */
-  function updateCountdown(){
-   const now=new Date();
-   const depart=new Date("2026-12-21T00:00:00+09:00");
-   const end=new Date("2026-12-25T00:00:00+09:00");
-  
-   $("countdown").textContent=now<depart
-    ?`${Math.ceil((depart-now)/86400000)} 天`
-    :now<end?"旅行中！":"旅行結束啦";
-  }
-  
-  /* 行前準備 */
-  async function loadPrepTasks(silent=false){
-   const {data:rows,error}=await supabaseClient
-    .from("prep_tasks")
-    .select("*")
-    .order("sort_order")
-    .order("created_at");
-  
-   if(error){
-    if(!silent){
-     $("prepList").innerHTML=
-      `<div class="empty">清單讀不到：${esc(error.message)}</div>`;
-    }
-    return;
-   }
-  
-   prepTasks=rows||[];
-   renderPrepTasks();
-  }
-  
-  function renderPrepTasks(){
-   const completed=prepTasks.filter(t=>t.completed).length;
-  
-   $("prepSummary").textContent=
-    `已準備 ${completed} / ${prepTasks.length} 項`;
-  
-   $("prepBar").style.width=
-    (prepTasks.length?completed/prepTasks.length*100:0)+"%";
-  
-   document.querySelectorAll("[data-prep-filter]").forEach(button=>{
-    button.classList.toggle(
-     "active",
-     button.dataset.prepFilter===prepFilter
-    );
-   });
-  
-   const items=prepTasks.filter(t=>
-    prepFilter==="all"||
-    (prepFilter==="done"?t.completed:!t.completed)
-   );
-  
-   $("prepList").innerHTML=items.length
-    ?items.map(t=>`
-     <div class="prep-item ${t.completed?"done":""}">
-      <input type="checkbox"
-       data-prep-check="${esc(t.id)}"
-       ${t.completed?"checked":""}
-       aria-label="完成 ${esc(t.title)}">
-      <span class="prep-name">${esc(t.title)}</span>
-      <span class="tag">${esc(t.category)}</span>
-      ${isAdmin?`
-       <button class="text-btn" data-prep-delete="${esc(t.id)}">
-        刪除
-       </button>
-      `:""}
-     </div>
-    `).join("")
-    :'<div class="empty">這裡目前是空的。</div>';
-  
-   $("prepList").querySelectorAll("[data-prep-check]").forEach(input=>{
-    input.addEventListener("change",async()=>{
-     input.disabled=true;
-  
-     const {error}=await supabaseClient
-      .from("prep_tasks")
-      .update({completed:input.checked})
-      .eq("id",input.dataset.prepCheck);
-  
-     if(error)showToast("更新失敗："+error.message);
-     await loadPrepTasks();
-    });
-   });
-  
-   $("prepList").querySelectorAll("[data-prep-delete]").forEach(button=>{
-    button.addEventListener("click",async()=>{
-     if(!requireAdmin())return;
-     if(!confirm("確定刪掉這項嗎？"))return;
-  
-     const {error}=await supabaseClient
-      .from("prep_tasks")
-      .delete()
-      .eq("id",button.dataset.prepDelete);
-  
-     if(error){
-      showToast("刪除失敗："+error.message);
-      return;
-     }
-  
-     await loadPrepTasks();
-    });
-   });
-  }
-  
-  $("prepForm").addEventListener("submit",async e=>{
-   e.preventDefault();
-  
-   const title=$("prepTitle").value.trim();
-   if(!title)return;
-  
-   const button=e.currentTarget.querySelector('button[type="submit"]');
-   button.disabled=true;
-  
-   try{
-    const {error}=await supabaseClient.from("prep_tasks").insert({
-     title,
-     category:$("prepCategory").value,
-     completed:false,
-     sort_order:prepTasks.length
-    });
-  
-    if(error)throw error;
-  
-    $("prepTitle").value="";
-    await loadPrepTasks();
-    showToast("加進清單了！");
-   }catch(error){
-    showToast("新增失敗："+error.message);
-   }finally{
-    button.disabled=false;
-   }
-  });
-  
-  document.querySelectorAll("[data-prep-filter]").forEach(button=>{
-   button.addEventListener("click",()=>{
-    prepFilter=button.dataset.prepFilter;
-    renderPrepTasks();
-   });
-  });
-  
-  setInterval(()=>{
-   const panel=document.querySelector('[data-page-panel="preparation"]');
-   if(panel.classList.contains("active"))loadPrepTasks(true);
-  },15000);
-  
-  /* 天氣 */
-  const weatherCodes={
-   0:"晴天",1:"大致晴朗",2:"多雲時晴",3:"陰天",
-   45:"有霧",48:"有霧",
-   51:"毛毛雨",53:"毛毛雨",55:"毛毛雨",
-   61:"下雨",63:"下雨",65:"大雨",
-   71:"下雪",73:"下雪",75:"大雪",
-   80:"陣雨",81:"陣雨",82:"大雨",95:"雷雨"
-  };
-  
-  async function loadWeather(){
-   const el=$("weatherContent");
-   el.textContent="正在查天氣…";
-  
-   try{
-    const url=
-     "https://api.open-meteo.com/v1/forecast"+
-     "?latitude=33.5902&longitude=130.4017"+
-     "&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code"+
-     "&timezone=Asia%2FTokyo&forecast_days=16";
-  
-    const response=await fetch(url);
-    if(!response.ok)throw new Error("天氣服務暫時無法使用");
-  
-    const json=await response.json();
-  
-    const days=[
-     "2026-12-21","2026-12-22",
-     "2026-12-23","2026-12-24"
-    ];
-  
-    const found=days.map(date=>({
-     date,
-     i:json.daily?.time?.indexOf(date)??-1
-    }));
-  
-    if(found.every(d=>d.i<0)){
-     el.textContent=
-      "目前還查不到 12/21～12/24 的天氣，預報通常是出發前約 16 天才會有。";
-     return;
-    }
-  
-    el.innerHTML='<div class="weather-grid">'+
-     found.map(({date,i})=>{
-      const label=date.slice(5).replace("-","/");
-  
-      if(i<0){
-       return `<div class="weather-card">
-        <strong>${label}</strong>
-        <p>還沒有預報</p>
-       </div>`;
-      }
-  
-      return `<div class="weather-card">
-       <strong>${label}</strong>
-       <h3>${weatherCodes[json.daily.weather_code[i]]||"天氣變化"}</h3>
-       <p>${json.daily.temperature_2m_min[i]}～${json.daily.temperature_2m_max[i]}°C</p>
-       <p>降雨機率 ${json.daily.precipitation_probability_max[i]??"—"}%</p>
-      </div>`;
-     }).join("")+
-     '</div><small>資料來源：Open-Meteo。</small>';
-  
-   }catch(error){
-    el.textContent="天氣暫時查不到，晚點再試試。";
-   }
-  }
-  
-  $("refreshWeather").addEventListener("click",loadWeather);
-  
-  /* 網頁分頁 */
-  const pageTitles={
-   home:"首頁",
-   itinerary:"每日行程",
-   favorites:"景點收藏",
-   preparation:"行前準備",
-   orders:"機票＆訂單",
-   weather:"福岡天氣",
-   transport:"交通地圖"
-  };
-  
-  function showPage(pageName){
-   if(!pageTitles[pageName])pageName="home";
-  
-   $("pageHeading").hidden=pageName==="home";
-   $("currentPageTitle").textContent=pageTitles[pageName];
-  
-   document.querySelectorAll("[data-page-panel]").forEach(panel=>{
-    panel.classList.toggle(
-     "active",
-     panel.dataset.pagePanel===pageName
-    );
-   });
-  
-   if(pageName==="preparation")loadPrepTasks();
-   if(pageName==="weather")loadWeather();
-  
-   window.scrollTo({top:0,behavior:"smooth"});
-  }
-  
-  document.querySelectorAll("[data-go]").forEach(button=>{
-   button.addEventListener("click",()=>{
-    showPage(button.dataset.go);
-   });
-  });
-  
-  document.querySelector(".brand").addEventListener("click",e=>{
-   e.preventDefault();
-   showPage("home");
-  });
-  
-  /* 啟動網站 */
-  async function init(){
-   try{
-    const {data:sessionData,error}=
-     await supabaseClient.auth.getSession();
-  
-    if(error)throw error;
-  
-    currentUser=sessionData.session?.user||null;
-    isAdmin=!!currentUser&&currentUser.id===ADMIN_USER_ID;
-  
-    setAdminUI();
-    await loadCloudData();
-  
-    supabaseClient.auth.onAuthStateChange((_event,session)=>{
-     currentUser=session?.user||null;
-     isAdmin=!!currentUser&&currentUser.id===ADMIN_USER_ID;
-     setAdminUI();
-    });
-  
-   }catch(error){
-    setStatus("連線失敗");
-    showToast("初始化失敗："+error.message);
-   }
-  }
-  
-  updateCountdown();
+  favorites=b.data||[];
   renderTabs();
   renderDay();
   renderFavorites();
-  showPage("home");
-  init();
-  
-  </script>
-  </body>
-  </html>
-  
+  $("status").textContent="雲端同步完成";
+ }catch(e){
+  $("status").textContent="雲端讀取失敗";
+  toast("資料讀取失敗："+e.message);
+ }
+}
+
+function renderTabs(){
+ $("dayTabs").innerHTML=dayInfo.map((d,i)=>
+  `<button class="tab ${activeDay===i?"active":""}" data-day="${i}">Day ${i+1} · ${d.date}</button>`
+ ).join("");
+ $("dayTabs").querySelectorAll("[data-day]").forEach(b=>{
+  b.onclick=()=>{activeDay=Number(b.dataset.day);renderTabs();renderDay()};
+ });
+}
+
+function renderDay(){
+ const d=dayInfo[activeDay];
+ $("dayCover").innerHTML=`
+  <img src="${esc(d.image)}" alt="${esc(d.title)}">
+  <div class="cover-text"><small>DAY ${activeDay+1} · ${d.date}</small><h3>${esc(d.title)}</h3></div>`;
+
+ const list=days[activeDay]||[];
+ $("timeline").innerHTML=list.length?list.map(item=>`
+  <article class="stop">
+   <span class="time">${esc(item.time_text||"待定")}</span>
+   <div>
+    <h3>${esc(item.title)}</h3>
+    <p>${esc(item.description||"")}</p>
+    <div class="actions">
+     <a class="linkbtn" href="${esc(mapUrl(item.map||item.title))}" target="_blank" rel="noopener">地圖 ↗</a>
+     ${isAdmin?`
+      <button class="linkbtn" data-edit-stop="${esc(item.id)}">編輯</button>
+      <button class="linkbtn" data-delete-stop="${esc(item.id)}">刪除</button>`:""}
+    </div>
+   </div>
+  </article>`).join(""):'<div class="empty">這一天目前沒有行程。</div>';
+
+ $("timeline").querySelectorAll("[data-edit-stop]").forEach(b=>{
+  b.onclick=()=>openStop(b.dataset.editStop);
+ });
+ $("timeline").querySelectorAll("[data-delete-stop]").forEach(b=>{
+  b.onclick=async()=>{
+   if(!requireAdmin()||!confirm("確定刪除行程？"))return;
+   const {error}=await db.from("itinerary_items").delete().eq("id",b.dataset.deleteStop);
+   if(error)return toast(error.message);
+   await loadCloudData();
+  };
+ });
+}
+
+function renderFavorites(){
+ $("savedCount").textContent=favorites.filter(p=>p.saved).length;
+ document.querySelectorAll("[data-filter]").forEach(b=>{
+  b.classList.toggle("active",b.dataset.filter===favoriteFilter);
+ });
+
+ const visible=favoriteFilter==="saved"
+  ?favorites.filter(p=>p.saved)
+  :favorites;
+
+ $("favoritesGrid").innerHTML=visible.length
+  ?visible.map(p=>{
+   const image=p.image||DEFAULT_IMAGE;
+   return `
+    <article class="place">
+     <div class="place-image">
+      <img src="${esc(image)}" alt="${esc(p.title)}照片" loading="lazy"
+       onerror="this.onerror=null;this.src='黑人.png'">
+      <button class="heart" data-heart="${esc(p.id)}">${p.saved?"♥":"♡"}</button>
+     </div>
+     <div class="place-body">
+      <span class="tag">${esc(p.tag||"景點")}</span>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.description||"還沒寫介紹")}</p>
+      <div class="place-footer">
+       <a class="linkbtn" href="${esc(mapUrl(p.map||p.title))}" target="_blank" rel="noopener">看地圖 ↗</a>
+       <button class="linkbtn" data-edit-place="${esc(p.id)}">編輯</button>
+       <button class="linkbtn" data-delete-place="${esc(p.id)}">刪除</button>
+      </div>
+     </div>
+    </article>`;
+  }).join("")
+  :'<div class="empty">目前沒有符合條件的景點。</div>';
+
+ $("favoritesGrid").querySelectorAll("[data-heart]").forEach(b=>{
+  b.onclick=async()=>{
+   const p=favorites.find(x=>String(x.id)===b.dataset.heart);
+   if(!p)return;
+   const {error}=await db.from("favorite_items")
+    .update({saved:!p.saved}).eq("id",p.id);
+   if(error)return toast("收藏失敗："+error.message);
+   await loadCloudData();
+  };
+ });
+
+ $("favoritesGrid").querySelectorAll("[data-edit-place]").forEach(b=>{
+  b.onclick=()=>{
+   if(!isAdmin){
+    toast("訪客密碼驗證尚未完成，暫時只能由管理者編輯");
+    return;
+   }
+   openEditPlace(b.dataset.editPlace);
+  };
+ });
+
+ $("favoritesGrid").querySelectorAll("[data-delete-place]").forEach(b=>{
+  b.onclick=async()=>{
+   if(!isAdmin){
+    toast("訪客密碼驗證尚未完成，暫時只能由管理者刪除");
+    return;
+   }
+   if(!confirm("確定刪除這個景點？"))return;
+   const {error}=await db.from("favorite_items").delete().eq("id",b.dataset.deletePlace);
+   if(error)return toast("刪除失敗："+error.message);
+   await loadCloudData();
+   toast("景點已刪除");
+  };
+ });
+}
+
+document.querySelectorAll("[data-filter]").forEach(b=>{
+ b.onclick=()=>{favoriteFilter=b.dataset.filter;renderFavorites()};
+});
+
+function clearPreview(){
+ if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null}
+ $("pImagePreview").style.display="none";
+ $("pImagePreview").removeAttribute("src");
+}
+function closePlace(){
+ $("placeBackdrop").classList.remove("open");
+ clearPreview();
+ editingPlaceId=null;
+}
+function openNewPlace(){
+ editingPlaceId=null;
+ $("placeForm").reset();
+ clearPreview();
+ $("placeModalTitle").textContent="新增景點";
+ $("placeSubmitBtn").textContent="新增景點";
+ $("placeBackdrop").classList.add("open");
+}
+function openEditPlace(id){
+ if(!requireAdmin())return;
+ const p=favorites.find(x=>String(x.id)===String(id));
+ if(!p)return toast("找不到景點");
+ editingPlaceId=p.id;
+ $("placeForm").reset();
+ clearPreview();
+ $("placeModalTitle").textContent="編輯景點";
+ $("placeSubmitBtn").textContent="儲存修改";
+ $("pTitle").value=p.title||"";
+ $("pDesc").value=p.description||"";
+ $("pMap").value=p.map||"";
+ const select=$("pTag");
+ if(p.tag&&![...select.options].some(o=>o.value===p.tag)){
+  select.add(new Option(p.tag,p.tag));
+ }
+ select.value=p.tag||"景點";
+ $("pImagePreview").src=p.image||DEFAULT_IMAGE;
+ $("pImagePreview").style.display="block";
+ $("placeBackdrop").classList.add("open");
+}
+$("addPlace").onclick=openNewPlace;
+$("closePlaceModal").onclick=closePlace;
+$("cancelPlaceModal").onclick=closePlace;
+$("placeBackdrop").onclick=e=>{if(e.target===$("placeBackdrop"))closePlace()};
+
+$("pImage").onchange=()=>{
+ const file=$("pImage").files?.[0];
+ if(!file)return;
+ if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
+  toast("圖片格式限 JPG、PNG、WebP");
+  $("pImage").value="";
+  return;
+ }
+ if(file.size>5*1024*1024){
+  toast("圖片不能超過 5MB");
+  $("pImage").value="";
+  return;
+ }
+ clearPreview();
+ previewUrl=URL.createObjectURL(file);
+ $("pImagePreview").src=previewUrl;
+ $("pImagePreview").style.display="block";
+};
+
+async function uploadImage(file){
+ const ext=file.type==="image/png"?"png":file.type==="image/webp"?"webp":"jpg";
+ const path=crypto.randomUUID()+"."+ext;
+ const {error}=await db.storage.from("travel-photos")
+  .upload(path,file,{contentType:file.type,upsert:false});
+ if(error)throw error;
+ return db.storage.from("travel-photos").getPublicUrl(path).data.publicUrl;
+}
+
+$("placeForm").onsubmit=async e=>{
+ e.preventDefault();
+ const title=$("pTitle").value.trim();
+ if(!title)return;
+ const editing=editingPlaceId!==null;
+ if(editing&&!requireAdmin())return;
+ const file=$("pImage").files?.[0];
+ const button=$("placeSubmitBtn");
+ button.disabled=true;
+
+ try{
+  const original=editing
+   ?favorites.find(p=>String(p.id)===String(editingPlaceId))
+   :null;
+  if(editing&&!original)throw Error("找不到原本景點");
+
+  let image=editing?(original.image||DEFAULT_IMAGE):DEFAULT_IMAGE;
+  if(file)image=await uploadImage(file);
+
+  const row={
+   title,
+   description:$("pDesc").value.trim(),
+   tag:$("pTag").value,
+   map:$("pMap").value.trim()||title,
+   image
+  };
+
+  let result;
+  if(editing){
+   result=await db.from("favorite_items").update(row).eq("id",editingPlaceId);
+  }else{
+   const {data:old,error}=await db.from("favorite_items")
+    .select("sort_order").order("sort_order",{ascending:false}).limit(1);
+   if(error)throw error;
+   row.saved=true;
+   row.sort_order=(old?.[0]?.sort_order??-1)+1;
+   result=await db.from("favorite_items").insert(row);
+  }
+
+  if(result.error)throw result.error;
+  closePlace();
+  await loadCloudData();
+  toast(editing?"景點修改成功":"景點新增成功");
+ }catch(error){
+  toast("儲存失敗："+error.message);
+ }finally{
+  button.disabled=false;
+ }
+};
+
+function closeStop(){
+ $("stopBackdrop").classList.remove("open");
+ editingStopId=null;
+}
+function openStop(id=null){
+ if(!requireAdmin())return;
+ const item=id===null?null:days.flat().find(x=>String(x.id)===String(id));
+ editingStopId=id;
+ $("stopForm").reset();
+ $("stopModalTitle").textContent=id===null?"新增行程":"編輯行程";
+ $("fDay").value=String(item?.day_number||activeDay+1);
+ $("fTime").value=item?.time_text||"";
+ $("fTitle").value=item?.title||"";
+ $("fDesc").value=item?.description||"";
+ $("fMap").value=item?.map||"";
+ $("stopBackdrop").classList.add("open");
+}
+$("addStop").onclick=()=>openStop();
+$("closeStopModal").onclick=closeStop;
+$("cancelStopModal").onclick=closeStop;
+$("stopBackdrop").onclick=e=>{if(e.target===$("stopBackdrop"))closeStop()};
+
+$("stopForm").onsubmit=async e=>{
+ e.preventDefault();
+ if(!requireAdmin())return;
+ const day=Number($("fDay").value);
+ const row={
+  day_number:day,
+  time_text:$("fTime").value.trim(),
+  title:$("fTitle").value.trim(),
+  description:$("fDesc").value.trim(),
+  map:$("fMap").value.trim()
+ };
+ let result;
+ if(editingStopId!==null){
+  result=await db.from("itinerary_items").update(row).eq("id",editingStopId);
+ }else{
+  const {data:old,error}=await db.from("itinerary_items")
+   .select("sort_order").eq("day_number",day)
+   .order("sort_order",{ascending:false}).limit(1);
+  if(error)return toast(error.message);
+  row.sort_order=(old?.[0]?.sort_order??-1)+1;
+  result=await db.from("itinerary_items").insert(row);
+ }
+ if(result.error)return toast(result.error.message);
+ activeDay=day-1;
+ closeStop();
+ await loadCloudData();
+ toast("行程已儲存");
+};
+
+async function loadPrep(){
+ const {data,error}=await db.from("prep_tasks")
+  .select("*").order("sort_order").order("created_at");
+ if(error){
+  $("prepList").innerHTML='<div class="empty">清單讀取失敗</div>';
+  return;
+ }
+ prep=data||[];
+ renderPrep();
+}
+function renderPrep(){
+ const done=prep.filter(t=>t.completed).length;
+ $("prepSummary").textContent=`已準備 ${done} / ${prep.length} 項`;
+ $("prepBar").style.width=(prep.length?done/prep.length*100:0)+"%";
+
+ document.querySelectorAll("[data-prep-filter]").forEach(b=>{
+  b.classList.toggle("active",b.dataset.prepFilter===prepFilter);
+ });
+ const list=prep.filter(t=>prepFilter==="all"||(prepFilter==="done"?t.completed:!t.completed));
+ $("prepList").innerHTML=list.length?list.map(t=>`
+  <div class="task ${t.completed?"done":""}">
+   <input type="checkbox" data-check="${esc(t.id)}" ${t.completed?"checked":""}>
+   <span class="task-name">${esc(t.title)}</span>
+   <span class="tag">${esc(t.category)}</span>
+   ${isAdmin?`<button class="linkbtn" data-delete-task="${esc(t.id)}">刪除</button>`:""}
+  </div>`).join(""):'<div class="empty">目前沒有項目。</div>';
+
+ $("prepList").querySelectorAll("[data-check]").forEach(input=>{
+  input.onchange=async()=>{
+   const {error}=await db.from("prep_tasks")
+    .update({completed:input.checked}).eq("id",input.dataset.check);
+   if(error)toast(error.message);
+   await loadPrep();
+  };
+ });
+ $("prepList").querySelectorAll("[data-delete-task]").forEach(b=>{
+  b.onclick=async()=>{
+   if(!requireAdmin()||!confirm("確定刪除？"))return;
+   const {error}=await db.from("prep_tasks").delete().eq("id",b.dataset.deleteTask);
+   if(error)return toast(error.message);
+   await loadPrep();
+  };
+ });
+}
+$("prepForm").onsubmit=async e=>{
+ e.preventDefault();
+ const title=$("prepTitle").value.trim();
+ if(!title)return;
+ const {error}=await db.from("prep_tasks").insert({
+  title,category:$("prepCategory").value,completed:false,sort_order:prep.length
+ });
+ if(error)return toast("新增失敗："+error.message);
+ $("prepTitle").value="";
+ await loadPrep();
+ toast("已加入清單");
+};
+document.querySelectorAll("[data-prep-filter]").forEach(b=>{
+ b.onclick=()=>{prepFilter=b.dataset.prepFilter;renderPrep()};
+});
+
+async function loadWeather(){
+ $("weatherContent").textContent="正在查詢天氣…";
+ try{
+  const url="https://api.open-meteo.com/v1/forecast?latitude=33.5902&longitude=130.4017&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code&timezone=Asia%2FTokyo&forecast_days=16";
+  const res=await fetch(url);
+  if(!res.ok)throw Error("無法連線天氣服務");
+  const json=await res.json();
+  const dates=["2026-12-21","2026-12-22","2026-12-23","2026-12-24"];
+  $("weatherContent").innerHTML=dates.map(date=>{
+   const i=json.daily.time.indexOf(date);
+   if(i<0)return `<p>${date.slice(5)}：目前還沒有預報</p>`;
+   return `<p><strong>${date.slice(5)}</strong>　${json.daily.temperature_2m_min[i]}～${json.daily.temperature_2m_max[i]}°C　降雨機率 ${json.daily.precipitation_probability_max[i]}%</p>`;
+  }).join("");
+ }catch(e){
+  $("weatherContent").textContent="暫時無法查詢天氣，請稍後重試。";
+ }
+}
+$("refreshWeather").onclick=loadWeather;
+
+$("loginToggle").onclick=()=>$("loginPanel").classList.toggle("open");
+$("closeLogin").onclick=()=>$("loginPanel").classList.remove("open");
+
+$("loginBtn").onclick=async()=>{
+ const email=$("loginEmail").value.trim();
+ const password=$("loginPassword").value;
+ if(!email||!password)return toast("請輸入帳號密碼");
+
+ const {data,error}=await db.auth.signInWithPassword({email,password});
+ if(error)return toast("登入失敗："+error.message);
+
+ currentUser=data.user;
+ isAdmin=currentUser?.id===ADMIN_USER_ID;
+ if(!isAdmin){
+  await db.auth.signOut();
+  currentUser=null;
+  updateAdminUI();
+  return toast("此帳號沒有管理者權限");
+ }
+ $("loginPanel").classList.remove("open");
+ updateAdminUI();
+ await loadCloudData();
+ toast("管理者登入成功");
+};
+
+$("logoutBtn").onclick=async()=>{
+ await db.auth.signOut();
+ currentUser=null;
+ isAdmin=false;
+ updateAdminUI();
+ await loadCloudData();
+ toast("已登出");
+};
+
+async function init(){
+ try{
+  const {data,error}=await db.auth.getSession();
+  if(error)throw error;
+  currentUser=data.session?.user||null;
+  isAdmin=!!currentUser&&currentUser.id===ADMIN_USER_ID;
+  updateAdminUI();
+  await loadCloudData();
+
+  db.auth.onAuthStateChange((_event,session)=>{
+   currentUser=session?.user||null;
+   isAdmin=!!currentUser&&currentUser.id===ADMIN_USER_ID;
+   updateAdminUI();
+  });
+ }catch(error){
+  $("status").textContent="初始化失敗";
+  toast("初始化失敗："+error.message);
+ }
+}
+
+renderTabs();
+renderDay();
+renderFavorites();
+showPage("home");
+init();
+</script>
+</body>
+</html>
