@@ -1,4 +1,4 @@
-  
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -22,6 +22,7 @@ button{border:0}
 .btn{background:var(--green);color:white;border-radius:99px;padding:10px 16px;font-weight:700}
 .btn.light{background:var(--white);border:1px solid var(--line);color:var(--green)}
 .btn.small{font-size:12px;padding:7px 11px}
+.btn:disabled{opacity:.55;cursor:wait}
 main{max-width:1100px;margin:auto;padding:24px 20px 65px}
 .page{display:none}
 .page.active{display:block}
@@ -53,7 +54,7 @@ h2{font-size:28px;margin:0}
 .tabs{display:flex;gap:9px;overflow-x:auto;padding-bottom:12px}
 .tab{background:var(--white);border:1px solid var(--line);border-radius:99px;padding:9px 15px;white-space:nowrap;color:var(--muted)}
 .tab.active{background:var(--green);color:white}
-.day-layout{display:grid;grid-template-columns:0.85fr 1.15fr;gap:18px}
+.day-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:18px}
 .cover{height:300px;border-radius:20px;overflow:hidden;position:relative;background:#ddd}
 .cover img{width:100%;height:100%;object-fit:cover}
 .cover-text{position:absolute;bottom:0;left:0;right:0;padding:24px;color:white;background:linear-gradient(transparent,#0009)}
@@ -94,7 +95,7 @@ textarea{resize:vertical;min-height:90px}
 .field{display:grid;gap:5px;margin:12px 0}
 .field label{font-size:13px;font-weight:700}
 .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
-.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#35372f;color:white;padding:12px 18px;border-radius:99px;display:none;z-index:90;max-width:90%;text-align:center}
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#35372f;color:white;padding:12px 18px;border-radius:18px;display:none;z-index:90;max-width:90%;text-align:center}
 .toast.show{display:block}
 .login-panel{display:none;padding:15px 20px;background:var(--white);border-bottom:1px solid var(--line)}
 .login-panel.open{display:flex;flex-wrap:wrap;gap:8px}
@@ -118,9 +119,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
  .stop{grid-template-columns:50px 1fr}
  .section-head h2{font-size:24px}
 }
-@media(max-width:370px){
- .places{grid-template-columns:1fr}
-}
+@media(max-width:370px){.places{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -275,9 +274,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
  <h2>交通地圖</h2>
  <p class="subtitle">常用交通資訊。</p>
  <div class="transport">
-  <div class="transport-card"><h3>🗺️ Google 地圖</h3><a href="https://www.google.com/maps/search/Fukuoka/" target="_blank">開啟地圖 ↗</a></div>
-  <div class="transport-card"><h3>🚇 福岡地下鐵</h3><a href="https://subway.city.fukuoka.lg.jp/eng/" target="_blank">官方網站 ↗</a></div>
-  <div class="transport-card"><h3>🚆 JR 九州</h3><a href="https://www.jrkyushu.co.jp/english/" target="_blank">官方網站 ↗</a></div>
+  <div class="transport-card"><h3>🗺️ Google 地圖</h3><a href="https://www.google.com/maps/search/Fukuoka/" target="_blank" rel="noopener">開啟地圖 ↗</a></div>
+  <div class="transport-card"><h3>🚇 福岡地下鐵</h3><a href="https://subway.city.fukuoka.lg.jp/eng/" target="_blank" rel="noopener">官方網站 ↗</a></div>
+  <div class="transport-card"><h3>🚆 JR 九州</h3><a href="https://www.jrkyushu.co.jp/english/" target="_blank" rel="noopener">官方網站 ↗</a></div>
  </div>
 </section>
 
@@ -287,20 +286,42 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
 
 <div class="modal-bg" id="placeBackdrop">
  <div class="modal">
-  <div class="modal-head"><h2 id="placeModalTitle">新增景點</h2><button class="close" id="closePlaceModal">×</button></div>
+  <div class="modal-head">
+   <h2 id="placeModalTitle">新增景點</h2>
+   <button class="close" id="closePlaceModal">×</button>
+  </div>
   <form id="placeForm">
-   <div class="field"><label>景點名稱</label><input id="pTitle" required></div>
-   <div class="field"><label>景點介紹</label><textarea id="pDesc"></textarea></div>
-   <div class="field"><label>分類</label>
-    <select id="pTag"><option>景點</option><option>美食</option><option>購物</option><option>咖啡廳</option></select>
-   </div>
-   <div class="field"><label>Google 地圖地址／搜尋關鍵字／分享連結</label><input id="pMap" placeholder="可貼完整地址或 Google Maps 網址"></div>
    <div class="field">
-    <label>景點照片（預設 黑人.png）</label>
+    <label for="pTitle">景點名稱</label>
+    <input id="pTitle" required maxlength="200">
+   </div>
+   <div class="field">
+    <label for="pDesc">景點介紹</label>
+    <textarea id="pDesc"></textarea>
+   </div>
+   <div class="field">
+    <label for="pTag">分類</label>
+    <select id="pTag">
+     <option>景點</option>
+     <option>美食</option>
+     <option>購物</option>
+     <option>咖啡廳</option>
+    </select>
+   </div>
+   <div class="field">
+    <label for="pMap">Google 地圖地址／搜尋關鍵字／分享連結</label>
+    <input id="pMap" placeholder="可貼完整地址或 Google Maps 網址">
+   </div>
+   <div class="field">
+    <label for="pImage">景點照片（預設 黑人.png）</label>
     <input id="pImage" type="file" accept="image/jpeg,image/png,image/webp">
     <img id="pImagePreview" alt="預覽" style="display:none;width:100%;max-height:200px;object-fit:cover;border-radius:12px">
    </div>
-   <div class="note" id="passwordNotice">訪客編輯及刪除需要後端密碼驗證；目前尚未啟用。</div>
+   <div class="field" id="placePasswordField">
+    <label for="pPassword" id="placePasswordLabel">設定景點管理密碼（6～128 碼）</label>
+    <input id="pPassword" type="password" minlength="6" maxlength="128" autocomplete="new-password" placeholder="請記住密碼">
+   </div>
+   <div class="note" id="passwordNotice">每個景點使用自己的密碼。日後編輯或刪除時需要輸入。</div>
    <div class="modal-actions">
     <button class="btn light" type="button" id="cancelPlaceModal">取消</button>
     <button class="btn" type="submit" id="placeSubmitBtn">新增景點</button>
@@ -358,39 +379,51 @@ const dayInfo=[
  {title:"回台灣啦",date:"12/24",image:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1000&q=80"}
 ];
 
-function toast(s){
- $("toast").textContent=s;
+function toast(message){
+ $("toast").textContent=message;
  $("toast").classList.add("show");
  clearTimeout(toastTimer);
- toastTimer=setTimeout(()=>$("toast").classList.remove("show"),3500);
+ toastTimer=setTimeout(()=>$("toast").classList.remove("show"),4000);
 }
+
 function requireAdmin(){
- if(!isAdmin){toast("只有管理者可以執行此操作");return false}
+ if(!isAdmin){
+  toast("只有管理者可以執行此操作");
+  return false;
+ }
  return true;
 }
+
 function mapUrl(q){
  const value=String(q||"福岡").trim();
  if(/^https:\/\/(www\.)?google\.[^/]+\/maps(?:\/|$)/i.test(value)
-   ||/^https:\/\/maps\.app\.goo\.gl\//i.test(value)){
+ || /^https:\/\/maps\.app\.goo\.gl\//i.test(value)){
   return value;
  }
  return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(value);
 }
+
 function showPage(name){
  const pages=["home","itinerary","favorites","preparation","orders","weather","transport"];
  if(!pages.includes(name))name="home";
  pages.forEach(p=>$(p+"Page").classList.toggle("active",p===name));
  $("backBtn").hidden=name==="home";
  $("pageTitle").textContent=name==="home"?"":({
-  itinerary:"每日行程",favorites:"景點收藏",
-  preparation:"行前準備",orders:"機票＆訂單",
-  weather:"福岡天氣",transport:"交通地圖"
+  itinerary:"每日行程",
+  favorites:"景點收藏",
+  preparation:"行前準備",
+  orders:"機票＆訂單",
+  weather:"福岡天氣",
+  transport:"交通地圖"
  })[name];
  window.scrollTo(0,0);
  if(name==="preparation")loadPrep();
  if(name==="weather")loadWeather();
 }
-document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>showPage(b.dataset.go));
+
+document.querySelectorAll("[data-go]").forEach(b=>{
+ b.onclick=()=>showPage(b.dataset.go);
+});
 $("homeLogo").onclick=()=>showPage("home");
 $("backBtn").onclick=()=>showPage("home");
 
@@ -416,7 +449,7 @@ async function loadCloudData(){
  try{
   const [a,b]=await Promise.all([
    db.from("itinerary_items").select("*").order("day_number").order("sort_order"),
-   db.from("favorite_items").select("*").order("sort_order")
+   db.from("favorite_items").select("id,title,description,image,tag,map,saved,sort_order,created_at").order("sort_order")
   ]);
   if(a.error)throw a.error;
   if(b.error)throw b.error;
@@ -426,6 +459,7 @@ async function loadCloudData(){
    const n=Number(item.day_number)-1;
    if(n>=0&&n<4)days[n].push(item);
   });
+
   favorites=b.data||[];
   renderTabs();
   renderDay();
@@ -441,8 +475,13 @@ function renderTabs(){
  $("dayTabs").innerHTML=dayInfo.map((d,i)=>
   `<button class="tab ${activeDay===i?"active":""}" data-day="${i}">Day ${i+1} · ${d.date}</button>`
  ).join("");
+
  $("dayTabs").querySelectorAll("[data-day]").forEach(b=>{
-  b.onclick=()=>{activeDay=Number(b.dataset.day);renderTabs();renderDay()};
+  b.onclick=()=>{
+   activeDay=Number(b.dataset.day);
+   renderTabs();
+   renderDay();
+  };
  });
 }
 
@@ -450,31 +489,39 @@ function renderDay(){
  const d=dayInfo[activeDay];
  $("dayCover").innerHTML=`
   <img src="${esc(d.image)}" alt="${esc(d.title)}">
-  <div class="cover-text"><small>DAY ${activeDay+1} · ${d.date}</small><h3>${esc(d.title)}</h3></div>`;
+  <div class="cover-text">
+   <small>DAY ${activeDay+1} · ${d.date}</small>
+   <h3>${esc(d.title)}</h3>
+  </div>`;
 
  const list=days[activeDay]||[];
- $("timeline").innerHTML=list.length?list.map(item=>`
-  <article class="stop">
-   <span class="time">${esc(item.time_text||"待定")}</span>
-   <div>
-    <h3>${esc(item.title)}</h3>
-    <p>${esc(item.description||"")}</p>
-    <div class="actions">
-     <a class="linkbtn" href="${esc(mapUrl(item.map||item.title))}" target="_blank" rel="noopener">地圖 ↗</a>
-     ${isAdmin?`
-      <button class="linkbtn" data-edit-stop="${esc(item.id)}">編輯</button>
-      <button class="linkbtn" data-delete-stop="${esc(item.id)}">刪除</button>`:""}
+ $("timeline").innerHTML=list.length
+  ?list.map(item=>`
+   <article class="stop">
+    <span class="time">${esc(item.time_text||"待定")}</span>
+    <div>
+     <h3>${esc(item.title)}</h3>
+     <p>${esc(item.description||"")}</p>
+     <div class="actions">
+      <a class="linkbtn" href="${esc(mapUrl(item.map||item.title))}" target="_blank" rel="noopener">地圖 ↗</a>
+      ${isAdmin?`
+       <button class="linkbtn" data-edit-stop="${esc(item.id)}">編輯</button>
+       <button class="linkbtn" data-delete-stop="${esc(item.id)}">刪除</button>
+      `:""}
+     </div>
     </div>
-   </div>
-  </article>`).join(""):'<div class="empty">這一天目前沒有行程。</div>';
+   </article>`).join("")
+  :'<div class="empty">這一天目前沒有行程。</div>';
 
  $("timeline").querySelectorAll("[data-edit-stop]").forEach(b=>{
   b.onclick=()=>openStop(b.dataset.editStop);
  });
+
  $("timeline").querySelectorAll("[data-delete-stop]").forEach(b=>{
   b.onclick=async()=>{
    if(!requireAdmin()||!confirm("確定刪除行程？"))return;
-   const {error}=await db.from("itinerary_items").delete().eq("id",b.dataset.deleteStop);
+   const {error}=await db.from("itinerary_items")
+    .delete().eq("id",b.dataset.deleteStop);
    if(error)return toast(error.message);
    await loadCloudData();
   };
@@ -483,6 +530,7 @@ function renderDay(){
 
 function renderFavorites(){
  $("savedCount").textContent=favorites.filter(p=>p.saved).length;
+
  document.querySelectorAll("[data-filter]").forEach(b=>{
   b.classList.toggle("active",b.dataset.filter===favoriteFilter);
  });
@@ -499,7 +547,7 @@ function renderFavorites(){
      <div class="place-image">
       <img src="${esc(image)}" alt="${esc(p.title)}照片" loading="lazy"
        onerror="this.onerror=null;this.src='黑人.png'">
-      <button class="heart" data-heart="${esc(p.id)}">${p.saved?"♥":"♡"}</button>
+      <button class="heart" aria-label="切換收藏" data-heart="${esc(p.id)}">${p.saved?"♥":"♡"}</button>
      </div>
      <div class="place-body">
       <span class="tag">${esc(p.tag||"景點")}</span>
@@ -519,99 +567,163 @@ function renderFavorites(){
   b.onclick=async()=>{
    const p=favorites.find(x=>String(x.id)===b.dataset.heart);
    if(!p)return;
-   const {error}=await db.from("favorite_items")
-    .update({saved:!p.saved}).eq("id",p.id);
-   if(error)return toast("收藏失敗："+error.message);
-   await loadCloudData();
+
+   b.disabled=true;
+   try{
+    const {error}=await db.rpc("toggle_favorite_place",{p_id:p.id});
+    if(error)throw error;
+    await loadCloudData();
+   }catch(error){
+    toast("收藏失敗："+error.message);
+   }finally{
+    b.disabled=false;
+   }
   };
  });
 
  $("favoritesGrid").querySelectorAll("[data-edit-place]").forEach(b=>{
-  b.onclick=()=>{
-   if(!isAdmin){
-    toast("訪客密碼驗證尚未完成，暫時只能由管理者編輯");
-    return;
-   }
-   openEditPlace(b.dataset.editPlace);
-  };
+  b.onclick=()=>openEditPlace(b.dataset.editPlace);
  });
 
  $("favoritesGrid").querySelectorAll("[data-delete-place]").forEach(b=>{
   b.onclick=async()=>{
+   const id=b.dataset.deletePlace;
+   const place=favorites.find(p=>String(p.id)===id);
+   if(!place)return;
+
+   let password="";
    if(!isAdmin){
-    toast("訪客密碼驗證尚未完成，暫時只能由管理者刪除");
-    return;
+    const answer=prompt("請輸入「"+place.title+"」的景點管理密碼：");
+    if(answer===null)return;
+    password=answer;
+    if(!password){
+     toast("請輸入景點管理密碼");
+     return;
+    }
    }
-   if(!confirm("確定刪除這個景點？"))return;
-   const {error}=await db.from("favorite_items").delete().eq("id",b.dataset.deletePlace);
-   if(error)return toast("刪除失敗："+error.message);
-   await loadCloudData();
-   toast("景點已刪除");
+
+   if(!confirm("確定刪除「"+place.title+"」嗎？"))return;
+
+   b.disabled=true;
+   try{
+    const {error}=await db.rpc("delete_favorite_place",{
+     p_id:id,
+     p_password:password
+    });
+    if(error)throw error;
+    await loadCloudData();
+    toast("景點已刪除");
+   }catch(error){
+    toast("刪除失敗："+error.message);
+   }finally{
+    b.disabled=false;
+   }
   };
  });
 }
 
 document.querySelectorAll("[data-filter]").forEach(b=>{
- b.onclick=()=>{favoriteFilter=b.dataset.filter;renderFavorites()};
+ b.onclick=()=>{
+  favoriteFilter=b.dataset.filter;
+  renderFavorites();
+ };
 });
 
 function clearPreview(){
- if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null}
+ if(previewUrl){
+  URL.revokeObjectURL(previewUrl);
+  previewUrl=null;
+ }
  $("pImagePreview").style.display="none";
  $("pImagePreview").removeAttribute("src");
 }
+
 function closePlace(){
  $("placeBackdrop").classList.remove("open");
  clearPreview();
  editingPlaceId=null;
+ $("pPassword").value="";
 }
+
+function configurePlacePassword(editing){
+ const field=$("placePasswordField");
+ const input=$("pPassword");
+
+ input.value="";
+ field.style.display=editing&&isAdmin?"none":"";
+ input.required=!(editing&&isAdmin);
+
+ if(editing){
+  $("placePasswordLabel").textContent="輸入此景點的管理密碼";
+  $("passwordNotice").textContent=isAdmin
+   ?"管理者可直接修改景點，不需要輸入密碼。"
+   :"請輸入新增這個景點時設定的密碼。舊景點如果沒有密碼，須由管理者編輯。";
+ }else{
+  $("placePasswordLabel").textContent="設定景點管理密碼（6～128 碼）";
+  $("passwordNotice").textContent="請記住這組密碼。訪客日後編輯或刪除這個景點時，都需要使用相同密碼。";
+ }
+}
+
 function openNewPlace(){
  editingPlaceId=null;
  $("placeForm").reset();
  clearPreview();
  $("placeModalTitle").textContent="新增景點";
  $("placeSubmitBtn").textContent="新增景點";
+ configurePlacePassword(false);
  $("placeBackdrop").classList.add("open");
 }
+
 function openEditPlace(id){
- if(!requireAdmin())return;
  const p=favorites.find(x=>String(x.id)===String(id));
  if(!p)return toast("找不到景點");
+
  editingPlaceId=p.id;
  $("placeForm").reset();
  clearPreview();
+
  $("placeModalTitle").textContent="編輯景點";
  $("placeSubmitBtn").textContent="儲存修改";
  $("pTitle").value=p.title||"";
  $("pDesc").value=p.description||"";
  $("pMap").value=p.map||"";
+
  const select=$("pTag");
  if(p.tag&&![...select.options].some(o=>o.value===p.tag)){
   select.add(new Option(p.tag,p.tag));
  }
  select.value=p.tag||"景點";
+
  $("pImagePreview").src=p.image||DEFAULT_IMAGE;
  $("pImagePreview").style.display="block";
+
+ configurePlacePassword(true);
  $("placeBackdrop").classList.add("open");
 }
+
 $("addPlace").onclick=openNewPlace;
 $("closePlaceModal").onclick=closePlace;
 $("cancelPlaceModal").onclick=closePlace;
-$("placeBackdrop").onclick=e=>{if(e.target===$("placeBackdrop"))closePlace()};
+$("placeBackdrop").onclick=e=>{
+ if(e.target===$("placeBackdrop"))closePlace();
+};
 
 $("pImage").onchange=()=>{
  const file=$("pImage").files?.[0];
  if(!file)return;
+
  if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
   toast("圖片格式限 JPG、PNG、WebP");
   $("pImage").value="";
   return;
  }
+
  if(file.size>5*1024*1024){
   toast("圖片不能超過 5MB");
   $("pImage").value="";
   return;
  }
+
  clearPreview();
  previewUrl=URL.createObjectURL(file);
  $("pImagePreview").src=previewUrl;
@@ -619,21 +731,52 @@ $("pImage").onchange=()=>{
 };
 
 async function uploadImage(file){
- const ext=file.type==="image/png"?"png":file.type==="image/webp"?"webp":"jpg";
+ const ext=file.type==="image/png"
+  ?"png"
+  :file.type==="image/webp"?"webp":"jpg";
+
  const path=crypto.randomUUID()+"."+ext;
  const {error}=await db.storage.from("travel-photos")
-  .upload(path,file,{contentType:file.type,upsert:false});
+  .upload(path,file,{
+   contentType:file.type,
+   upsert:false
+  });
+
  if(error)throw error;
- return db.storage.from("travel-photos").getPublicUrl(path).data.publicUrl;
+
+ return db.storage.from("travel-photos")
+  .getPublicUrl(path).data.publicUrl;
 }
 
 $("placeForm").onsubmit=async e=>{
  e.preventDefault();
+
  const title=$("pTitle").value.trim();
  if(!title)return;
+
  const editing=editingPlaceId!==null;
- if(editing&&!requireAdmin())return;
+ const password=$("pPassword").value;
+
+ if(!editing||!isAdmin){
+  if(password.length<6||password.length>128){
+   toast("景點管理密碼必須為 6～128 碼");
+   return;
+  }
+ }
+
  const file=$("pImage").files?.[0];
+
+ if(file){
+  if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
+   toast("圖片格式不支援");
+   return;
+  }
+  if(file.size>5*1024*1024){
+   toast("圖片不能超過 5MB");
+   return;
+  }
+ }
+
  const button=$("placeSubmitBtn");
  button.disabled=true;
 
@@ -641,35 +784,48 @@ $("placeForm").onsubmit=async e=>{
   const original=editing
    ?favorites.find(p=>String(p.id)===String(editingPlaceId))
    :null;
-  if(editing&&!original)throw Error("找不到原本景點");
 
-  let image=editing?(original.image||DEFAULT_IMAGE):DEFAULT_IMAGE;
-  if(file)image=await uploadImage(file);
+  if(editing&&!original){
+   throw Error("找不到原本景點");
+  }
 
-  const row={
-   title,
-   description:$("pDesc").value.trim(),
-   tag:$("pTag").value,
-   map:$("pMap").value.trim()||title,
-   image
+  let image=editing
+   ?(original.image||DEFAULT_IMAGE)
+   :DEFAULT_IMAGE;
+
+  if(file){
+   toast("正在上傳照片…");
+   image=await uploadImage(file);
+  }
+
+  const args={
+   p_title:title,
+   p_description:$("pDesc").value.trim(),
+   p_image:image,
+   p_tag:$("pTag").value,
+   p_map:$("pMap").value.trim()||title
   };
 
   let result;
+
   if(editing){
-   result=await db.from("favorite_items").update(row).eq("id",editingPlaceId);
+   result=await db.rpc("update_favorite_place",{
+    p_id:editingPlaceId,
+    p_password:isAdmin?"":password,
+    ...args
+   });
   }else{
-   const {data:old,error}=await db.from("favorite_items")
-    .select("sort_order").order("sort_order",{ascending:false}).limit(1);
-   if(error)throw error;
-   row.saved=true;
-   row.sort_order=(old?.[0]?.sort_order??-1)+1;
-   result=await db.from("favorite_items").insert(row);
+   result=await db.rpc("create_favorite_place",{
+    ...args,
+    p_password:password
+   });
   }
 
   if(result.error)throw result.error;
+
   closePlace();
   await loadCloudData();
-  toast(editing?"景點修改成功":"景點新增成功");
+  toast(editing?"景點修改成功！":"景點新增成功！");
  }catch(error){
   toast("儲存失敗："+error.message);
  }finally{
@@ -681,9 +837,14 @@ function closeStop(){
  $("stopBackdrop").classList.remove("open");
  editingStopId=null;
 }
+
 function openStop(id=null){
  if(!requireAdmin())return;
- const item=id===null?null:days.flat().find(x=>String(x.id)===String(id));
+
+ const item=id===null
+  ?null
+  :days.flat().find(x=>String(x.id)===String(id));
+
  editingStopId=id;
  $("stopForm").reset();
  $("stopModalTitle").textContent=id===null?"新增行程":"編輯行程";
@@ -694,14 +855,18 @@ function openStop(id=null){
  $("fMap").value=item?.map||"";
  $("stopBackdrop").classList.add("open");
 }
+
 $("addStop").onclick=()=>openStop();
 $("closeStopModal").onclick=closeStop;
 $("cancelStopModal").onclick=closeStop;
-$("stopBackdrop").onclick=e=>{if(e.target===$("stopBackdrop"))closeStop()};
+$("stopBackdrop").onclick=e=>{
+ if(e.target===$("stopBackdrop"))closeStop();
+};
 
 $("stopForm").onsubmit=async e=>{
  e.preventDefault();
  if(!requireAdmin())return;
+
  const day=Number($("fDay").value);
  const row={
   day_number:day,
@@ -710,18 +875,27 @@ $("stopForm").onsubmit=async e=>{
   description:$("fDesc").value.trim(),
   map:$("fMap").value.trim()
  };
+
  let result;
+
  if(editingStopId!==null){
-  result=await db.from("itinerary_items").update(row).eq("id",editingStopId);
+  result=await db.from("itinerary_items")
+   .update(row).eq("id",editingStopId);
  }else{
   const {data:old,error}=await db.from("itinerary_items")
-   .select("sort_order").eq("day_number",day)
-   .order("sort_order",{ascending:false}).limit(1);
+   .select("sort_order")
+   .eq("day_number",day)
+   .order("sort_order",{ascending:false})
+   .limit(1);
+
   if(error)return toast(error.message);
+
   row.sort_order=(old?.[0]?.sort_order??-1)+1;
   result=await db.from("itinerary_items").insert(row);
  }
+
  if(result.error)return toast(result.error.message);
+
  activeDay=day-1;
  closeStop();
  await loadCloudData();
@@ -730,14 +904,20 @@ $("stopForm").onsubmit=async e=>{
 
 async function loadPrep(){
  const {data,error}=await db.from("prep_tasks")
-  .select("*").order("sort_order").order("created_at");
+  .select("*")
+  .order("sort_order")
+  .order("created_at");
+
  if(error){
   $("prepList").innerHTML='<div class="empty">清單讀取失敗</div>';
+  toast("清單讀取失敗："+error.message);
   return;
  }
+
  prep=data||[];
  renderPrep();
 }
+
 function renderPrep(){
  const done=prep.filter(t=>t.completed).length;
  $("prepSummary").textContent=`已準備 ${done} / ${prep.length} 項`;
@@ -746,87 +926,147 @@ function renderPrep(){
  document.querySelectorAll("[data-prep-filter]").forEach(b=>{
   b.classList.toggle("active",b.dataset.prepFilter===prepFilter);
  });
- const list=prep.filter(t=>prepFilter==="all"||(prepFilter==="done"?t.completed:!t.completed));
- $("prepList").innerHTML=list.length?list.map(t=>`
-  <div class="task ${t.completed?"done":""}">
-   <input type="checkbox" data-check="${esc(t.id)}" ${t.completed?"checked":""}>
-   <span class="task-name">${esc(t.title)}</span>
-   <span class="tag">${esc(t.category)}</span>
-   ${isAdmin?`<button class="linkbtn" data-delete-task="${esc(t.id)}">刪除</button>`:""}
-  </div>`).join(""):'<div class="empty">目前沒有項目。</div>';
+
+ const list=prep.filter(t=>
+  prepFilter==="all"||
+  (prepFilter==="done"?t.completed:!t.completed)
+ );
+
+ $("prepList").innerHTML=list.length
+  ?list.map(t=>`
+   <div class="task ${t.completed?"done":""}">
+    <input type="checkbox" data-check="${esc(t.id)}" ${t.completed?"checked":""}>
+    <span class="task-name">${esc(t.title)}</span>
+    <span class="tag">${esc(t.category)}</span>
+    ${isAdmin?`<button class="linkbtn" data-delete-task="${esc(t.id)}">刪除</button>`:""}
+   </div>`).join("")
+  :'<div class="empty">目前沒有項目。</div>';
 
  $("prepList").querySelectorAll("[data-check]").forEach(input=>{
   input.onchange=async()=>{
    const {error}=await db.from("prep_tasks")
-    .update({completed:input.checked}).eq("id",input.dataset.check);
+    .update({completed:input.checked})
+    .eq("id",input.dataset.check);
+
    if(error)toast(error.message);
    await loadPrep();
   };
  });
+
  $("prepList").querySelectorAll("[data-delete-task]").forEach(b=>{
   b.onclick=async()=>{
    if(!requireAdmin()||!confirm("確定刪除？"))return;
-   const {error}=await db.from("prep_tasks").delete().eq("id",b.dataset.deleteTask);
+
+   const {error}=await db.from("prep_tasks")
+    .delete().eq("id",b.dataset.deleteTask);
+
    if(error)return toast(error.message);
    await loadPrep();
   };
  });
 }
+
 $("prepForm").onsubmit=async e=>{
  e.preventDefault();
+
  const title=$("prepTitle").value.trim();
  if(!title)return;
+
  const {error}=await db.from("prep_tasks").insert({
-  title,category:$("prepCategory").value,completed:false,sort_order:prep.length
+  title,
+  category:$("prepCategory").value,
+  completed:false,
+  sort_order:prep.length
  });
+
  if(error)return toast("新增失敗："+error.message);
+
  $("prepTitle").value="";
  await loadPrep();
  toast("已加入清單");
 };
+
 document.querySelectorAll("[data-prep-filter]").forEach(b=>{
- b.onclick=()=>{prepFilter=b.dataset.prepFilter;renderPrep()};
+ b.onclick=()=>{
+  prepFilter=b.dataset.prepFilter;
+  renderPrep();
+ };
 });
 
 async function loadWeather(){
  $("weatherContent").textContent="正在查詢天氣…";
+
  try{
   const url="https://api.open-meteo.com/v1/forecast?latitude=33.5902&longitude=130.4017&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code&timezone=Asia%2FTokyo&forecast_days=16";
+
   const res=await fetch(url);
   if(!res.ok)throw Error("無法連線天氣服務");
+
   const json=await res.json();
-  const dates=["2026-12-21","2026-12-22","2026-12-23","2026-12-24"];
+  const dates=[
+   "2026-12-21",
+   "2026-12-22",
+   "2026-12-23",
+   "2026-12-24"
+  ];
+
   $("weatherContent").innerHTML=dates.map(date=>{
    const i=json.daily.time.indexOf(date);
-   if(i<0)return `<p>${date.slice(5)}：目前還沒有預報</p>`;
-   return `<p><strong>${date.slice(5)}</strong>　${json.daily.temperature_2m_min[i]}～${json.daily.temperature_2m_max[i]}°C　降雨機率 ${json.daily.precipitation_probability_max[i]}%</p>`;
+
+   if(i<0){
+    return `<p>${date.slice(5)}：目前還沒有預報</p>`;
+   }
+
+   return `<p>
+    <strong>${date.slice(5)}</strong>
+    　${json.daily.temperature_2m_min[i]}～${json.daily.temperature_2m_max[i]}°C
+    　降雨機率 ${json.daily.precipitation_probability_max[i]}%
+   </p>`;
   }).join("");
  }catch(e){
   $("weatherContent").textContent="暫時無法查詢天氣，請稍後重試。";
  }
 }
+
 $("refreshWeather").onclick=loadWeather;
 
-$("loginToggle").onclick=()=>$("loginPanel").classList.toggle("open");
-$("closeLogin").onclick=()=>$("loginPanel").classList.remove("open");
+$("loginToggle").onclick=()=>{
+ $("loginPanel").classList.toggle("open");
+};
+
+$("closeLogin").onclick=()=>{
+ $("loginPanel").classList.remove("open");
+};
 
 $("loginBtn").onclick=async()=>{
  const email=$("loginEmail").value.trim();
  const password=$("loginPassword").value;
- if(!email||!password)return toast("請輸入帳號密碼");
 
- const {data,error}=await db.auth.signInWithPassword({email,password});
- if(error)return toast("登入失敗："+error.message);
+ if(!email||!password){
+  return toast("請輸入帳號密碼");
+ }
+
+ const {data,error}=await db.auth.signInWithPassword({
+  email,
+  password
+ });
+
+ if(error){
+  return toast("登入失敗："+error.message);
+ }
 
  currentUser=data.user;
  isAdmin=currentUser?.id===ADMIN_USER_ID;
+
  if(!isAdmin){
   await db.auth.signOut();
   currentUser=null;
   updateAdminUI();
   return toast("此帳號沒有管理者權限");
  }
+
  $("loginPanel").classList.remove("open");
+ $("loginPassword").value="";
  updateAdminUI();
  await loadCloudData();
  toast("管理者登入成功");
@@ -845,8 +1085,10 @@ async function init(){
  try{
   const {data,error}=await db.auth.getSession();
   if(error)throw error;
+
   currentUser=data.session?.user||null;
   isAdmin=!!currentUser&&currentUser.id===ADMIN_USER_ID;
+
   updateAdminUI();
   await loadCloudData();
 
@@ -866,6 +1108,7 @@ renderDay();
 renderFavorites();
 showPage("home");
 init();
+
 </script>
 </body>
 </html>
