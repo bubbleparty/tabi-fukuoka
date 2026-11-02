@@ -158,12 +158,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
   <div class="hero-copy">
    <small>FUKUOKA · 2026</small>
    <h1>福岡！出發！</h1>
-   <p> 林老杯出遊專用網站 </p>
+   <p> -林老杯出遊專用網站- </p>
 
    <div class="pills">
-    <span class="pill">📍 日本・福岡</span>
-    <span class="pill">4 天 3 夜</span>
-    <span class="pill">租車自駕</span>
+    <span class="pill">📍日本・福岡 </span>
+    <span class="pill"> 4天3夜 </span>
+    <span class="pill"> 租車自駕 </span>
    </div>
   
   </div>
@@ -280,14 +280,14 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
 <section class="page" id="weatherPage">
  <div class="section-head"><h2>福岡天氣</h2><button class="btn small" id="refreshWeather">更新</button></div>
  <div class="panel" id="weatherContent">正在查詢…</div>
- <div class="note">天氣預報通常要前兩週才能看，出發前再來確認吧。</div>
+ <div class="note">天氣預報要前兩週才能看，出發前再來確認吧。</div>
 </section>
 
 <section class="page" id="transportPage">
- <h2>交通地圖</h2>
- <p class="subtitle">常用交通資訊。</p>
+ <h2>交通/地圖</h2>
+ <p class="subtitle">也許會用到一些資訊</p>
  <div class="transport">
-  <div class="transport-card"><h3>🗺️ Google 地圖</h3><a href="https://www.google.com/maps/search/Fukuoka/" target="_blank" rel="noopener">開啟地圖 ↗</a></div>
+  <div class="transport-card"><h3>🗺️ Google Maps</h3><a href="https://www.google.com/maps/search/Fukuoka/" target="_blank" rel="noopener">開啟地圖 ↗</a></div>
   <div class="transport-card"><h3>🚇 福岡地下鐵</h3><a href="https://subway.city.fukuoka.lg.jp/eng/" target="_blank" rel="noopener">官方網站 ↗</a></div>
   <div class="transport-card"><h3>🚆 JR 九州</h3><a href="https://www.jrkyushu.co.jp/english/" target="_blank" rel="noopener">官方網站 ↗</a></div>
  </div>
@@ -386,10 +386,12 @@ let previewUrl=null;
 let toastTimer;
 
 const dayInfo=[
- {title:"抵達福岡",date:"12/21",image:"https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1000&q=80"},
- {title:"還不知道要去哪",date:"12/22",image:"https://images.unsplash.com/photo-1513407030348-c983a97b98d8?auto=format&fit=crop&w=1000&q=80"},
- {title:"這天應該會去套票行程",date:"12/23",image:"https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1000&q=80"},
- {title:"準備回家睡覺",date:"12/24",image:"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1000&q=80"}
+
+const dayInfo=[
+  {title:"抵達福岡",date:"12/21",image:"./IMG_7907.jpeg"},
+  {title:"還不知道要去哪",date:"12/22",image:"./IMG_7913.jpeg"},
+  {title:"這天應該會去套票行程",date:"12/23",image:"./IMG_7911.jpeg"},
+  {title:"準備回家睡覺",date:"12/24",image:"./IMG_7912.jpeg"}
 ];
 
 function toast(message){
