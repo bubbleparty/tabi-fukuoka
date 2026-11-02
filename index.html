@@ -1110,7 +1110,11 @@ ${isAdmin ? `
       await loadCloudData();
     });
   });
-
+grid.querySelectorAll("[data-edit-place]").forEach(button => {
+  button.addEventListener("click", () => {
+    openEditPlaceModal(button.dataset.editPlace);
+  });
+});
   grid.querySelectorAll("[data-delete-place]").forEach(button=>{
     button.addEventListener("click",async()=>{
       if(!requireAdmin())return;
