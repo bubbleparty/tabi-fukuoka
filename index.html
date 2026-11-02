@@ -880,7 +880,7 @@ $("placeForm").onsubmit=async e=>{
  const password=$("pPassword").value;
 
  if(!editing||!isAdmin){
-  if(password.length<6||password.length>128){
+  if(password.length<1||password.length>8){
    toast("景點管理密碼必須為 1~8 碼");
    return;
   }
