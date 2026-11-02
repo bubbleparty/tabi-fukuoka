@@ -779,10 +779,10 @@ function configurePlacePassword(editing){
   $("placePasswordLabel").textContent="輸入此景點的管理密碼";
   $("passwordNotice").textContent=isAdmin
    ?"管理者可直接修改景點，不需要輸入密碼。"
-   :"請輸入新增這個景點時設定的密碼。舊景點如果沒有密碼，須由管理者編輯。";
+   :"請輸入新增這個景點時設定的密碼。";
  }else{
-  $("placePasswordLabel").textContent="設定景點管理密碼（6～128 碼）";
-  $("passwordNotice").textContent="請記住這組密碼。訪客日後編輯或刪除這個景點時，都需要使用相同密碼。";
+  $("placePasswordLabel").textContent="設定景點管理密碼（1~8 碼）";
+  $("passwordNotice").textContent="請記住這組密碼！！編輯或刪除這個景點時，都需要使用相同密碼。";
  }
 }
 
@@ -881,7 +881,7 @@ $("placeForm").onsubmit=async e=>{
 
  if(!editing||!isAdmin){
   if(password.length<6||password.length>128){
-   toast("景點管理密碼必須為 6～128 碼");
+   toast("景點管理密碼必須為 1~8 碼");
    return;
   }
  }
